@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <title>REduc - Início</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+
+<body>
+  <header id='topo'>
+    <nav class="navbar navbar-dark navbar-expand-sm">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#topo">
+          <img src="img/logo.svg" alt="Logo reduc">
+          <span class='marca'>REduc</span>
+        </a>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavId">
+          <form class="d-flex my-2 my-lg-0">
+            <input class="form-control me-sm-2" type="text" placeholder="Digite o que procura...">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
+          </form>
+          <ul class="navbar-nav mt-2 mt-lg-0">
+            <li class="nav-item mx-2">
+              <a class="nav-link txt-branco link-explorar btn" href="explorar.html" aria-current="page">Explorar</a>
+            </li>
+            <li class='nav-item mx-2'>
+              <a type="button" class="nav-link btn btn-outline-light txt-branco">Entrar</a>
+            </li>
+            <li class='nav-item mx-2'>
+              <a class='btn btn-light text-dark nav-link'>Cadastrar</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <!-- Seção de pesquisa -->
+    <section id='pesquisa' class='d-flex justify-content-center'>
+
+      <form id='form-pesquisa-principal' class='container d-flex justify-content-center bg-light rounded-pill'>
+        <input type="search" name='search' placeholder='Digite o que procura...' class='w-100'>
+        <button type='submit' class='btn btn-outline-light'>
+          <span class='d-flex align-items-center justify-content-center w-100'>
+            <i class="bi bi-search"></i>
+          </span>
+        </button>
+      </form>
+    </section>
+
+    <!-- Sobre a REduc -->
+    <section id='sobre' class='container bg-light p-5 rounded shadow d-flex justify-content-between mb-5'>
+      <div class='row'>
+        <article class='col-lg-6'>
+          <h2 class='txt-roxo'>Sobre a REduc</h2>
+          <p class='mt-5'>
+            A REduc é uma platadorma WEB inovadora que oferece um repositório de recursos educacionais digitais e
+            práticas avaliativas eficazes no processo de ensino-aprendizagem com abordagem voltada às metodologias
+            ativas. Por meio de acesso gratuito, a REduc permite a elaboração e compartilhamento de conteúdos de alta
+            qualidade entre educadores e alunos. Além disso, todos os conteúdos são validados pela platadorma antes de
+            estarem disponíveis para acesso, garantindo a confiabilidade das informações.
+          <p>
+            E o melhor de tudo: para busca ou consulta de conteúdos, não é necessário cadastro na plataforma. No entanto
+            para baixar(fazer download) ou imprimir, o usuário precisará se cadastrar e acessar com nome de usuário de
+            senha.
+          </p>
+          <p>
+            A REduc permite a busca por conteúdos de acordo com categorias, tais como: área do conhecimento,
+            discipolina, curso, tipo do recurso (vídeo, pdf, etc), palavras-chave (do título), tipo de avaliação
+            (rúbrica, auto-avaliação, etc).
+          </p>
+          <p>
+            Junte-se à comunidade REduc e tenha acesso a uma ampla variedade de recursos educacionais de qualidade em um
+            só lugar. Cadastre-se agora e comece a explorar!
+          </p>
+        </article>
+        <figure class='col-lg-6 d-flex justify-content-center align-items-center'>
+          <img src="img/sobre.svg" alt="Sobre" class='w-100'>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Destaques -->
+    <section id='destaques' class='container bg-light rounded shadow mb-5 mt-5 p-5 d-flex flex-column'>
+      <h2 class='txt-roxo mb-4'>Destaques</h2>
+      <div class='row g-2'>
+        <div class="col-lg-3">
+          <!-- Começo do card -->
+
+          <div class="p-1">
+
+            <a href='#' class="card link-reset shadow">
+              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
+              <div class="card-body">
+                <h4 class="card-title">Titulo do recurso</h4>
+                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                <button class='btn p-0 card-flag'>&#9873;</button>
+              </div>
+            </a>
+
+          </div>
+
+        </div> <!-- Fim do card -->
+        <div class="col-lg-3">
+          <!-- Começo do card -->
+
+          <div class="p-1">
+
+            <a href='#' class="card link-reset shadow">
+              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
+              <div class="card-body">
+                <h4 class="card-title">Titulo do recurso</h4>
+                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                <button class='btn p-0 card-flag'>&#9873;</button>
+              </div>
+            </a>
+
+          </div>
+
+        </div> <!-- Fim do card -->
+        <div class="col-lg-3">
+          <!-- Começo do card -->
+
+          <div class="p-1">
+
+            <a href='#' class="card link-reset shadow">
+              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
+              <div class="card-body">
+                <h4 class="card-title">Titulo do recurso</h4>
+                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                <button class='btn p-0 card-flag'>&#9873;</button>
+              </div>
+            </a>
+
+          </div>
+
+        </div> <!-- Fim do card -->
+        <div class="col-lg-3">
+          <!-- Começo do card -->
+
+          <div class="p-1">
+
+            <a href='#' class="card link-reset shadow">
+              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
+              <div class="card-body">
+                <h4 class="card-title">Titulo do recurso</h4>
+                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                <button class='btn p-0 card-flag'>&#9873;</button>
+              </div>
+            </a>
+
+          </div>
+
+        </div> <!-- Fim do card -->
+      </div>
+      <a href='explorar.html' class='btn btn-primary mt-4 align-self-center shadow'>Ir para explorar &#10095;</a>
+    </section>
+
+  </main>
+  <footer class='container-fluid d-flex align-items-center'>
+    <div class="container text-light d-flex align-items-center justify-content-between">
+      <div>
+        <h2 class='marca'>REduc</h2>
+        <p>&#169;Todos os direitos reservados</p>
+      </div>
+      <img src="img/logo.svg" alt="logo reduc">
+    </div>
+  </footer>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
