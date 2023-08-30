@@ -11,11 +11,12 @@ body{
 }
 
 main{
-    min-height: calc(100vh - 201px);
+    min-height: calc(100vh - 225px);
 }
 
 .navbar{
     background-color: var(--roxo-principal);
+    height: 85px;
 }
 
 .busca{
