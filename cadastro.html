@@ -14,13 +14,16 @@
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
+  <!-- Scripts -->
+  <script defer src="assets/js/cadastro.js"></script>
+
 </head>
 
-<body>
+<body onload="carregarForm()">
   <header id='topo'>
     <nav class="navbar navbar-dark navbar-expand-sm">
       <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#topo">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
           <img src="img/logo.svg" alt="Logo reduc">
           <span class='marca'>REduc</span>
         </a>
@@ -52,10 +55,11 @@
   <main>
     <div class='container rounded shadow p-5 my-5 cadastrar'>
       <div class='row'>
-        <form method='#' action='#' class='col-lg-6 d-flex flex-column justify-content-between'>
+        <form method='#' action='#' id='form-cadastro' class='col-lg-6 d-flex flex-column justify-content-between'>
           <h2 class='h2'>Cadastrar usuário</h2>
 
-          <div class='cat-user'>
+          <!-- 1. Categoria do usuário -->
+          <div class='cat-user d-none'>
             <h3 class='h3 text-light'>Categoria de usuário</h3><br>
             <input type='radio' name='categoria' id='aluno'>
             <label for='aluno' class='radio-button-label'>Aluno</label>
@@ -63,6 +67,7 @@
             <label for='professor' class="radio-button-label">Professor</label>
           </div>
 
+          <!-- 2. Dados pessoais -->
           <div class='dados-pessoais d-none'>
             <h3 class='h3 text-light'>Dados pessoais</h3>
             <label>Nome de usuário:</label>
@@ -86,14 +91,17 @@
             <input type='text' maxlength="11" name='cpf' class='form-control' placeholder='Digite seu CPF.'>
           </div>
 
+          <!-- 3. Dados institucionais -->
           <div class='institucional d-none'>
             <h3 class='h3 text-light'>Informações institucionais</h3>
             <label>Instituição:</label>
             <br>
             <input type='text' name='instituição' class='form-control' placeholder='Digite a instituição de ensino.'>
+            <br>
           </div>
 
-          <div class='Segurança d-none'>
+          <!-- 4. Dados de segurança -->
+          <div class='seguranca d-none'>
             <h3 class='h3 text-light'>Segurança</h3>
             <label>Digite a senha:</label>
             <br>
@@ -115,10 +123,11 @@
             <input type='text' name='resp' class='form-control' placeholder='Digite a resposta de segurança.'>
           </div>
           <br>
+          <!-- Btns de controle -->
           <div class='btns-controle'>
-            <button class='btn btn-danger'>Voltar</button>
-            <button class='btn btn-success'>Avançar</button>
-            <button type='submit' class='btn btn-success d-none'>Cadastrar</button>
+            <button class='btn btn-danger btn-controle'>Voltar</button>
+            <button class='btn btn-success btn-controle'>Avançar</button>
+            <button type='submit' class='btn btn-success d-none btn-controle'>Cadastrar</button>
           </div>
         </form>
 

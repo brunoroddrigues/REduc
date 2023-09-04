@@ -8,6 +8,7 @@
 
 body{
     background-color: #eeeeee;
+    min-width: 320px;
 }
 
 main{
@@ -16,7 +17,7 @@ main{
 
 .navbar{
     background-color: var(--roxo-principal);
-    height: 85px;
+    min-height: 85px;
 }
 
 .busca{
