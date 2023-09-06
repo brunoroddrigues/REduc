@@ -32,10 +32,6 @@ main{
     margin-left: 1rem
 }
 
-.navbar-brand:hover{
-    text-decoration: underline;
-}
-
 .btn-outline-light:hover{
     color: var(--roxo-principal);
 }
