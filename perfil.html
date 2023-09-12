@@ -35,9 +35,9 @@
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
           </form>
           <ul class="navbar-nav mt-2 mt-lg-0">
-              <li class="nav-item mx-2">
-                <a class="nav-link txt-branco link-explorar btn" href="index.html">Sobre</a>
-              </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link txt-branco link-explorar btn" href="index.html">Sobre</a>
+            </li>
             <li class="nav-item mx-2">
               <a class="nav-link txt-branco link-explorar btn" href="explorar.html">Explorar</a>
             </li>
@@ -53,27 +53,43 @@
     </nav>
   </header>
   <main class='container'>
-        <div class='perfil my-5 text-light p-4 rounded d-flex justify-content-between shadow'>
-            <figure>
-                <img src="img/card-code.png" alt="foto perfil" class='foto-perfil'>
-            </figure>
-            <article class='m-5'>
-                <h2>Nicolas Rissi</h2>
-                <h3>Administrador</h3>
-                <p>
-                    Aqui será uma mini-bio que o usuário digitará.
-                </p>
-            </article>
-            <ul class='lista-rede-social d-inline-flex'>
-                <li class='item-rede-social'>
-                    <i class="bi bi-plus-circle"></i>
-                </li>
-            </ul>
-            <a href='#' class='btn btn-outline-light align-self-end'>
-                <i class="bi bi-gear"></i>
-                Alterar
-            </a>
-        </div>
+    <div class="perfil rounded shadow my-5 p-3">
+      <figure id="perfil-foto">
+        <img src="img/card-code.png" alt="foto de perfil">
+      </figure>
+      <article id="perfil-dados">
+        <h2 class='h2 text-light'>Nicolas Rissi</h2>
+        <h3 class='h3 text-light'>Administrador</h3>
+        <p class="text-light">
+          Uma mini-bio Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil rerum facilis accusamus consequatur dolore dolores officiis magnam sit quibusdam, quod explicabo repellat, vitaeamet ea animi temporibus nulla!
+        </p>
+      </article>
+      <div id='perfil-links'>
+        <ul>
+          <li>
+            <i class="bi bi-plus-circle-fill"></i>
+          </li>
+          <li>
+            <i class="bi bi-facebook"></i>
+          </li>
+          <li>
+            <i class="bi bi-instagram"></i>
+          </li>
+          <li>
+            <i class="bi bi-twitter"></i>
+          </li>
+          <li>
+            <i class="bi bi-linkedin"></i>
+          </li>
+        </ul>
+      </div>
+      <div id="perfil-config">
+        <a href="#" class='btn btn-outline-light'>
+          <i class="bi bi-gear-fill"></i>
+          Configurações
+        </a>
+      </div>
+    </div>
   </main>
   <footer class='container-fluid d-flex align-items-center'>
     <div class="container text-light d-flex align-items-center justify-content-between">
