@@ -19,11 +19,14 @@ $pa->setArquivo("");
 
 $pa->setTipo($tipoPA);
 
+$pa->setNota(4);
+
 echo '<h1>PA</h1>';
 echo '<b>Título:</b> ' . $pa->getTitulo()  . '<br>';
 echo '<b>Descrição:</b> ' . $pa->getDescricao()  . '<br>';
 echo '<b>Data de Cadastro:</b> ' . $pa->getDataCadastro()  . '<br>';
 echo '<b>Img (teste):</b> ' . $pa->getImg()  . '<br>';
 echo '<b>Arquívo (teste):</b> ' . $pa->getArquivo()  . '<br>';
-echo '<b>Tipo:</b> ' . $pa->getTipo()->getDescritivo()  . '<br>';
+echo '<b>Tipo:</b> ' . $pa->getTipo()->getDescritivo() . '<br>';
+echo '<b>Nota:</b> ' . $pa->getNota() . '<br>';
 

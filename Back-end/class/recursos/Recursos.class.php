@@ -14,6 +14,7 @@ class Recursos {
       private string $link_img = "",
       private string $link_artigo = "",
       private string $link_video = "",
+      private int $nota = 0,
       private array $disciplina = array(),
       private $ferramenta = null,
       private array $curso = array(),
@@ -62,6 +63,9 @@ class Recursos {
     public function setUsuario($usuario){
         $this->usuario = $usuario;
     }
+    public function setNota($nota){
+        $this->nota = $nota;
+    }
 
     //metodos get
     public function getId(){
@@ -102,6 +106,9 @@ class Recursos {
     }
     public function getUsuario(){
         return $this->usuario;
+    }
+    public function getNota(){
+        return $this->nota;
     }
 }
 

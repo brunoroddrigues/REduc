@@ -12,9 +12,6 @@ $categoria = new CategoriaRecurso(2, 'Vídeo');
 
 $area = new AreaConhecimento(1, "Ciência da computação", "10300007");
 
-// $data = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
-// $currentDate = $data->format('Y-m-d');
-
 $recurso = new Recursos();
 
 $recurso->setIdRecurso(1);
@@ -30,6 +27,7 @@ $recurso->setCurso($curso);
 $recurso->setArea($area);
 $recurso->setCategoria($categoria);
 $recurso->setFerramenta($ferramenta);
+$recurso->setNota(5);
 
 echo '<h1>Recurso</h1>';
 echo '<b>Título:</b> ' . $recurso->getTitulo()  . '<br>';
@@ -55,4 +53,8 @@ foreach ($recurso->getArea() as $Area) {
     echo 'Area: ' . $Area->getArea() . '<br>';
     echo 'Código: ' . $Area->getCod() . '<br>';
 }
+echo '<b>Nota:</b> ' . $recurso->getNota() . '<br>';
 
+
+// $data = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
+// $currentDate = $data->format('Y-m-d');
