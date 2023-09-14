@@ -1,0 +1,34 @@
+@import "variaveis.css";
+
+.navbar{
+    background-color: var(--roxo-principal);
+    min-height: 85px;
+}
+
+.link-reset{
+    text-decoration: none;
+    color: currentColor;
+}
+
+.link-explorar{
+    position: relative;
+}
+
+.link-explorar:after{
+    content: '';
+    position: absolute;
+    background-color: #fff;
+    height: 2px;
+    width: 0;
+    left: 0;
+    bottom: 0;
+    transition: .3s ease-out;
+}
+
+.link-explorar{
+    color: var(--color-branco) !important;
+}
+
+.link-explorar:hover:after{
+    width: 100%;
+}

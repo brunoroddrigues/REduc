@@ -1,0 +1,16 @@
+@import "variaveis.css";
+
+footer{
+    background-color: var(--roxo-principal);
+    min-height: 140px;
+}
+
+footer > div > img{
+    width: 80px;
+    height: 80px;
+    margin-left: 15px;
+}
+
+footer > div > ul{
+    list-style: none;
+}

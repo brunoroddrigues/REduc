@@ -1,0 +1,14 @@
+@import "variaveis.css";
+
+.btn-outline-light:hover{
+    color: var(--roxo-principal);
+}
+
+.btn-primary{
+    background-color: var(--roxo-principal);
+    border: none;
+}
+
+.btn-primary:hover{
+    background-color: var(--roxo-principal-escuro) !important;
+}

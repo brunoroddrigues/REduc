@@ -1,0 +1,15 @@
+@import "variaveis.css";
+
+.card:hover{
+    transform: scale(1.05);
+    color: currentColor;
+}
+
+.card-star, .card-flag{
+    color: var(--roxo-principal);
+    font-size: 2.5rem;
+}
+
+.card-flag{
+    float: right;
+}
