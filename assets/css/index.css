@@ -1,0 +1,31 @@
+@import "variaveis.css";
+
+#pesquisa{
+    background-image: url('../../img/background.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px;
+    position: relative;
+}
+
+#form-pesquisa-principal{
+    margin-top: 150px;
+    height: 2rem;
+}
+
+#form-pesquisa-principal > input, #form-pesquisa-principal > button {
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.bi-search{
+    color: var(--roxo-principal);
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+#pesquisa{
+    margin-bottom: -75px
+}

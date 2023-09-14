@@ -1,9 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Indie+Flower&display=swap');
-:root{
-    --roxo-principal: #131267;
-    --roxo-principal-escuro: #100f52;
-    --color-light: #f8f9fa;
-    --color-branco: #fff;
+
+@import "variaveis.css";
+
+@import "header.css";
+
+@import "footer.css";
+
+@import "buttons.css";
+
+@import "card.css";
+
+html{
+    scroll-behavior: smooth;
 }
 
 body{
@@ -15,25 +23,10 @@ main{
     min-height: calc(100vh - 225px);
 }
 
-.navbar{
-    background-color: var(--roxo-principal);
-    min-height: 85px;
-}
-
-.busca{
-    transform: rotate(-45deg);
-    margin: 0;
-    font-size: 2rem;
-}
-
 .marca{
     font-family: 'Courgette', cursive;
     font-size: 1.7rem;
     margin-left: 1rem
-}
-
-.btn-outline-light:hover{
-    color: var(--roxo-principal);
 }
 
 .txt-branco{
@@ -42,107 +35,6 @@ main{
 
 .txt-roxo{
     color: var(--roxo-principal);
-}
-
-.btn-primary{
-    background-color: var(--roxo-principal);
-    border: none;
-}
-
-.btn-primary:hover{
-    background-color: var(--roxo-principal-escuro) !important;
-}
-
-.link-reset{
-    text-decoration: none;
-    color: currentColor;
-}
-
-.card:hover{
-    transform: scale(1.05);
-    color: currentColor;
-}
-
-.card-star, .card-flag{
-    /* color: #e0c23a; */
-    color: var(--roxo-principal);
-    font-size: 2.5rem;
-}
-
-.card-flag{
-    float: right;
-}
-
-.link-explorar{
-    position: relative;
-}
-
-.link-explorar:after{
-    content: '';
-    position: absolute;
-    background-color: #fff;
-    height: 2px;
-    width: 0;
-    left: 0;
-    bottom: 0;
-    transition: .3s ease-out;
-}
-
-.link-explorar{
-    color: var(--color-branco) !important;
-}
-
-.link-explorar:hover:after{
-    width: 100%;
-}
-
-#pesquisa{
-    background-image: url('../../img/background.svg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 500px;
-    position: relative;
-}
-
-#form-pesquisa-principal{
-    margin-top: 150px;
-    height: 2rem;
-}
-
-#form-pesquisa-principal > input, #form-pesquisa-principal > button {
-    background: none;
-    border: none;
-    outline: none;
-}
-
-.bi-search{
-    color: var(--roxo-principal);
-    font-size: 1.3rem;
-    line-height: 1;
-}
-
-.btn-primary{
-    background-color: var(--roxo-principal);
-}
-
-#sobre{
-    margin-top: -75px
-}
-
-footer{
-    background-color: var(--roxo-principal);
-    min-height: 140px;
-}
-
-footer > div > img{
-    width: 80px;
-    height: 80px;
-    margin-left: 15px;
-}
-
-footer > div > ul{
-    list-style: none;
 }
 
 @media (max-width: 575px){
