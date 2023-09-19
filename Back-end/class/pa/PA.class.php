@@ -9,6 +9,7 @@ class PA{
         private string $datacadastro = "",
         private string $link_img = "",
         private string $link_arquivo = "",
+        private int $nota = 0,
         private $tipoPA = null,
         private $usuario = null
     ){}
@@ -36,6 +37,9 @@ class PA{
     }
     public function setUsuario($usuario){
         $this->usuario = $usuario;
+    }
+    public function setNota($nota){
+        $this->nota = $nota;
     }
 
     public function getIdPA(){
@@ -68,5 +72,8 @@ class PA{
 
     public function getUsuario(){
         return $this->usuario ;
+    }
+    public function getNota(){
+        return $this->nota;
     }
 }
