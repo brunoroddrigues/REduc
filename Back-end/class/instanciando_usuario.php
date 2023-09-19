@@ -24,6 +24,56 @@ $usuario->setSenha('Testandosenha');
 $usuario->setPergunta($pergunta);
 $usuario->setResposta('Não tenho!');
 
+// Instanciando uma rede social e depois relacionando ela ao usuario
+
+$tiporede = new TipoRedeSocial(1, 'Twitter');
+
+$redesocial = new RedeSocial(1, $tiporede, 'https://twitter.com/elonmusk');
+
+$usuario->setRedeSocial($redesocial);
+
+// Instanciando mais dois usuarios para testar a relação seguir/seguindo
+
+$usuario2 = new Usuario();
+
+$usuario2->setIdUsuario(1);
+$usuario2->setNomeUsuario('Nicolas Rissi');
+$usuario2->setNome('Nicolas');
+$usuario2->setSobrenome('Rissi');
+$usuario2->setDataNasc('28/02/2004');
+$usuario2->setEmail('nicolas.rissi@fatec.sp.gov.br');
+$usuario2->setCpf('42101512274');
+$usuario2->setCategoria($categoria);
+$usuario2->setLattes('http://lattes.cnpq.br/2562967883908634');
+$usuario2->setInstituicao($instituicao);
+$usuario2->setSenha('Testandosenha');
+$usuario2->setPergunta($pergunta);
+$usuario2->setResposta('Não tenho!');
+
+$usuario3 = new Usuario();
+
+$usuario3->setIdUsuario(2);
+$usuario3->setNomeUsuario('PedroDomingos');
+$usuario3->setNome('Pedro');
+$usuario3->setSobrenome('Domingos');
+$usuario3->setDataNasc('28/02/2004');
+$usuario3->setEmail('pedro.domingos@fatec.sp.gov.br');
+$usuario3->setCpf('42101512274');
+$usuario3->setCategoria($categoria);
+$usuario3->setLattes('http://lattes.cnpq.br/2562967883908634');
+$usuario3->setInstituicao($instituicao);
+$usuario3->setSenha('Testandosenha');
+$usuario3->setPergunta($pergunta);
+$usuario3->setResposta('Não tenho!');
+
+// Relacionando os usuarios
+
+$usuario->setSeguidores($usuario2);
+$usuario->setSeguidores($usuario3);
+
+$usuario->setSeguindo($usuario2);
+$usuario->setSeguindo($usuario3);
+
 // Instanciando um recurso para esse usuario
 
 $ferramenta = new Ferramenta(1, 'Javascript');
@@ -66,8 +116,20 @@ echo "<b>Usuario:</b> {$usuario->getNomeUsuario()}<br>";
 echo "<b>Email:</b> {$usuario->getEmail()}<br>";
 echo "<b>Lattes:</b> {$usuario->getLattes()}<br>";
 echo "<b>Instituição:</b> {$usuario->getInstituicao()->getDescritivo()}<br>";
+echo "<b>Redes Social: </b>";
+foreach ($usuario->getRedeSocial() as $rede) {
+    echo "{$rede->getTipo()->getDescritivo()} - {$rede->getLink()}";
+}
+echo "<br><b>Seguidores:</b> ";
+foreach ($usuario->getSeguidores() as $seguidor) {
+    echo " " . $seguidor->getNomeUsuario() . ";";
+}
+echo "<br><b>Seguindo:</b> ";
+foreach ($usuario->getSeguindo() as $seguindo) {
+    echo " " . $seguindo->getNomeUsuario() . ";";
+}
 
-echo '<h3>Recurso</h3><br>';
+echo '<br><h3>Recurso</h3><br>';
 
 foreach ($usuario->getRecursos() as $index => $recurso) {
     echo "<b>Recurso " . $index+1 .":</b><br>";

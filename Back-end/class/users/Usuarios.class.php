@@ -2,6 +2,7 @@
 require_once 'Pergunta.class.php';
 require_once 'CategoriaUsuario.class.php';
 require_once 'instituicao.class.php';
+require_once 'RedeSocial.class.php';
 
 class Usuario{
     public function __construct(
@@ -20,7 +21,10 @@ class Usuario{
         private $pergunta = null,
         private string $resposta = "",
         private array $recursos = array(),
-        private array $pa = array()
+        private array $pa = array(),
+        private array $seguidores = array(),
+        private array $seguindo = array(),
+        private array $redesocial = array()
     ){}
 
     //set methods
@@ -72,6 +76,15 @@ class Usuario{
     public function setPA($pa){
         $this->pa[] = $pa;
     }
+    public function setSeguidores($seguidores){
+        $this->seguidores[] = $seguidores;
+    }
+    public function setSeguindo($seguindo){
+        $this->seguindo[] = $seguindo;
+    }
+    public function setRedeSocial($redesocial){
+        $this->redesocial[] = $redesocial;
+    }
 
     //get methods
     public function getIdUsuario(){
@@ -121,5 +134,14 @@ class Usuario{
     }
     public function getPA(){
         return $this->pa;
+    }
+    public function getSeguidores(){
+        return $this->seguidores;
+    }
+    public function getSeguindo(){
+        return $this->seguindo;
+    }
+    public function getRedeSocial(){
+        return $this->redesocial;
     }
 }
