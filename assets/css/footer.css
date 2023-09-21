@@ -14,3 +14,7 @@ footer > div > img{
 footer > div > ul{
     list-style: none;
 }
+.list-inline-item > a:hover{
+    border: 1px solid var(--color-light);
+    border-radius: 5px;
+}
