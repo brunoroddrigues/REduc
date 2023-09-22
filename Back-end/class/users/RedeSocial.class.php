@@ -4,7 +4,7 @@ require_once 'TipoRedeSocial.class.php';
 class RedeSocial{
     public function __construct(
         private int $id_redesocial = 0,
-        private $tipo = null,
+        private ?TipoRedeSocial $tiporede = null,
         private string $link = ""
     ){}
 
@@ -12,8 +12,8 @@ class RedeSocial{
     public function setIdRede($id_redesocial){
         $this->id_redesocial = $id_redesocial;
     }
-    public function setTipo($tipo){
-        $this->tipo = $tipo;
+    public function setTipo($tiporede){
+        $this->tiporede = $tiporede;
     }
     public function setLink($link){
         $this->link = $link;
@@ -24,7 +24,7 @@ class RedeSocial{
         return $this->id_redesocial;
     }
     public function getTipo(){
-        return $this->tipo;
+        return $this->tiporede;
     }
     public function getLink(){
         return $this->link;

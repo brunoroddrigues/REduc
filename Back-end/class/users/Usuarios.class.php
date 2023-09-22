@@ -24,7 +24,9 @@ class Usuario{
         private array $pa = array(),
         private array $seguidores = array(),
         private array $seguindo = array(),
-        private array $redesocial = array()
+        $id_redesocial = 0,
+        $tiporede = null,
+        $link = ""
     ){}
 
     //set methods
@@ -82,8 +84,8 @@ class Usuario{
     public function setSeguindo($seguindo){
         $this->seguindo[] = $seguindo;
     }
-    public function setRedeSocial($redesocial){
-        $this->redesocial[] = $redesocial;
+    public function setRedeSocial($id_redesocial, $tiporede, $link){
+        $this->redesocial[] = new RedeSocial($id_redesocial, $tiporede, $link);
     }
 
     //get methods

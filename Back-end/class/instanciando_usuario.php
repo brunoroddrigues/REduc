@@ -25,12 +25,9 @@ $usuario->setPergunta($pergunta);
 $usuario->setResposta('Não tenho!');
 
 // Instanciando uma rede social e depois relacionando ela ao usuario
-
 $tiporede = new TipoRedeSocial(1, 'Twitter');
 
-$redesocial = new RedeSocial(1, $tiporede, 'https://twitter.com/elonmusk');
-
-$usuario->setRedeSocial($redesocial);
+$usuario->setRedeSocial(1, $tiporede, 'https://twitter.com/elonmusk');
 
 // Instanciando mais dois usuarios para testar a relação seguir/seguindo
 
