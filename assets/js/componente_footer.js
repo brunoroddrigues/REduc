@@ -13,8 +13,8 @@ export function criarRodape(){
     // Textos do rodapé
     let txtH2 = document.createTextNode("REduc")
     let copyrightTxt = document.createTextNode("Todos os direitos reservados")
-    let link1 = document.createTextNode("Explorar")
-    let link2 = document.createTextNode("Voltar ao topo");
+    let link1 = document.createTextNode("Inicio")
+    let link2 = document.createTextNode("Explorar");
 
     let divContainer = document.createElement("div")
     divContainer.setAttribute("class", "container text-light d-flex align-items-center justify-content-between")
@@ -37,8 +37,8 @@ export function criarRodape(){
     li2.setAttribute("class", "list-inline-item")
     a1.setAttribute("class", "text-light p-2")
     a2.setAttribute("class", "text-light p-2")
-    a1.setAttribute("href", "explorar.html")
-    a2.setAttribute("href", "#topo")
+    a1.setAttribute("href", "index.html")
+    a2.setAttribute("href", "explorar.html")
     img.setAttribute("src", "img/logo.svg")
     img.setAttribute("alt", "Logo REduc")
     i.setAttribute("class", "bi bi-c-circle")
@@ -58,8 +58,4 @@ export function criarRodape(){
     divContainer.appendChild(divElementos)
     divContainer.appendChild(img)
     FOOTER.appendChild(divContainer)
-}
-
-export function olaMundo(){
-    alert("ola mundo");
 }

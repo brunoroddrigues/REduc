@@ -12,3 +12,12 @@
 .btn-primary:hover{
     background-color: var(--roxo-principal-escuro) !important;
 }
+
+.btn-search{
+    width: 4rem;
+    margin-left: -4rem;
+}
+
+.btn-search:hover{
+    background-color: #dedede !important;
+}

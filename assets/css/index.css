@@ -9,17 +9,6 @@
     position: relative;
 }
 
-#form-pesquisa-principal{
-    margin-top: 150px;
-    height: 2rem;
-}
-
-#form-pesquisa-principal > input, #form-pesquisa-principal > button {
-    background: none;
-    border: none;
-    outline: none;
-}
-
 .bi-search{
     color: var(--roxo-principal);
     font-size: 1.3rem;
@@ -28,4 +17,8 @@
 
 #pesquisa{
     margin-bottom: -75px
+}
+
+#pesquisa > form > input, #pesquisa > form > button{
+    margin-top: 150px;
 }

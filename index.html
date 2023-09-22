@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="assets/css/index.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script defer src="assets/js/card.js"></script>
-  <script defer src="assets/js/componentes.js"></script>
+  <script defer type="module" src="assets/js/componentes.js"></script>
 
 </head>
 
@@ -56,16 +56,13 @@
   </header>
   <main>
     <!-- Seção de pesquisa -->
-    <section id='pesquisa' class='d-flex justify-content-center'>
+    <section id='pesquisa'>
 
-      <form id='form-pesquisa-principal' class='container d-flex justify-content-center bg-light rounded-pill'>
-        <input type="search" name='search' placeholder='Digite o que procura...' class='w-100'>
-        <button type='submit' class='btn btn-outline-light'>
-          <span class='d-flex align-items-center justify-content-center w-100'>
-            <i class="bi bi-search"></i>
-          </span>
-        </button>
+      <form action="#" method="post" class="container d-flex">
+        <input type="text" placeholder="Digite o que procura..." class="form-control">
+        <button type="submit" class="btn btn-search"><i class="bi bi-search"></i></button>
       </form>
+
     </section>
 
     <!-- Destaques -->
@@ -127,29 +124,13 @@
     </section>
 
   </main>
-  <!-- <footer id="reduc-footer" class='container-fluid d-flex align-items-center'>
-    <div class="container text-light d-flex align-items-center justify-content-between">
-      <div>
-        <h2 class='marca'>REduc</h2>
-        <p class='mx-2'>&#169;Todos os direitos reservados</p>
-        <ul class='list-inline'>
-          <li class="list-inline-item"><a href="explorar.html" class='text-light p-2'>Explorar</a></li>
-          <li class="list-inline-item"><a href="#topo" class='text-light p-2'>Voltar ao topo</a></li>
-        </ul>
-      </div>
-      <img src="img/logo.svg" alt="logo reduc">
-    </div>
-  </footer> -->
+
   <footer id="reduc-footer"></footer>
 
   <!-- Bootstrap JavaScript Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
 </body>
 
 </html>

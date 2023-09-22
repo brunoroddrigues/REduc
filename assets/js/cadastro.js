@@ -105,23 +105,6 @@ function checkInput() {
   }
     
   } else {
-    // Remover elementos
-    // Lattes
-     /* alert(DADOS_INSTITUCIONAIS.firstChild.nodeName)
-     alert( labelLattes.parentNode.nodeValue);*/
-      //DADOS_INSTITUCIONAIS.removeChild(labelLattes);
-     /* DADOS_INSTITUCIONAIS.removeChild(br1);
-      DADOS_INSTITUCIONAIS.removeChild(inputLattes);
-      DADOS_INSTITUCIONAIS.removeChild(br2);
-      DADOS_INSTITUCIONAIS.removeChild(labelAtuacao);
-      DADOS_INSTITUCIONAIS.removeChild(br3);
-      DADOS_INSTITUCIONAIS.removeChild(inputAtuacao);*/
-      //var filho =  DADOS_INSTITUCIONAIS.lastChild
-      //var irmao = filho.previousSibling
-     // var irmao2 = irmao.previousSibling
-     // DADOS_INSTITUCIONAIS.removeChild(irmao2);
-     // DADOS_INSTITUCIONAIS.removeChild(irmao);
-      //DADOS_INSTITUCIONAIS.removeChild(filho);
       if(entrou)
       {
        DADOS_INSTITUCIONAIS.removeChild(document.getElementById("prof"));
