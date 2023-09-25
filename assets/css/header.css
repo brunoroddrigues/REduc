@@ -10,11 +10,11 @@
     color: currentColor;
 }
 
-.link-explorar{
+.link-header{
     position: relative;
 }
 
-.link-explorar:after{
+.link-header:after{
     content: '';
     position: absolute;
     background-color: #fff;
@@ -25,10 +25,14 @@
     transition: .3s ease-out;
 }
 
-.link-explorar{
+.link-header{
     color: var(--color-branco) !important;
 }
 
-.link-explorar:hover:after{
+.link-header:hover:after{
     width: 100%;
+}
+
+#barra-pesquisa-header{
+    width: 80%;
 }
