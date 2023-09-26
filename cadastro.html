@@ -56,15 +56,15 @@
   <main>
     <div class='container rounded shadow p-5 my-5 cadastrar'>
       <div class='row'>
-        <form method='#' action='#' id='form-cadastro' class='col-lg-6 d-flex flex-column justify-content-between'>
+        <form method='POST' action='Back-end/functions/Cadastro.php' id='form-cadastro' class='col-lg-6 d-flex flex-column justify-content-between'>
           <h2 class='h2'>Cadastrar usuário</h2>
 
           <!-- 1. Categoria do usuário -->
           <div class='cat-user d-none'>
             <h3 class='h3 text-light'>Categoria de usuário</h3><br>
-            <input type='radio' name='categoria' id='aluno'>
+            <input type='radio' name='categoria' id='aluno' value="aluno">
             <label for='aluno' class='radio-button-label'>Aluno</label>
-            <input type='radio' name='categoria' id='professor'>
+            <input type='radio' name='categoria' id='professor' value="professor">
             <label for='professor' class="radio-button-label">Professor</label>
           </div>
 
@@ -97,7 +97,7 @@
             <h3 class='h3 text-light'>Informações institucionais</h3>
             <label>Instituição:</label>
             <br>
-            <input type='text' name='instituição' class='form-control' placeholder='Digite a instituição de ensino.'>
+            <input type='text' name='instituicao' class='form-control' placeholder='Digite a instituição de ensino.'>
             <br>
             
           </div>
@@ -115,9 +115,9 @@
             <br>
             <label>Pergunta de segurança:</label>
             <br>
-            <select class='form-select'>
+            <select class='form-select' name="pergunta">
               <option selected>Escolha a pergunta de segurança</option>
-              <option>Qual o nome do seu cachorro?</option>
+              <option value = 1>Qual o nome do seu cachorro?</option>
             </select>
             <br>
             <label>Resposta de segurança:</label>
