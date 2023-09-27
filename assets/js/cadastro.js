@@ -114,6 +114,7 @@ function checkInput() {
   }
 }
 
+
 // Alterar as páginas do formulário
 function carregarForm() {
   setInterval(function () {
@@ -143,3 +144,4 @@ function carregarForm() {
     }
   });
 }
+

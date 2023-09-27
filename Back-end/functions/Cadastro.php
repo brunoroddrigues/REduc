@@ -1,6 +1,8 @@
 <?php
 
-
+/*Enfrentando um novo problema, quando o os dados do formulário chegam o 'cadastro' chega como 'on' 
+  estudando um jeito de identificar o tipo selecionado (aluno ou professor) e fazer a conversão desse dado para inteiro ,
+  terei que fazer isso no JavaScript provavelmente, mas como? AJAX?....*/
 
 
 
@@ -11,23 +13,30 @@ if (isset($_POST)) {
   $nomeUsuario = $_POST['username'];
   $cpf = $_POST['cpf'];
   $email = $_POST['email'];
-  $senha = $_POST['senha1'];
-  $pergunta = $_POST['pergunta'];
+  if (isset($_POST['senha1'])) {
+    $senha = $_POST['senha1'];
+    $password_hash = password_hash($senha, PASSWORD_DEFAULT);
+  }
+  if (isset($_POST['pergunta'])) {
+    $pergunta = $_POST['pergunta'];
+    $pergunta_int = intval($pergunta);
+  }
+  
   $resposta = $_POST['resp'];
   $instituição = $_POST['instituicao'];
   $categoria = $_POST['categoria'];
-  if ($categoria === 'aluno') {
-    $categoria = 2;
-  } elseif ($categoria === 'professor') {
-    $categoria = 3;
-  } else {
-    echo 'Algo deu errado!';
-    $categoria = 'NADA!';
-  } 
+  // if ($categoria === 'aluno') {
+  //   $categoria = 2;
+  // } elseif ($categoria === 'professor') {
+  //   $categoria = 3;
+  // } else {
+  //   echo 'Algo deu errado!';
+  //   $categoria = 'NADA!';
+  // } 
   
 }
-echo $categoria . '<br><br>';
 
+var_dump($_POST['categoria']);
 
 echo '<pre>';
 var_dump($_POST);
@@ -53,3 +62,4 @@ function Cadastro(){
     }
     
 }
+

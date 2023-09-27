@@ -62,9 +62,9 @@
           <!-- 1. Categoria do usuário -->
           <div class='cat-user d-none'>
             <h3 class='h3 text-light'>Categoria de usuário</h3><br>
-            <input type='radio' name='categoria' id='aluno' value="aluno" required="true">
+            <input type='radio' name='categoria' id='aluno'  required="true">
             <label for='aluno' class='radio-button-label'>Aluno</label>
-            <input type='radio' name='categoria' id='professor' value="professor">
+            <input type='radio' name='categoria' id='professor' >
             <label for='professor' class="radio-button-label">Professor</label>
           </div>
 
@@ -96,9 +96,11 @@
           <div class='institucional d-none'>
             <h3 class='h3 text-light'>Informações institucionais</h3>
             <label>Instituição:</label>
-            <br>
-            <input type='text' name='instituicao' class='form-control' placeholder='Digite a instituição de ensino.'>
-            <br>
+            <br> 
+            <select class="form-select" name="instituicao">
+              <option selected>Qual a sua instituição</option>
+              <option value="1">Fatec-Jahu</option>
+            </select>
             
           </div>
 

@@ -155,7 +155,6 @@ CREATE TABLE recursos
 	artigo_path TEXT,
 	img_recurso_path TEXT,
 	id_usuario INT NOT NULL,
-	notas INT,
 	id_ferramenta INT,
 	id_categoriarecurso INT NOT NULL,
 	FOREIGN KEY (id_usuario) REFERENCES users (id_usuario),
@@ -188,6 +187,16 @@ CREATE TABLE recurso_capes
 	id_areaconhecimento INT NOT NULL,
 	FOREIGN KEY (id_recurso) REFERENCES recursos (id_recurso),
 	FOREIGN KEY (id_areaconhecimento) REFERENCES area_conhecimento (id_areaconhecimento)
+);
+
+CREATE TABLE avaliacao_recurso
+(
+	id_avaliacao INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_usuario INT NOT NULL,
+	id_recurso INT NOT NULL,
+	nota INT NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES users (id_usuario),
+	FOREIGN KEY (id_recurso) REFERENCES recursos (id_recurso)
 );
 
 /* Criando tabela de comentarios */
@@ -261,7 +270,6 @@ CREATE TABLE pa
 	datacadastro DATE NOT NULL,
 	arquivo_path TEXT,
 	img_pa_path TEXT,
-	nota INT NOT NULL,
 	id_usuario INT NOT NULL,
 	id_tipo INT NOT NULL,
 	FOREIGN KEY (id_tipo) REFERENCES tipos_pa (id_tipo),
@@ -279,6 +287,16 @@ CREATE TABLE comentarios_pa
 	FOREIGN KEY (id_pa) REFERENCES pa (id_pa)
 	
 );	
+
+CREATE TABLE avaliacao_pa
+(
+	id_avaliacao INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_usuario INT NOT NULL,
+	id_pa INT NOT NULL,
+	nota INT NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES users (id_usuario),
+	FOREIGN KEY (id_pa) REFERENCES pa (id_pa)
+);
 	
 /* Populando pa */	
 	
@@ -291,9 +309,7 @@ VALUES	(1, 'Avaliação por Rubrica', 'Método de avaliação por rubrica para u
 INSERT INTO comentarios_pa (id_usuario, id_pa, descritivo, datacomentario)
 VALUES	(4, 1, 'Adorei! vou usar com minha turma, eles vão gostar também.', '2023-09-25');
 	
-	
-	
-	DROP TABLE comentarios_pa	
+
 	
 	
 	
