@@ -57,7 +57,7 @@ CREATE TABLE seguir
 CREATE TABLE user_redesocial
 (
 	id_userrede INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	link_rede VARCHAR(255) NOT NULL,
+	link_rede VARCHAR(255) NOT NULL UNIQUE,
 	id_redesocial INT NOT NULL,
 	id_usuario INT NOT NULL,
 	FOREIGN KEY (id_redesocial) REFERENCES redeSocial (id_redesocial),
@@ -93,7 +93,7 @@ INSERT INTO seguir (id_userseguindo, id_userseguido)
 VALUES	(2,1);
 
 INSERT INTO seguir (id_userseguindo, id_userseguido)
-VALUES	(6,1);
+VALUES	(3,1);
 
 INSERT INTO redesocial (descritivo)
 VALUES	('Twitter'),
@@ -123,26 +123,26 @@ CREATE TABLE categoriarecurso
 CREATE TABLE disciplinas
 (
 	id_disciplina INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	descritivo VARCHAR(50) NOT NULL
+	descritivo VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE cursos
 (
 	id_curso INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	descritivo VARCHAR(50) NOT NULL
+	descritivo VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE ferramentas
 (
 	id_ferramenta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	descritivo VARCHAR(25) NOT NULL
+	descritivo VARCHAR(25) NOT NULL UNIQUE
 );
 
 CREATE TABLE area_conhecimento
 (
 	id_areaconhecimento INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	codcapes VARCHAR(15) NOT NULL,
-	descritivo VARCHAR(60) NOT NULL
+	codcapes VARCHAR(15) NOT NULL UNIQUE,
+	descritivo VARCHAR(60) NOT NULL UNIQUE
 );
 
 CREATE TABLE recursos
@@ -274,7 +274,7 @@ CREATE TABLE comentarios_pa
 	id_usuario INT NOT NULL,
 	id_pa INT NOT NULL,
 	descritivo VARCHAR(480) NOT NULL,
-	datacomentario INT NOT NULL,
+	datacomentario DATE NOT NULL,
 	FOREIGN KEY (id_usuario) REFERENCES users (id_usuario),
 	FOREIGN KEY (id_pa) REFERENCES pa (id_pa)
 	
@@ -289,12 +289,11 @@ INSERT INTO pa (id_usuario, titulo, descricao, datacadastro, id_tipo)
 VALUES	(1, 'Avaliação por Rubrica', 'Método de avaliação por rubrica para utilizar em turmas do ensino médio', '2023-09-25', 1);
 
 INSERT INTO comentarios_pa (id_usuario, id_pa, descritivo, datacomentario)
-VALUES	(7, 2, 'Adorei! vou usar com minha turma, eles vão gostar também.', '2023-09-25');
+VALUES	(4, 1, 'Adorei! vou usar com minha turma, eles vão gostar também.', '2023-09-25');
 	
 	
 	
-	
-	
+	DROP TABLE comentarios_pa	
 	
 	
 	
