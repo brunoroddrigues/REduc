@@ -1,0 +1,26 @@
+@import "variaveis.css";
+
+.form-control{
+    width: fit-content;
+}
+
+input[name=font-size]{
+    display: inline;
+    width: 5rem;
+}
+
+.form-control-color{
+    width: 2.5rem;
+}
+
+.bg-primary{
+    background-color: var(--roxo-principal) !important;
+}
+
+.btn{
+    font-size: 1.2rem;
+}
+
+#campo-escrever-recurso{
+    min-height: calc(100vh - 85px - 140px - 15rem);
+}
