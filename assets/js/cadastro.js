@@ -8,7 +8,8 @@ const BTNS_CONTROLE = document.querySelectorAll(".btn-controle");
 const RADIO_BUTTONS = document.getElementsByName("categoria");
 var form_index = 1;
 var entrou = false;
-var page = 1;
+var test = false;
+var entrada_validacao = false;
 
 // Bloqueio de envio de formulário dos botões
 BTNS_CONTROLE[0].addEventListener("click", function (event) {
@@ -20,9 +21,11 @@ BTNS_CONTROLE[0].addEventListener("click", function (event) {
 
 BTNS_CONTROLE[1].addEventListener("click", function (event) {
   event.preventDefault();
-  ValidarForm(form_index);
-  if (form_index <= 4) {
-    form_index++;
+  ValidarForm(form_index)
+  if (test) {
+    if (form_index <= 4) {
+      form_index++;
+    }
   }
 });
 
@@ -138,11 +141,47 @@ function carregarForm() {
   });
 }
 
+// Funcção de validação do formulário
 function ValidarForm(form_index) {
-  var form = document.getElementById("form-cadastro");
-  if(form_index == 1){
-    if (!RADIO_BUTTONS[0].checked && !RADIO_BUTTONS[1].checked) {
-      RADIO_BUTTONS.style.color = "red";
+  if (form_index == 1) {
+    var cat_btn = document.getElementsByName("categoria");
+    var error_cat_user = document.getElementById("error_cat-user");
+    if (!cat_btn[0].checked && !cat_btn[1].checked) {
+      if (!entrada_validacao) {
+        var lbl_prof = document.getElementById("label_professor");
+        var br_lbl = document.createElement("br");
+
+        lbl_prof.insertAdjacentElement("afterend", br_lbl);
+        error_cat_user.appendChild(
+        document.createTextNode("Escolha uma categoria!")
+        )
+        entrada_validacao = true;
+      }
+      test = false;
+    }else {
+      addClasseNone(error_cat_user);
+      test = true;
+    }
+  }else if (form_index == 2) {
+    var inpt_username = document.getElementById('username');
+    if (inpt_username.value == "") {
+      if (!entrada_validacao) {
+        
+        var error_username = document.getElementById("error_username");
+        var br_username = document.createElement("br");
+  
+        error_username.appendChild(
+          document.createTextNode("Escolha seu nome de usuario!")
+        );
+        error_username.appendChild(br_username)
+        test = false;
+        entrada_validacao = true;
+        console.log(entrada_validacao)
+      } else {
+        entrada_validacao = true;
+      }
+    } else {
+      test = true;
     }
   }
 }
@@ -151,3 +190,10 @@ function ValidarForm(form_index) {
 // A funcção de validação será chamada toda vez que o usuario clicar no botao de avançar
 // Na função de validação vou usar o form_index que indicará em qual 'etapa'
 // estamos, depois vou pegar o conteudo que esta presente na página e fazer o teste
+
+/** Atualização sobre a funcção de validação:
+ * Ainda na página de dados pessoas;
+ * Quando o erro do username aparece e eu clico para avançar mais de uma vez, ele não acrescente mais de um elemento, 
+ * porém se eu apertar para voltar e depois apertar para anvaçar ele ele acrescenta.
+ * Arrumar!!!!
+ */

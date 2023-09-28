@@ -63,9 +63,10 @@
           <div class='cat-user d-none'>
             <h3 class='h3 text-light'>Categoria de usuário</h3><br>
             <input type='radio' name='categoria' id='aluno'  required="true">
-            <label for='aluno' class='radio-button-label'>Aluno</label>
+            <label for='aluno' class='radio-button-label' id="label_aluno">Aluno</label>
             <input type='radio' name='categoria' id='professor' >
-            <label for='professor' class="radio-button-label">Professor</label>
+            <label for='professor' class="radio-button-label" id="label_professor">Professor</label>
+            <span id = 'error_cat-user' class="text-danger"></span>
           </div>
 
           <!-- 2. Dados pessoais -->
@@ -73,23 +74,34 @@
             <h3 class='h3 text-light'>Dados pessoais</h3>
             <label>Nome de usuário:</label>
             <br>
-            <input type='text' name='username' class='form-control' placeholder='Digite seu nomo de usuário.'>
+            <input type='text' name='username' id="username" class='form-control' placeholder='Digite seu nomo de usuário.'>
             <br>
+            <span id="error_username" class="text-danger"></span>
             <label>Nome:</label>
             <br>
             <input type='text' name='nome' class='form-control' placeholder='Digite seu nome.'>
             <br>
+            <span id="error_nome" class="text-danger"></span>
             <label>Sobrenome:</label>
             <br>
             <input type='text' name='sobrenome' class='form-control' placeholder='Digite seu sobrenome'>
             <br>
+            <span id="error_sobrenome" class="text-danger"></span>
             <label>E-mail:</label>
             <br>
             <input type='email' name='email' class='form-control' placeholder='Digite seu email.'>
             <br>
+            <span id="error_email" class="text-danger"></span>
             <label>CPF:</label>
             <br>
             <input type='text' maxlength="11" name='cpf' class='form-control' placeholder='Digite seu CPF.'>
+            <br>
+            <span id="error_cpf" class="text-danger"></span>
+            <label>Data de Nascimento:</label>
+            <br>
+            <input type='date' name='data_nascimento' class='form-control' placeholder='Digite sua data de nascimento.'>
+            <br>
+            <span id="error_data" class="text-danger"></span>
           </div>
 
           <!-- 3. Dados institucionais -->
