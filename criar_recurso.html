@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="assets/css/criar_recurso.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script defer type="module" src="assets/js/componentes.js"></script>
+  <script defer src="assets/js/editor.js"></script>
 
 </head>
 
@@ -22,28 +23,33 @@
   <main>
     <div class="container bg-light p-5 my-5 rounded shadow">
         <nav class="bg-primary p-3 container-fluid shadow rounded d-flex justify-content-between align-items-center flex-wrap">
+            <!-- Opções de fontes -->
             <select class="form-control">
                 <option selected>Sans Serif</option>
             </select>
             <input type="number" class="form-control" name="font-size" value="12">
-            <input type="color" class="form-control form-control-color" name="">
+            <input type="color" class="form-control form-control-color p-0" name="">
+            <!-- Botões de fontes -->
             <button class="btn btn-light" id="font-bold"><i class="bi bi-type-bold"></i></button>
             <button class="btn btn-light" id="font-italic"><i class="bi bi-type-italic"></i></button>
             <button class="btn btn-light" id="font-underline"><i class="bi bi-type-underline"></i></button>
             <button class="btn btn-light" id="font-tachado"><i class="bi bi-type-strikethrough"></i></button>
-            <button class="btn btn-light" id="alinhar-esq"><i class="bi bi-text-left"></i></button>
-            <button class="btn btn-light" id="alinhar-centro"><i class="bi bi-text-center"></i></button>
-            <button class="btn btn-light" id="alinhar-dir"><i class="bi bi-text-right"></i></button>
-            <button class="btn btn-light" id="alinhar-justificar"><i class="bi bi-justify"></i></button>
+            <!-- Alinhamento de fontes -->
+            <button class="btn btn-light" id="alinhar-esq" data-bs-toggle="button"><i class="bi bi-text-left"></i></button>
+            <button class="btn btn-light" id="alinhar-centro" data-bs-toggle="button"><i class="bi bi-text-center"></i></button>
+            <button class="btn btn-light" id="alinhar-dir" data-bs-toggle="button"><i class="bi bi-text-right"></i></button>
+            <button class="btn btn-light" id="alinhar-justificar" data-bs-toggle="button"><i class="bi bi-justify"></i></button>
             <button class="btn btn-light" id="altura-linha"><i class="bi bi-arrows-vertical"></i></button>
+            <!-- Listas -->
             <button class="btn btn-light" id="lista-nao-ordenada"><i class="bi bi-list-ol"></i></button>
             <button class="btn btn-light" id="lista-ordenada"><i class="bi bi-list-ul"></i></button>
+            <!-- Outros -->
             <button class="btn btn-light" id="imagem"><i class="bi bi-image"></i></button>
             <button class="btn btn-light" id="tabela"><i class="bi bi-table"></i></button>
             <button class="btn btn-light" id="hiperlink"><i class="bi bi-link-45deg"></i></button>
         </nav>
-        <form>
-            <textarea id="campo-escrever-recurso" class="form-control my-5 w-100 shadow" placeholder="Digite seu recurso aqui..."></textarea>
+        <form action="#" method="post" id="escrever-recurso">
+            <div id="campo-escrever-recurso" class="form-control my-5 w-100 shadow" contenteditable="true"></div>
             <button class="btn btn-danger">Voltar</button>
             <button type="submit" class="btn btn-success">Salvar</button>
         </form>
