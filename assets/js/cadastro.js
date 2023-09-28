@@ -8,6 +8,7 @@ const BTNS_CONTROLE = document.querySelectorAll(".btn-controle");
 const RADIO_BUTTONS = document.getElementsByName("categoria");
 var form_index = 1;
 var entrou = false;
+var page = 1;
 
 // Bloqueio de envio de formulário dos botões
 BTNS_CONTROLE[0].addEventListener("click", function (event) {
@@ -19,6 +20,7 @@ BTNS_CONTROLE[0].addEventListener("click", function (event) {
 
 BTNS_CONTROLE[1].addEventListener("click", function (event) {
   event.preventDefault();
+  ValidarForm(form_index);
   if (form_index <= 4) {
     form_index++;
   }
@@ -83,16 +85,7 @@ function checkInput() {
       inputAtuacao.setAttribute("required", "true");
 
       // Criar elementos
-      // Lattes
-     /* DADOS_INSTITUCIONAIS.appendChild(labelLattes);
-      DADOS_INSTITUCIONAIS.appendChild(br1);
-      DADOS_INSTITUCIONAIS.appendChild(inputLattes);
-      DADOS_INSTITUCIONAIS.appendChild(br2);
-      // Área de atuação
-      DADOS_INSTITUCIONAIS.appendChild(labelAtuacao);
-      DADOS_INSTITUCIONAIS.appendChild(br3);
-      DADOS_INSTITUCIONAIS.appendChild(inputAtuacao);*/
-       
+      
       dados.appendChild(labelLattes);
       dados.appendChild(br1);
       dados.appendChild(inputLattes);
@@ -145,3 +138,16 @@ function carregarForm() {
   });
 }
 
+function ValidarForm(form_index) {
+  var form = document.getElementById("form-cadastro");
+  if(form_index == 1){
+    if (!RADIO_BUTTONS[0].checked && !RADIO_BUTTONS[1].checked) {
+      RADIO_BUTTONS.style.color = "red";
+    }
+  }
+}
+
+
+// A funcção de validação será chamada toda vez que o usuario clicar no botao de avançar
+// Na função de validação vou usar o form_index que indicará em qual 'etapa'
+// estamos, depois vou pegar o conteudo que esta presente na página e fazer o teste
