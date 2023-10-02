@@ -9,7 +9,8 @@ const RADIO_BUTTONS = document.getElementsByName("categoria");
 var form_index = 1;
 var entrou = false;
 var test = false;
-var entrada_validacao = false;
+var form1 = false;
+var form2 = [false, false, false, false, false, false];
 
 // Bloqueio de envio de formulário dos botões
 BTNS_CONTROLE[0].addEventListener("click", function (event) {
@@ -143,57 +144,169 @@ function carregarForm() {
 
 // Funcção de validação do formulário
 function ValidarForm(form_index) {
+  var val = 0;
   if (form_index == 1) {
     var cat_btn = document.getElementsByName("categoria");
     var error_cat_user = document.getElementById("error_cat-user");
     if (!cat_btn[0].checked && !cat_btn[1].checked) {
-      if (!entrada_validacao) {
+      if (!form1) {
         var lbl_prof = document.getElementById("label_professor");
         var br_lbl = document.createElement("br");
-
+  
         lbl_prof.insertAdjacentElement("afterend", br_lbl);
         error_cat_user.appendChild(
         document.createTextNode("Escolha uma categoria!")
         )
-        entrada_validacao = true;
+        form1 = true;
       }
       test = false;
-    }else {
-      addClasseNone(error_cat_user);
+    } else {
+      while (error_cat_user.firstChild) {
+        error_cat_user.removeChild(error_cat_user.firstChild)
+      }
       test = true;
     }
-  }else if (form_index == 2) {
-    var inpt_username = document.getElementById('username');
-    if (inpt_username.value == "") {
-      if (!entrada_validacao) {
-        
-        var error_username = document.getElementById("error_username");
-        var br_username = document.createElement("br");
-  
+  } else if (form_index == 2) {
+    var username = document.getElementById('username');
+    var nome = document.getElementById("nome");
+    var sobrenome = document.getElementById("sobrenome");
+    var email = document.getElementById("email");
+    var cpf = document.getElementById("cpf");
+    var dataNasci = document.getElementById("data_nascimento");
+    var error_username = document.getElementById("error_username");
+    var error_nome = document.getElementById("error_nome");
+    var error_sobrenome = document.getElementById("error_sobrenome");
+    var error_email = document.getElementById("error_email");
+    var error_cpf = document.getElementById("error_cpf");
+    var error_data = document.getElementById("error_data");
+    var br1 = document.createElement("br");
+    var br2 = document.createElement("br");
+    var br3 = document.createElement("br");
+    var br4 = document.createElement("br");
+    var br5 = document.createElement("br");
+    var br6 = document.createElement("br");
+
+    if (username.value == "") {
+      if (!form2[0]) {
         error_username.appendChild(
-          document.createTextNode("Escolha seu nome de usuario!")
+          document.createTextNode("Você precisa escolher um nome de usuário!")
         );
-        error_username.appendChild(br_username)
+        error_username.appendChild(br1);
+
+        form2[0] = true;
         test = false;
-        entrada_validacao = true;
-        console.log(entrada_validacao)
       } else {
-        entrada_validacao = true;
+        test = false;
       }
     } else {
+      while (error_username.firstChild) {
+        error_username.removeChild(error_username.firstChild)
+      }
+      form2[0] = false;
+    }
+    if (nome.value == "") {
+      if (!form2[1]) {
+        error_nome.appendChild(
+          document.createTextNode("Você precisa informar seu nome!")
+        );
+        error_nome.appendChild(br2);
+
+        form2[1] = true;
+        test = false;
+      } else {
+        test = false;
+      }
+    } else {
+      while (error_nome.firstChild) {
+        error_nome.removeChild(error_nome.firstChild)
+      }
+      form2[1] = false;
+    }
+    if (sobrenome.value == "") {
+      if (!form2[2]) {
+        error_sobrenome.appendChild(
+          document.createTextNode("Você precisa informar seu sobrenome!")
+        );
+        error_sobrenome.appendChild(br3);
+
+        form2[2] = true;
+        test = false;
+      } else {
+        test = false;
+      }
+    } else {
+      while (error_sobrenome.firstChild) {
+        error_sobrenome.removeChild(error_sobrenome.firstChild)
+      }
+      form2[2] = false;
+    }
+    if (email.value == "") {
+      if (!form2[3]) {
+        error_email.appendChild(
+          document.createTextNode("Você precisa informar seu email!")
+        );
+        error_email.appendChild(br4);
+
+        form2[3] = true;
+        test = false;
+      } else {
+        test = false;
+      }
+    } else {
+      while (error_email.firstChild) {
+        error_email.removeChild(error_email.firstChild)
+      }
+      form2[3] = false;
+    }
+    if (cpf.value == "") {
+      if (!form2[4]) {
+        error_cpf.appendChild(
+          document.createTextNode("Você precisa informar seu cpf!")
+        );
+        error_cpf.appendChild(br5);
+
+        form2[4] = true;
+        test = false;
+      } else {
+        test = false;
+      }
+    } else {
+      while (error_cpf.firstChild) {
+        error_cpf.removeChild(error_cpf.firstChild)
+      }
+      form2[4] = false;
+    }
+    if (dataNasci.value == "") {
+      if (!form2[5]) {
+        error_data.appendChild(
+          document.createTextNode("Você precisa informar sua data de nascimento!")
+        );
+        error_data.appendChild(br6);
+
+        form2[5] = true;
+        test = false;
+      } else {
+        test = false;
+      }
+    } else {
+      while (error_data.firstChild) {
+        error_data.removeChild(error_data.firstChild)
+      }
+      form2[5] = false;
+    }
+    for (let x = 0; x < form2.length; x++) {
+      if (form2[x]) {
+        val++;
+      }      
+    }
+    if (val == 0) {
       test = true;
     }
   }
 }
 
 
-// A funcção de validação será chamada toda vez que o usuario clicar no botao de avançar
-// Na função de validação vou usar o form_index que indicará em qual 'etapa'
-// estamos, depois vou pegar o conteudo que esta presente na página e fazer o teste
 
-/** Atualização sobre a funcção de validação:
- * Ainda na página de dados pessoas;
- * Quando o erro do username aparece e eu clico para avançar mais de uma vez, ele não acrescente mais de um elemento, 
- * porém se eu apertar para voltar e depois apertar para anvaçar ele ele acrescenta.
- * Arrumar!!!!
- */
+
+
+
