@@ -8,9 +8,12 @@ const BTNS_CONTROLE = document.querySelectorAll(".btn-controle");
 const RADIO_BUTTONS = document.getElementsByName("categoria");
 var form_index = 1;
 var entrou = false;
+/* Variáveis da função de validação */
 var test = false;
 var form1 = false;
 var form2 = [false, false, false, false, false, false];
+var form3 = [false, false, false];
+var form4 = [false, false, false, false];
 
 // Bloqueio de envio de formulário dos botões
 BTNS_CONTROLE[0].addEventListener("click", function (event) {
@@ -28,6 +31,12 @@ BTNS_CONTROLE[1].addEventListener("click", function (event) {
       form_index++;
     }
   }
+});
+
+BTNS_CONTROLE[2].addEventListener("click", function (event) {
+  event.preventDefault();
+  ValidarForm(form_index)
+  
 });
 
 // Funções auxiliares
@@ -56,6 +65,12 @@ function checkInput() {
   {
   let dados = document.createElement("div");
   dados.setAttribute("id", "prof");
+  let lattes_erro = document.createElement("span"); 
+  lattes_erro.setAttribute("id", "error_lattes");
+  lattes_erro.setAttribute("class", "text-danger");
+  let atuacao_erro = document.createElement("span"); 
+  atuacao_erro.setAttribute("id", "error_atuacao");
+  atuacao_erro.setAttribute("class", "text-danger");
   let labelLattes = document.createElement("label");
   let inputLattes = document.createElement("input");
   // Declarar variaveis area de atuação
@@ -65,6 +80,7 @@ function checkInput() {
   let br1 = document.createElement("br");
   let br2 = document.createElement("br");
   let br3 = document.createElement("br");
+  let br4 = document.createElement("br");
   if (RADIO_BUTTONS[1].checked) {
     
      entrou = true
@@ -78,6 +94,7 @@ function checkInput() {
       inputLattes.setAttribute("class", "form-control");
       inputLattes.setAttribute("type", "text");
       inputLattes.setAttribute("name", "linkLattes");
+      inputLattes.setAttribute("id", "linkLattes");
       inputLattes.setAttribute("placeholder", "Insira o link do Lattes...");
       inputLattes.setAttribute("required", "true");
 
@@ -85,6 +102,7 @@ function checkInput() {
       inputAtuacao.setAttribute("class", "form-control");
       inputAtuacao.setAttribute("type", "text");
       inputAtuacao.setAttribute("name", "area");
+      inputAtuacao.setAttribute("id", "area");
       inputAtuacao.setAttribute("placeholder", "Digite sua área de atuação...");
       inputAtuacao.setAttribute("required", "true");
 
@@ -94,10 +112,13 @@ function checkInput() {
       dados.appendChild(br1);
       dados.appendChild(inputLattes);
       dados.appendChild(br2);
+      dados.appendChild(lattes_erro);
       // Área de atuação
       dados.appendChild(labelAtuacao);
       dados.appendChild(br3);
       dados.appendChild(inputAtuacao);
+      dados.appendChild(br4);
+      dados.appendChild(atuacao_erro);
       DADOS_INSTITUCIONAIS.appendChild(dados);
   }
     
@@ -145,7 +166,7 @@ function carregarForm() {
 // Funcção de validação do formulário
 function ValidarForm(form_index) {
   var val = 0;
-  if (form_index == 1) {
+  if (form_index == 1) { // INÍCIO DA PÁGINA 1
     var cat_btn = document.getElementsByName("categoria");
     var error_cat_user = document.getElementById("error_cat-user");
     if (!cat_btn[0].checked && !cat_btn[1].checked) {
@@ -166,7 +187,7 @@ function ValidarForm(form_index) {
       }
       test = true;
     }
-  } else if (form_index == 2) {
+  } else if (form_index == 2) { // TERMINO DA PÁGINA 1 E INÍCIO DA PÁGINA 2
     var username = document.getElementById('username');
     var nome = document.getElementById("nome");
     var sobrenome = document.getElementById("sobrenome");
@@ -302,7 +323,126 @@ function ValidarForm(form_index) {
     if (val == 0) {
       test = true;
     }
-  }
+  } else if (form_index == 3){ // TERMINO DA PÁGINA 2 E INICIO DA PÁGINA 3
+    var cat_btn = document.getElementsByName("categoria");
+    var inst = document.getElementById("instituicao");
+    var error_inst = document.getElementById("error_inst");
+    var br_inst = document.createElement("br");
+    if (cat_btn[0].checked) {
+      if (inst.value == 0) {
+        if (!form3[0]) {
+          error_inst.appendChild(
+          document.createTextNode("Escolha uma instituição!")
+          )
+          error_inst.appendChild(br_inst);
+          
+          form3[0] = true;
+          test = false;
+        } else {
+          teste = false;
+        }
+      } else {
+        while (error_inst.firstChild) {
+          error_inst.removeChild(error_inst.firstChild)
+        }
+        form3[0] = false;
+        test = true;
+      }
+    } else if (cat_btn[1].checked) {
+      var lattes = document.getElementById("linkLattes");
+      var area = document.getElementById("area");
+      var error_lattes = document.getElementById("error_lattes");
+      var error_atuacao = document.getElementById("error_atuacao");
+      if (inst.value == 0) {
+        if (!form3[0]) {
+          error_inst.appendChild(
+          document.createTextNode("Escolha uma instituição!")
+          )
+          error_inst.appendChild(br_inst);
+          
+          form3[0] = true;
+          test = false;
+        } else {
+          teste = false;
+        }
+      } else {
+        while (error_inst.firstChild) {
+          error_inst.removeChild(error_inst.firstChild)
+        }
+        form3[0] = false;
+      }
+      if (lattes.value == "") {
+        if (!form3[1]) {
+          var br_lattes = document.createElement("br");
+          error_lattes.appendChild(
+            document.createTextNode("Informe o link do seu currículo lattes")
+          )
+          error_lattes.appendChild(br_lattes);
+
+          form3[1] = true;
+          test = false;
+        } else {
+          test = false;
+        }
+      } else {
+        while (error_lattes.firstChild) {
+          error_lattes.removeChild(error_lattes.firstChild)
+        }
+        form3[1] = false;
+      }
+      if (area.value == "") {
+        if (!form3[2]) {
+          var br_atuacao = document.createElement("br");
+          error_atuacao.appendChild(
+            document.createTextNode("Informe o link do seu currículo lattes")
+          )
+          error_atuacao.appendChild(br_atuacao);
+
+          form3[2] = true;
+          test = false;
+        } else {
+          test = false;
+        }
+      } else {
+        while (error_atuacao.firstChild) {
+          error_atuacao.removeChild(error_atuacao.firstChild)
+        }
+        form3[2] = false;
+      }
+      for (let x = 0; x < form3.length; x++) {
+        if (form3[x]) {
+          val++;
+        }      
+      }
+      if (val == 0) {
+        test = true;
+      }
+    }
+  } else if (form_index == 4){ // TÉRMINO DA PÁGINA 3 E INÍCIO DA PÁGINA 4
+    var senha1 = document.getElementById("senha1");
+    var senha2 = document.getElementById("senha2");
+    var pergunta = document.getElementById("pergunta");
+    var resposta = document.getElementById("resposta");
+    var error_senha1 = document.getElementById("error_senha1");
+    var error_senha2 = document.getElementById("error_senha2");
+    var error_pergunta = document.getElementById("error_pergunta");
+    var error_resposta = document.getElementById("error_resposta");
+
+    if (senha1.value == "") {
+      if (!form4[0]) {
+        var br_senha1 = document.createElement("br");
+        error_senha1.appendChild(
+          document.createTextNode("Digite uma senha")
+        )
+        error_senha1.appendChild(br_senha1);
+
+        form4[0] = true;
+        test = false;
+      } else {
+        test = false;
+      }
+    }
+  } 
 }
 
 

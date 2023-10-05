@@ -109,11 +109,11 @@
             <h3 class='h3 text-light'>Informações institucionais</h3>
             <label>Instituição:</label>
             <br> 
-            <select class="form-select" name="instituicao">
-              <option selected>Qual a sua instituição</option>
-              <option value="1">Fatec-Jahu</option>
+            <select class="form-select" name="instituicao" id="instituicao">
+              <option value='0' selected>Qual a sua instituição</option>
+              <option value='1'>Fatec-Jahu</option>
             </select>
-            
+            <span id="error_inst" class="text-danger"></span>
           </div>
 
           <!-- 4. Dados de segurança -->
@@ -121,22 +121,27 @@
             <h3 class='h3 text-light'>Segurança</h3>
             <label>Digite a senha:</label>
             <br>
-            <input type='password' name='senha1' class='form-control' placeholder='Digite a senha.'>
+            <input type='text' name='senha1' id="senha1" class='form-control' placeholder='Digite a senha.'>
             <br>
+            <span id="error_senha1" class="text-danger"></span>
             <label>Repita a senha:</label>
             <br>
-            <input type='password' name='senha2' class='form-control' placeholder='Repita a senha.'>
+            <input type='text' name='senha2' id="senha2" class='form-control' placeholder='Repita a senha.'>
             <br>
+            <span id="error_senha2" class="text-danger"></span>
             <label>Pergunta de segurança:</label>
             <br>
-            <select class='form-select' name="pergunta">
+            <select class='form-select' name="pergunta" id="pergunta">
               <option selected>Escolha a pergunta de segurança</option>
               <option value = 1>Qual o nome do seu cachorro?</option>
             </select>
             <br>
+            <span id="error_pergunta" class="text-danger"></span>
             <label>Resposta de segurança:</label>
             <br>
-            <input type='text' name='resp' class='form-control' placeholder='Digite a resposta de segurança.'>
+            <input type='text' name='resposta' id="resposta" class='form-control' placeholder='Digite a resposta de segurança.'>
+            <br>
+            <span id="error_resposta" class="text-danger"></span>
           </div>
           <br>
           <!-- Btns de controle -->
