@@ -1,9 +1,4 @@
 const CARD_CONTAINER = document.getElementsByClassName("card-container");
-
-const BODY = document.getElementsByTagName("body");
-
-BODY[0].addEventListener("load", criarCard(null, "Titulo do recurso", 5, false))
-
 /*                || src || string || int || bool ||                   */
 function criarCard(imagem, titulo, estrelas, salvo){
     let divCol = document.createElement("div");
@@ -69,3 +64,5 @@ function criarCard(imagem, titulo, estrelas, salvo){
         CARD_CONTAINER[x].appendChild(divCol);
     }
 }
+
+criarCard(null, "Titulo do recurso", 5, false)

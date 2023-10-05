@@ -42,7 +42,6 @@ export function criarHeader(){
     input.setAttribute("type", "text")
     input.setAttribute("placeholder", "Digite o que procura...")
     input.setAttribute("class", "form-control")
-    input.setAttribute("id", "barra-pesquisa-header")
 
     let sbutton = document.createElement("button")
     sbutton.setAttribute("type", "submit")

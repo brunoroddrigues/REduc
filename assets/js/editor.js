@@ -1,18 +1,20 @@
-const btn_bold = document.getElementById("font-bold");
+/*
+Link da documentação do obj selection < https://developer.mozilla.org/pt-BR/docs/Web/API/Selection >
+*/
 
-var teste_bold = false;
+const teste = document.getElementById("teste")
 
-btn_bold.addEventListener("click", function(){
-    const bold = document.createElement("span")
-    bold.setAttribute("class", "fw-bold");
-    const userSelection = getSelection();
-    const areaSelecionada = userSelection.getRangeAt(0);
-    if(!teste_bold){
-        teste_bold = true;
-        areaSelecionada.surroundContents(bold);
-    }
-    else{
-        teste_bold = false;
-        
+teste.addEventListener("click", function(){
+    const selecao = getSelection()
+    console.log(selecao)
+    if(selecao.anchorNode != null && selecao.focusNode != null){
+        // console.log("existe seleção")
+        document.getElementsByClassName("fw-bold")
+        if(!selecao.containsNode(/*adicionar a tag*/, false)){
+
+        }
+    } else {
+        // console.log("ñ existe seleção")
+
     }
 })

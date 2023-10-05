@@ -37,6 +37,10 @@ main{
     color: var(--roxo-principal);
 }
 
+.border-primary{
+    border-color: var(--roxo-principal) !important;
+}
+
 @media (max-width: 575px){
     .nav-link{
         margin-bottom: 10px;
