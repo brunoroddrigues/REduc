@@ -13,7 +13,7 @@ var test = false;
 var form1 = false;
 var form2 = [false, false, false, false, false, false];
 var form3 = [false, false, false];
-var form4 = [false, false, false, false];
+var form4 = [false, false, false, false, false];
 
 // Bloqueio de envio de formulário dos botões
 BTNS_CONTROLE[0].addEventListener("click", function (event) {
@@ -34,9 +34,12 @@ BTNS_CONTROLE[1].addEventListener("click", function (event) {
 });
 
 BTNS_CONTROLE[2].addEventListener("click", function (event) {
-  event.preventDefault();
   ValidarForm(form_index)
-  
+  if (!test) {
+    event.preventDefault();
+  } else if (test) {
+    BTNS_CONTROLE[2].click();
+  }
 });
 
 // Funções auxiliares
@@ -425,6 +428,7 @@ function ValidarForm(form_index) {
     var resposta = document.getElementById("resposta");
     var error_senha1 = document.getElementById("error_senha1");
     var error_senha2 = document.getElementById("error_senha2");
+    var error_diferentesenha = document.getElementById("error_diferentesenha");
     var error_pergunta = document.getElementById("error_pergunta");
     var error_resposta = document.getElementById("error_resposta");
 
@@ -441,6 +445,73 @@ function ValidarForm(form_index) {
       } else {
         test = false;
       }
+    } else {
+      while (error_senha1.firstChild) {
+        error_senha1.removeChild(error_senha1.firstChild)
+      }
+      form4[0] = false;
+    }
+    if (senha2.value == "") {
+      if (!form4[1]) {
+        var br_senha2 = document.createElement("br");
+        error_senha2.appendChild(
+          document.createTextNode("Digite a senha novamente")
+        )
+        error_senha2.appendChild(br_senha2);
+
+        form4[1] = true;
+        test = false;
+      } else {
+        test = false;
+      }
+    } else {
+      while (error_senha2.firstChild) {
+        error_senha2.removeChild(error_senha2.firstChild)
+      }
+      form4[1] = false;
+      var senhacheck = true;
+    } 
+    if (senhacheck) {
+      if (senha1.value != senha2.value) {
+        if (!form4[2]) {
+          var br_senha2 = document.createElement("br");
+          error_diferentesenha.appendChild(
+            document.createTextNode("As duas senhas tem que ser igual!")
+          )
+          error_diferentesenha.appendChild(br_senha2);
+
+          form4[2] = true;
+          test = false;
+        } else {
+          test = false;
+        }
+      } else {
+        while (error_diferentesenha.firstChild) {
+          error_diferentesenha.removeChild(error_diferentesenha.firstChild)
+        }
+        form4[2] = false;
+      } 
+    }
+    if (pergunta.value == 0) {
+      console.log('entrou');
+      if (!form4[3]) {
+        console.log('entrou1');
+        var br_pergunta = document.createElement("br");
+        error_pergunta.appendChild(
+          document.createTextNode("Escolha uma pergunta de segurança")
+        )
+        error_pergunta.appendChild(br_pergunta);
+
+        form4[3] = true;
+        test = false;
+      } else {
+        test = false;
+      }
+    } else {
+      while (error_pergunta.firstChild) {
+        error_pergunta.removeChild(error_pergunta.firstChild)
+      }
+      form4[3] = false;
     }
   } 
 }
