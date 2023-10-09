@@ -8,59 +8,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS v5.2.1 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/criar_recurso.css">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script defer type="module" src="assets/js/componentes.js"></script>
-  <script defer src="assets/js/editor.js"></script>
-
-
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 </head>
 
 <body>
   <header id="reduc-header"></header>
   <main>
-    <div class="container bg-light p-5 my-5 rounded shadow">
-        <nav class="bg-primary p-3 container-fluid shadow rounded d-flex justify-content-between align-items-center flex-wrap">
-            <!-- Opções de fontes -->
-            <select class="form-control">
-                <option selected>Sans Serif</option>
-            </select>
-            <input type="number" class="form-control" name="font-size" value="12">
-            <input type="color" class="form-control form-control-color p-0" name="">
-            <!-- Botões de fontes -->
-            <button class="btn btn-light btn-font" id="font-bold"><i class="bi bi-type-bold"></i></button>
-            <button class="btn btn-light btn-font" id="font-italic"><i class="bi bi-type-italic"></i></button>
-            <button class="btn btn-light btn-font" id="font-underline"><i class="bi bi-type-underline"></i></button>
-            <button class="btn btn-light btn-font" id="font-tachado"><i class="bi bi-type-strikethrough"></i></button>
-            <!-- Alinhamento de fontes -->
-            <button class="btn btn-light btn-font" id="alinhar-esq" data-bs-toggle="button"><i class="bi bi-text-left"></i></button>
-            <button class="btn btn-light btn-font" id="alinhar-centro" data-bs-toggle="button"><i class="bi bi-text-center"></i></button>
-            <button class="btn btn-light btn-font" id="alinhar-dir" data-bs-toggle="button"><i class="bi bi-text-right"></i></button>
-            <button class="btn btn-light btn-font" id="alinhar-justificar" data-bs-toggle="button"><i class="bi bi-justify"></i></button>
-            <!-- Listas -->
-            <button class="btn btn-light" id="lista-nao-ordenada"><i class="bi bi-list-ol"></i></button>
-            <button class="btn btn-light" id="lista-ordenada"><i class="bi bi-list-ul"></i></button>
-            <!-- Outros -->
-            <button class="btn btn-light" id="imagem"><i class="bi bi-image"></i></button>
-            <button class="btn btn-light" id="tabela"><i class="bi bi-table"></i></button>
-            <button class="btn btn-light" id="hiperlink"><i class="bi bi-link-45deg"></i></button>
-            <button class="btn btn-light" id="teste">Teste</button>
-        </nav>
-        <form action="#" method="post" id="escrever-recurso">
-            <div id="campo-escrever-recurso" class="form-control my-5 w-100 shadow" contenteditable="true"></div>
-            <button class="btn btn-danger">Voltar</button>
-            <button type="submit" class="btn btn-success">Salvar</button>
-        </form>
-    </div>
+    <form class="container my-5">
+      <div id="editor" class="shadow bg-light mb-5"></div>
+      <button class="btn btn-success">Salvar</button>
+      <button class="btn btn-danger">Excluir</button>
+    </form>
   </main>
   <footer id="reduc-footer"></footer>
   <!-- Bootstrap JavaScript Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script>
+    var toolbarOptions = [
+      [{ 'font': [] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'color': [] }, { 'background': [] }],
+
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'script': 'sub' }, { 'script': 'super' }],
+      [{ 'indent': '-1' }, { 'indent': '+1' }],
+
+
+      [{ 'align': [] }],
+
+      ['image', 'link', 'video'],
+
+      ['blockquote'],
+      ['clean']
+    ];
+
+    var quill = new Quill('#editor', {
+      modules: {
+        toolbar: toolbarOptions
+      },
+      theme: 'snow'
+    });
+  </script>
 </body>
 
 </html>

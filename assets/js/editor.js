@@ -10,8 +10,8 @@ teste.addEventListener("click", function(){
     if(selecao.anchorNode != null && selecao.focusNode != null){
         // console.log("existe seleção")
         document.getElementsByClassName("fw-bold")
-        if(!selecao.containsNode(/*adicionar a tag*/, false)){
-
+        if(!selecao.containsNode("span", false)){
+            
         }
     } else {
         // console.log("ñ existe seleção")
