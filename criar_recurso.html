@@ -22,10 +22,9 @@
 <body>
   <header id="reduc-header"></header>
   <main>
-    <form class="container my-5">
-      <div id="editor" class="shadow bg-light mb-5"></div>
-      <button class="btn btn-success">Salvar</button>
-      <button class="btn btn-danger">Excluir</button>
+    <form id="form-recurso" class="container my-5" action="#" method="post">
+      <div id="editor" class="bg-light mb-4" name="recurso"></div>
+      <input type="submit" value="+ Salvar" class="btn btn-success">
     </form>
   </main>
   <footer id="reduc-footer"></footer>
@@ -38,34 +37,7 @@
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
     crossorigin="anonymous"></script>
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-  <script>
-    var toolbarOptions = [
-      [{ 'font': [] }],
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'color': [] }, { 'background': [] }],
-
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      [{ 'script': 'sub' }, { 'script': 'super' }],
-      [{ 'indent': '-1' }, { 'indent': '+1' }],
-
-
-      [{ 'align': [] }],
-
-      ['image', 'link', 'video'],
-
-      ['blockquote'],
-      ['clean']
-    ];
-
-    var quill = new Quill('#editor', {
-      modules: {
-        toolbar: toolbarOptions
-      },
-      theme: 'snow'
-    });
-  </script>
+  <script src="assets/js/editor.js"></script>
 </body>
 
 </html>
