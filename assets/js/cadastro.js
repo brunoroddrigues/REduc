@@ -280,7 +280,18 @@ function ValidarForm(form_index) {
       while (error_email.firstChild) {
         error_email.removeChild(error_email.firstChild)
       }
-      form2[3] = false;
+      if (!validarEmail(email.value)) {
+        error_email.appendChild(
+          document.createTextNode("O email que você digitou não é valido!")
+        );
+        error_email.appendChild(br4);
+        form2[3] = true;
+      } else {
+        while (error_email.firstChild) {
+          error_email.removeChild(error_email.firstChild)
+        }
+        form2[3] = false;
+      }
     }
     if (cpf.value == "") {
       if (!form2[4]) {
@@ -298,7 +309,18 @@ function ValidarForm(form_index) {
       while (error_cpf.firstChild) {
         error_cpf.removeChild(error_cpf.firstChild)
       }
-      form2[4] = false;
+      if (!validarCPF(cpf.value)) {
+        error_cpf.appendChild(
+          document.createTextNode("O cpf que você digitou não é valido!")
+        );
+        error_cpf.appendChild(br5);
+        form2[4] = true;
+      } else {
+        while (error_cpf.firstChild) {
+          error_cpf.removeChild(error_cpf.firstChild)
+        }
+        form2[4] = false;
+      }
     }
     if (dataNasci.value == "") {
       if (!form2[5]) {
@@ -316,7 +338,18 @@ function ValidarForm(form_index) {
       while (error_data.firstChild) {
         error_data.removeChild(error_data.firstChild)
       }
-      form2[5] = false;
+      if (!validarData(dataNasci.value)) {
+        error_data.appendChild(
+          document.createTextNode("Data de nascimento não valida!")
+        );
+        error_data.appendChild(br6);
+        form2[5] = true;
+      } else {
+        while (error_data.firstChild) {
+          error_data.removeChild(error_data.firstChild)
+        }
+        form2[5] = false;
+      }
     }
     for (let x = 0; x < form2.length; x++) {
       if (form2[x]) {
@@ -325,6 +358,8 @@ function ValidarForm(form_index) {
     }
     if (val == 0) {
       test = true;
+    } else{
+      test = false;
     }
   } else if (form_index == 3){ // TERMINO DA PÁGINA 2 E INICIO DA PÁGINA 3
     var cat_btn = document.getElementsByName("categoria");
@@ -536,13 +571,82 @@ function ValidarForm(form_index) {
       }      
     }
     if (val == 0) {
+      var cat_btn = document.getElementsByName("categoria");
+      if (cat_btn[1].checked) {
+        cat_btn[1].value = 1;
+      }
+      if (cat_btn[0].checked) {
+        cat_btn[0].value = 0;
+      }
       test = true;
     }
   } 
 }
 
+function validarCPF(cpf) {	
+  var add;
+  var rev;
 
+	cpf = cpf.replace(/[^\d]+/g,'');	
+	if(cpf == '') return false;	
+	// Elimina CPFs invalidos conhecidos	
+	if (cpf.length != 11 || 
+		cpf == "00000000000" || 
+		cpf == "11111111111" || 
+		cpf == "22222222222" || 
+		cpf == "33333333333" || 
+		cpf == "44444444444" || 
+		cpf == "55555555555" || 
+		cpf == "66666666666" || 
+		cpf == "77777777777" || 
+		cpf == "88888888888" || 
+		cpf == "99999999999")
+			return false;		
+	// Valida 1o digito	
+	 add = 0;	
+	for (i=0; i < 9; i ++)		
+		add += parseInt(cpf.charAt(i)) * (10 - i);	
+	rev = 11 - (add % 11);	
+		if (rev == 10 || rev == 11)		
+			rev = 0;	
+		if (rev != parseInt(cpf.charAt(9)))		
+			return false;		
+	// Valida 2o digito	
+	add = 0;	
+	for (i = 0; i < 10; i ++)		
+		add += parseInt(cpf.charAt(i)) * (11 - i);	
+	rev = 11 - (add % 11);	
+	if (rev == 10 || rev == 11)	
+		rev = 0;	
+	if (rev != parseInt(cpf.charAt(10)))
+		return false;	
+	return true;   
+}
 
+function validarEmail(email) {
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
 
+function validarData(datanascimento){
+  var data = datanascimento;
+  data = data.replace(/\//g, "-");
+  
+  // comparo as datas e calculo a idade
+  var hoje = new Date();
+  var nasc  = new Date(data);
+  var hoje_ano = hoje.getFullYear();
+  var nasc_ano = nasc.getFullYear();
+  var calc = hoje_ano - nasc_ano;
 
+  if (hoje_ano <= nasc_ano) {
+    return false;
+  }
+  if (calc < 12) {
+    return false;
+  }
+  
+  return true;
+  
+}
 
