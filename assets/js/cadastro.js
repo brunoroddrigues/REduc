@@ -493,9 +493,7 @@ function ValidarForm(form_index) {
       } 
     }
     if (pergunta.value == 0) {
-      console.log('entrou');
       if (!form4[3]) {
-        console.log('entrou1');
         var br_pergunta = document.createElement("br");
         error_pergunta.appendChild(
           document.createTextNode("Escolha uma pergunta de segurança")
@@ -512,6 +510,33 @@ function ValidarForm(form_index) {
         error_pergunta.removeChild(error_pergunta.firstChild)
       }
       form4[3] = false;
+    }
+    if (resposta.value == "") {
+      if (!form4[4]) {
+        var br_resposta = document.createElement("br");
+        error_resposta.appendChild(
+          document.createTextNode("Digite sua resposta!")
+        )
+        error_resposta.appendChild(br_resposta);
+
+        form4[4] = true;
+        test = false;
+      } else {
+        test = false;
+      }
+    } else {
+      while (error_resposta.firstChild) {
+        error_resposta.removeChild(error_resposta.firstChild)
+      }
+      form4[4] = false;
+    }
+    for (let x = 0; x < form4.length; x++) {
+      if (form4[x]) {
+        val++;
+      }      
+    }
+    if (val == 0) {
+      test = true;
     }
   } 
 }
