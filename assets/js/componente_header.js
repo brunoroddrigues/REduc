@@ -2,7 +2,7 @@ export function criarHeader(){
     const HEADER = document.getElementById("reduc-header")
 
     let nav = document.createElement("nav")
-    nav.setAttribute("class", "navbar navbar-dark navbar-expand-sm")
+    nav.setAttribute("class", "navbar navbar-dark navbar-expand-lg")
     
     let divContainer = document.createElement("div")
     divContainer.setAttribute("class", "container")
@@ -42,7 +42,6 @@ export function criarHeader(){
     input.setAttribute("type", "text")
     input.setAttribute("placeholder", "Digite o que procura...")
     input.setAttribute("class", "form-control")
-    input.setAttribute("id", "barra-pesquisa-header")
 
     let sbutton = document.createElement("button")
     sbutton.setAttribute("type", "submit")

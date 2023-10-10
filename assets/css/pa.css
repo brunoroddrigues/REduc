@@ -1,0 +1,16 @@
+.img-card{
+    width: 100%;
+    aspect-ratio: 1.5/1;
+}
+
+.card-body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.card-btn{
+    align-self: end;
+}
