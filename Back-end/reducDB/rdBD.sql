@@ -27,19 +27,20 @@ CREATE TABLE redeSocial
 CREATE TABLE users
 (
 	id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_categoriaUsuario INT NOT NULL,
+	nomeUsuario VARCHAR(35) NOT NULL UNIQUE,
 	nome VARCHAR(25) NOT NULL,
 	sobrenome VARCHAR(25)NOT NULL,
-	nomeUsuario VARCHAR(35) NOT NULL UNIQUE,
-	cpf CHAR(11) NOT NULL UNIQUE,
 	email VARCHAR(300) NOT NULL UNIQUE,
-	senha VARCHAR(255) NOT NULL,
-	img_path VARCHAR(255),
-	area_atuacao VARCHAR(25),
-	resposta_seguranca VARCHAR(30) NOT NULL,
-	link_lattes TEXT,
-	id_categoriaUsuario INT NOT NULL,
-	id_pergunta INT NOT NULL,
+	cpf CHAR(11) NOT NULL UNIQUE,
+	datanascimento DATE NOT NULL,
 	id_instituicao INT NOT NULL,
+	link_lattes TEXT,
+	area_atuacao VARCHAR(25),
+	senha VARCHAR(255) NOT NULL,
+	id_pergunta INT NOT NULL,
+	resposta_seguranca VARCHAR(30) NOT NULL,
+	img_path VARCHAR(255),
 	FOREIGN KEY (id_categoriaUsuario) REFERENCES categoriaUsuario (id_categoriaUsuario),
 	FOREIGN KEY (id_pergunta) REFERENCES perguntaSeguranca (id_pergunta),
 	FOREIGN KEY (id_instituicao) REFERENCES instituicao (id_instituicao)
@@ -106,17 +107,24 @@ VALUES	(1, 1,
 
 /* Criando uma query para mostrar todos os seguidores do usuario Dérek */
 
-SELECT u.nomeUsuario "Seguidores"
+SELECT nomeUsuario "Usuario", c.descritivo "Categoria", i.descritivo "Instituicao", "" "Seguidores"
+FROM users u INNER JOIN categoriausuario c
+ON(u.id_categoriaUsuario = c.id_categoriaUsuario) INNER JOIN instituicao i
+ON(i.id_instituicao = i.id_instituicao)
+WHERE id_usuario = 1
+UNION ALL
+SELECT "", "", "", nomeUsuario
 FROM users u INNER JOIN seguir s
 ON(u.id_usuario = s.id_userseguindo)
-WHERE s.id_userseguido = 1;
+WHERE id_userseguido = 1
+
 
 
 # RECURSOS
 
-CREATE TABLE categoriarecurso
+CREATE TABLE tiporecurso
 (
-	id_categoriarecurso INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_tiporecurso INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	descritivo VARCHAR(10) NOT NULL UNIQUE
 );
 
@@ -156,10 +164,10 @@ CREATE TABLE recursos
 	img_recurso_path TEXT,
 	id_usuario INT NOT NULL,
 	id_ferramenta INT,
-	id_categoriarecurso INT NOT NULL,
+	id_tiporecurso INT NOT NULL,
 	FOREIGN KEY (id_usuario) REFERENCES users (id_usuario),
 	FOREIGN KEY (id_ferramenta) REFERENCES ferramentas (id_ferramenta),
-	FOREIGN KEY (id_categoriarecurso) REFERENCES categoriarecurso (id_categoriarecurso)
+	FOREIGN KEY (id_tiporecurso) REFERENCES tiporecurso (id_tiporecurso)
 );
 
 CREATE TABLE recurso_disciplina
@@ -207,7 +215,7 @@ CREATE TABLE comentarios_recursos
 	id_usuario INT NOT NULL,
 	id_recurso INT NOT NULL,
 	descritivo VARCHAR(480) NOT NULL,
-	datacomentario INT NOT NULL,
+	datacomentario DATE NOT NULL,
 	FOREIGN KEY (id_usuario) REFERENCES users (id_usuario),
 	FOREIGN KEY (id_recurso) REFERENCES recursos (id_recurso)
 	
@@ -232,11 +240,11 @@ VALUES	('Desenvolvimento para servidores'),
 INSERT INTO area_conhecimento (codcapes, descritivo)
 VALUES	("10300007", "Ciência da computação");
 
-INSERT INTO categoriarecurso (descritivo)
+INSERT INTO tiporecurso (descritivo)
 VALUES	('Vídeo'),
 	('Artigo');
 	
-INSERT INTO recursos (titulo, descricao, datacadastro, id_usuario, id_ferramenta, id_categoriarecurso)
+INSERT INTO recursos (titulo, descricao, datacadastro, id_usuario, id_ferramenta, id_tiporecurso)
 VALUES	('Sessão e cookie', 'Aula basica sobre sessão e cookie', '2023-09-25', 1, 1, 1);
 	
 INSERT INTO recurso_curso (id_recurso, id_curso)
@@ -247,11 +255,35 @@ VALUES	(1, 1);
 	
 INSERT INTO recurso_capes (id_recurso, id_areaconhecimento)
 VALUES	(1, 1);
+
+/* Avaliando recurso */
+
+INSERT INTO avaliacao_recurso (id_usuario, id_recurso, nota)
+VALUES	(2, 1, 5),
+	(3, 1, 4),
+	(4, 1, 2);
+
+/* Pegando a média de avaliação de um recurso*/
+
+SELECT AVG(nota)
+FROM avaliacao_recurso
+WHERE id_recurso = 1
 	
 /* Populando comentario comentario */
 	
-INSERT INTO comentarios_recursos (id_usuario, id_recurso, descritivo)
-VALUES	(2, 1, 'Conteúdo sensasional, sou seu fãn!!');
+INSERT INTO comentarios_recursos (id_usuario, id_recurso, descritivo, datacomentario)
+VALUES	(2, 1, 'Conteúdo sensasional, sou seu fãn!!', '2023-10-11');
+
+
+INSERT INTO comentarios_recursos (id_usuario, id_recurso, descritivo, datacomentario)
+VALUES	(3, 1, 'Brabo', '2023-10-11');	
+
+/* Mostrando os comentarios */
+
+SELECT 	cr.id_recurso "Codigo", u.nomeUsuario "Usuario", cr.descritivo "Comentario"
+FROM comentarios_recursos cr INNER JOIN users u
+ON(cr.id_usuario = u.id_usuario)
+WHERE cr.id_recurso = 1
 	
 	
 # PA's
@@ -313,10 +345,7 @@ VALUES	(4, 1, 'Adorei! vou usar com minha turma, eles vão gostar também.', '20
 	
 	
 	
-	
-	
-
-
+`
 
 
 

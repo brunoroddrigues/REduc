@@ -1,11 +1,5 @@
 <?php
 
-/*Enfrentando um novo problema, quando o os dados do formulário chegam o 'cadastro' chega como 'on' 
-  estudando um jeito de identificar o tipo selecionado (aluno ou professor) e fazer a conversão desse dado para inteiro ,
-  terei que fazer isso no JavaScript provavelmente, mas como? AJAX?....*/
-
-
-
 
 if (isset($_POST)) {
   $nome = $_POST['nome'];
@@ -22,7 +16,7 @@ if (isset($_POST)) {
     $pergunta_int = intval($pergunta);
   }
   
-  $resposta = $_POST['resp'];
+  $resposta = $_POST['resposta'];
   $instituição = $_POST['instituicao'];
   $categoria = $_POST['categoria'];
   // if ($categoria === 'aluno') {
@@ -43,23 +37,6 @@ var_dump($_POST);
 echo '<pre>';
 
 function Cadastro(){
-    $nome = $_POST['nome'];
-    $sobrenome = $_POST['sobrenome'];
-    $nomeUsuario = $_POST['username'];
-    $cpf = $_POST['cpf'];
-    $email = $_POST['email'];
-    $senha = $_POST['senha1'];
-    $pergunta = $_POST['pergunta'];
-    $resposta = $_POST['resp'];
-    $instituição = $_POST['instituicao'];
-    if (isset($_POST['categoria'])) {
-        $categoria = $_POST['categoria'];
-        if ($categoria === 'aluno') {
-          echo 'Você escolheu aluno!';
-        } else {
-          echo 'Você escolheu professor!';
-        }
-    }
-    
+    echo 'teste';
 }
 
