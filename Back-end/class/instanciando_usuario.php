@@ -156,3 +156,4 @@ foreach ($usuario->getRecursos() as $index => $recurso) {
     echo '<b>Nota:</b> ' . $recurso->getNota() . '<br>';
 }
 
+

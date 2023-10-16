@@ -573,10 +573,10 @@ function ValidarForm(form_index) {
     if (val == 0) {
       var cat_btn = document.getElementsByName("categoria");
       if (cat_btn[1].checked) {
-        cat_btn[1].value = 1;
+        cat_btn[1].value = 2;
       }
       if (cat_btn[0].checked) {
-        cat_btn[0].value = 0;
+        cat_btn[0].value = 1;
       }
       test = true;
     }

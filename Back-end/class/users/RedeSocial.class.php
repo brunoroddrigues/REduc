@@ -4,7 +4,7 @@ require_once 'TipoRedeSocial.class.php';
 class RedeSocial{
     public function __construct(
         private int $id_redesocial = 0,
-        private ?TipoRedeSocial $tiporede = null,
+        private $tiporede = null,
         private string $link = ""
     ){}
 

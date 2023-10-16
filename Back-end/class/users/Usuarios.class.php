@@ -27,7 +27,9 @@ class Usuario{
         $id_redesocial = 0,
         $tiporede = null,
         $link = ""
-    ){}
+    ){
+        // $this->redesocial[] = new RedeSocial($id_redesocial, $tiporede, $link);
+    }
 
     //set methods
     public function setIdUsuario($id){
@@ -146,4 +148,7 @@ class Usuario{
     public function getRedeSocial(){
         return $this->redesocial;
     }
+
+    // cadastro methods
+
 }
