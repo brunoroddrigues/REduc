@@ -345,7 +345,35 @@ VALUES	(4, 1, 'Adorei! vou usar com minha turma, eles vão gostar também.', '20
 	
 	
 	
-`
+# CRIANDO UMA PROCEDURE PARA CADASTRAR ALUNOS
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_CadastroAluno//
+CREATE PROCEDURE proc_CadastroAluno (IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT)
+BEGIN
+	INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario)
+	VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU);
+END
+//
+DELIMITER ; 
 
 
+
+CALL proc_CadastroAluno('Juse', 'Souza', 'JSouza', '42101474412', '2004-05-20', 'jusesouza.brabo@gmail.com', 'testandoprocedure', 1, 'tamandua', 1, 1);
+
+
+#CRIANDO UMA PROCEDURE PARA CADASTRAR PROFESSORES
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_CadastroProfessor//
+CREATE PROCEDURE proc_CadastroProfessor (IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), link_lattesU TEXT, area_atuacaoU VARCHAR(25), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT)
+BEGIN
+	INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, link_lattes, area_atuacao, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario)
+	VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, link_lattesU, area_atuacaoU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU);
+END
+//
+DELIMITER ; 
+
+CALL proc_CadastroProfessor('Mateus', 'Oliveira', 'Moliveira', '42145523365', '2004-05-20', 'matoliveira.prof@gmail.com', 'testandoprocedureprofessor', 'https://www.twitch.tv/yoda', 'Streamer', 1, 'tamandua', 1, 2);
+
+
+DELETE FROM users WHERE id_usuario = 7
 

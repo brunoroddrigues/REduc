@@ -58,6 +58,8 @@ if (isset($_POST)) {
 
 Cadastro($categoria, $usuario);
 
+mostrarUsuarioCadastrado($usuario->getNomeUsuario());
+
 
 function ChamarCategoria($categoria){
   $parametros = "mysql:host=localhost;dbname=rductest;charset=utf8mb4";
@@ -98,41 +100,60 @@ function Cadastro($categoria, $usuario){
   $parametros = "mysql:host=localhost;dbname=rductest;charset=utf8mb4";
   $conexao = new PDO($parametros, "root", "");
   if ($categoria == 1) {
-    $sql = "INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, email, senha, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario) 
-          values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+    $sql = "CALL proc_CadastroAluno(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
     $stm = $conexao->prepare($sql);
     $stm->bindValue(1, $usuario->getNome());
     $stm->bindValue(2, $usuario->getSobrenome());
     $stm->bindValue(3, $usuario->getNomeUsuario());
     $stm->bindValue(4, $usuario->getCpf());
-    $stm->bindValue(5, $usuario->getEmail());
-    $stm->bindValue(6, $usuario->getSenha());
-    $stm->bindValue(7, $usuario->getPergunta()->getIdPergunta());
-    $stm->bindValue(8, $usuario->getResposta());
-    $stm->bindValue(9, $usuario->getInstituicao()->getIdInstituicao());
-    $stm->bindValue(10, $usuario->getCategoria()->getIdCategoria());
+    $stm->bindValue(5, $usuario->getDataNasc());
+    $stm->bindValue(6, $usuario->getEmail());
+    $stm->bindValue(7, $usuario->getSenha());
+    $stm->bindValue(8, $usuario->getPergunta()->getIdPergunta());
+    $stm->bindValue(9, $usuario->getResposta());
+    $stm->bindValue(10, $usuario->getInstituicao()->getIdInstituicao());
+    $stm->bindValue(11, $usuario->getCategoria()->getIdCategoria());
     $stm->execute();
   }
   if ($categoria == 2) {
-    echo '<pre>';
-    var_dump($usuario);
-    echo '</pre>';
-    $sql = "INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, email, senha, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario, link_lattes, area_atuacao) 
-          values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+    $sql = "CALL proc_CadastroProfessor(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
     $stm = $conexao->prepare($sql);
     $stm->bindValue(1, $usuario->getNome());
     $stm->bindValue(2, $usuario->getSobrenome());
     $stm->bindValue(3, $usuario->getNomeUsuario());
     $stm->bindValue(4, $usuario->getCpf());
-    $stm->bindValue(5, $usuario->getEmail());
-    $stm->bindValue(6, $usuario->getSenha());
-    $stm->bindValue(7, $usuario->getPergunta()->getIdPergunta());
-    $stm->bindValue(8, $usuario->getResposta());
-    $stm->bindValue(9, $usuario->getInstituicao()->getIdInstituicao());
-    $stm->bindValue(10, $usuario->getCategoria()->getIdCategoria());
-    $stm->bindValue(11, $usuario->getLattes());
-    $stm->bindValue(12, $usuario->getAreaAtuacao());
+    $stm->bindValue(5, $usuario->getDataNasc());
+    $stm->bindValue(6, $usuario->getEmail());
+    $stm->bindValue(7, $usuario->getSenha());
+    $stm->bindValue(8, $usuario->getLattes());
+    $stm->bindValue(9, $usuario->getAreaAtuacao());
+    $stm->bindValue(10, $usuario->getPergunta()->getIdPergunta());
+    $stm->bindValue(11, $usuario->getResposta());
+    $stm->bindValue(12, $usuario->getInstituicao()->getIdInstituicao());
+    $stm->bindValue(13, $usuario->getCategoria()->getIdCategoria());
     $stm->execute();
   }
 }
 
+function mostrarUsuarioCadastrado($userName) {
+  $user = consultarUsuarioCadastrado($userName);
+  echo "<table><thead><tr><th>Nome de usuario</th><th>Email</th></tr></thead>";
+  echo "<tbody>";
+  foreach ($user as $usuario) {
+    echo "<tr>
+            <td>{$usuario->nomeUsuario}</td>
+            <td>{$usuario->email}</td>
+          </tr>";
+  }
+  echo "</tbody></table>";
+}
+
+function consultarUsuarioCadastrado($userName) {
+  $parametros = "mysql:host=localhost;dbname=rductest;charset=utf8mb4";
+  $conexao = new PDO($parametros, "root", "");
+  $sql = "SELECT * FROM users WHERE nomeUsuario = ?";
+  $stm = $conexao->prepare($sql);
+  $stm->bindValue(1, $userName);
+  $stm->execute();
+  return $stm->fetchALL(PDO::FETCH_OBJ);
+}
