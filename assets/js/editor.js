@@ -24,14 +24,38 @@ var quill = new Quill("#editor", {
   theme: "snow",
 });
 
-const form = document.querySelector("#form-recurso")
+const form = document.querySelector("#form-recurso");
 
-form.addEventListener("submit", function(event){
+form.addEventListener("submit", function (event) {
+  let conteudo = quill.getContents();
+  if (conteudo.ops[0].insert == "\n") {
+    alert("Não há conteúdo!\nNão é possível postar documentos em branco!\nPor favor, digite seu documento.");
     event.preventDefault();
-    let conteudo = quill.getContents();
-    if(conteudo.ops[0].insert == "\n"){
-        alert("Não há conteúdo!\nNão é possível postar documentos em branco!\nPor favor, digite seu recurso");
-    } else {
-        /* Comando AJAX para enviar ao servidor/conexão PHP com o banco */
-    }
+  } else {
+    /* Comando AJAX para enviar ao servidor/conexão PHP com o banco */
+    let dados = JSON.stringify(conteudo);
+    $.ajax({
+      url: "teste.php",
+      type: "POST",
+      data: { data: dados },
+      success: function () {
+        alert("Dados enviados.\nNossos administradores avaliarão o recurso para conferir se ele está de acordo com nossas diretrizes.\nRetornaremos o resultado da avaliação.\nMuito obrigado por ajudar na criação de conteúdo educacional.");
+      },
+      error: function () {
+        alert("Ocorreu um erro inesperado e o recurso não pode ser enviado!\nVocê pode salvar localmente e tentar novamente mais tarde.");
+      },
+    });
+  }
+});
+
+const download = document.getElementById("download-recurso");
+
+download.addEventListener("click", function(){
+  let conteudo = quill.getContents();
+  if (conteudo.ops[0].insert == "\n"){
+    alert("Não há conteúdo!\nNão é impossível realizar downloads de documentos em branco!\nPor favor, digite seu documento.");
+  } else {
+    download.href = "data:text/plain;charset=utf-8," + encodeURI(conteudo.ops[0].insert);
+    download.download = "documento.txt";
+  }
 })
