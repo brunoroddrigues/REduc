@@ -362,17 +362,32 @@ VALUES	(4, 1, 'Adorei! vou usar com minha turma, eles vão gostar também.', '20
 # CRIANDO UMA PROCEDURE PARA CADASTRAR ALUNOS
 DELIMITER //
 DROP PROCEDURE IF EXISTS proc_CadastroAluno//
-CREATE PROCEDURE proc_CadastroAluno (IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT)
+CREATE PROCEDURE proc_CadastroAluno (IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT, statusU BOOLEAN)
 BEGIN
-	INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario)
-	VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU);
+	DECLARE username_exists INT;
+	DECLARE email_exists INT;
+	DECLARE cpf_exists INT;
+	
+	SELECT COUNT(*) INTO username_exists FROM users WHERE nomeUsuario = nomeUsuarioU;
+
+	SELECT COUNT(*) INTO email_exists FROM users WHERE email = emailU;
+
+	SELECT COUNT(*) INTO cpf_exists FROM users WHERE cpf = cpfU;
+	
+	IF (username_exists > 0 OR email_exists > 0 OR cpf_exists > 0) THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'ERRO: Nome de usuário, email ou CPF já cadastrados';
+	ELSE
+		INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario, STATUS)
+		VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU, statusU);
+	END IF;
 END
 //
 DELIMITER ; 
 
 
 
-CALL proc_CadastroAluno('Juse', 'Souza', 'JSouza', '42101474412', '2004-05-20', 'jusesouza.brabo@gmail.com', 'testandoprocedure', 1, 'tamandua', 1, 1);
+CALL proc_CadastroAluno('Miguel', 'Souza', 'MSouza', '42101474413', '2004-05-20', 'miguelsouza.brabo@gmail.com', 'testandoprocedure', 1, 'tamandua', 1, 1,1);
 
 
 #CRIANDO UMA PROCEDURE PARA CADASTRAR PROFESSORES

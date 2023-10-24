@@ -56,7 +56,7 @@
   <main>
     <div class='container rounded shadow p-5 my-5 cadastrar'>
       <div class='row'>
-        <form method='POST' action='Back-end/functions/Cadastro.php' id='form-cadastro' class='col-lg-6 d-flex flex-column justify-content-between'>
+        <form method='POST' action='Back-end/functions/Funcao_Cadastro.php' id='form-cadastro' class='col-lg-6 d-flex flex-column justify-content-between'>
           <h2 class='h2'>Cadastrar usuário</h2>
 
           <!-- 1. Categoria do usuário -->
@@ -111,7 +111,17 @@
             <br> 
             <select class="form-select" name="instituicao" id="instituicao">
               <option value='0' selected>Qual a sua instituição</option>
-              <option value='1'>Fatec-Jahu</option>
+              <?php
+                require_once 'Back-end/class/conexao/Conexao.class.php';
+                require_once 'Back-end/class/users/Instituicao.class.php';
+                $instituicao = new Instituicao();
+                $retorno = $instituicao->BuscarTodasInstituicoes();
+                if (is_array($retorno)) {
+                  foreach ($retorno as $dado) {
+                    echo "<option value='{$dado->id_instituicao}'>{$dado->descritivo}</option>";
+                  }
+                }
+              ?>
             </select>
             <span id="error_inst" class="text-danger"></span>
           </div>
@@ -121,12 +131,12 @@
             <h3 class='h3 text-light'>Segurança</h3>
             <label>Digite a senha:</label>
             <br>
-            <input type='text' name='senha1' id="senha1" class='form-control' placeholder='Digite a senha.'>
+            <input type='password' name='senha1' id="senha1" class='form-control' placeholder='Digite a senha.'>
             <br>
             <span id="error_senha1" class="text-danger"></span>
             <label>Repita a senha:</label>
             <br>
-            <input type='text' name='senha2' id="senha2" class='form-control' placeholder='Repita a senha.'>
+            <input type='password' name='senha2' id="senha2" class='form-control' placeholder='Repita a senha.'>
             <br>
             <span id="error_senha2" class="text-danger"></span>
             <span id="error_diferentesenha" class="text-danger"></span>
@@ -134,7 +144,17 @@
             <br>
             <select class='form-select' name="pergunta" id="pergunta">
               <option value ='0' selected>Escolha a pergunta de segurança</option>
-              <option value ='1'>Qual o nome do seu cachorro?</option>
+              <?php
+                require_once 'Back-end/class/conexao/Conexao.class.php';
+                require_once 'Back-end/class/users/Pergunta.class.php';
+                $pergunta = new Pergunta();
+                $retorno = $pergunta->BuscarTodasPerguntas();
+                if (is_array($retorno)) {
+                  foreach ($retorno as $dado) {
+                    echo "<option value='{$dado->id_pergunta}'>{$dado->descritivo}</option>";
+                  }
+                }
+              ?>
             </select>
             <br>
             <span id="error_pergunta" class="text-danger"></span>
