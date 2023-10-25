@@ -1,4 +1,5 @@
 <?php
+require_once '..\conexao\Conexao.class.php';
 class Pergunta extends Conexao{
     public function __construct(
         private int $id_pergunta = 0,

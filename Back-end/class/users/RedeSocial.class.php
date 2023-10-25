@@ -1,4 +1,5 @@
 <?php
+require_once '..\conexao\Conexao.class.php';
 require_once 'TipoRedeSocial.class.php';    
 
 class RedeSocial extends Conexao{

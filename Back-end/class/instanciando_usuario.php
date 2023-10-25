@@ -1,4 +1,5 @@
 <?php
+require_once ('conexao/Conexao.class.php');
 require_once ('users/Usuarios.class.php');
 require_once ('recursos/Recursos.class.php');
 

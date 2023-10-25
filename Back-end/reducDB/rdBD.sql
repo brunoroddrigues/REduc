@@ -406,6 +406,28 @@ CALL proc_CadastroProfessor('Mateus', 'Oliveira', 'Moliveira', '42145523365', '2
 
 DELETE FROM users WHERE id_usuario = 7
 
+#CRIANDO UMA QUERY PARA O TESTE DE LOGIN
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_Login//
+CREATE PROCEDURE proc_Login (IN xnomeUsuario VARCHAR(35), xsenha VARCHAR(255))
+BEGIN
+		IF(EXISTS(SELECT * FROM users WHERE nomeUsuario = xnomeUsuario)) THEN
+			IF(EXISTS(SELECT * FROM users WHERE senha = xsenha)) THEN
+				SELECT u.id_usuario, u.id_categoriaUsuario, u.nomeUsuario, u.datanascimento, u.status
+				FROM users u
+				WHERE u.nomeUsuario = xnomeUsuario;
+			ELSE
+				SELECT 'Senha incorreta !' AS msg;
+			END IF;
+		ELSE
+			SELECT 'Usuario nao cadastrado' AS msg;
+		END IF;
+END//
+DELIMITER ; 
+
+CALL proc_Login('RoMao', '$2y$10$6.Q68wmxMURVphx4TGpA1OKz3jkeKTsNayqD27sPMFIxbyNKMjS0a');
+
 #CRIANDO PROCEDURE PARA LISTAR TODOS OS RECURSOS CADASTRADOS PELO USUARIO
 
 DELIMITER //

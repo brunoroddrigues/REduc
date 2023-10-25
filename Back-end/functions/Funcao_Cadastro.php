@@ -1,6 +1,7 @@
 <?php
-require_once '../class/conexao/Conexao.class.php';
+// require_once '../class/conexao/Conexao.class.php';
 require_once '../class/users/Usuarios.class.php';
+
 
 if (isset($_POST)) {
   $nome = $_POST['nome'];
@@ -56,6 +57,8 @@ if (isset($_POST)) {
     $usuario = new Usuario(nome:$nome, sobrenome: $sobrenome, nomeUsuario: $nomeUsuario, dataNascimento: $datanascimento, cpf: $cpf, email: $email, senha: $password_hash, pergunta: $pergunta_obj, resposta: $resposta, categoria: $categoria_obj, instituicao: $instituicao_obj);
   
   } 
+} else {
+  header("location:../../index.php");
 }
 
 Cadastro($usuario);
@@ -86,7 +89,13 @@ function Cadastro($usuario){
       $stm->bindValue(11, $usuario->getCategoria()->getIdCategoria());
       $stm->bindValue(12, 1);
       $stm->execute();
-      header("location:../../index.html");
+
+      // Abrindo uma sessão para mandar os dados do usuário pra a página Index
+      session_start();
+      $_SESSION['username'] = $usuario->getNomeUsuario();
+      $_SESSION['senha'] = $usuario->getSenha();
+      $_SESSION['log'] = 1;
+      header("location:../../index.php");
     } catch (PDOException $e) {
       echo 'Erro: ' . $e->getMessage();
       header("location:../../Cadastro.php");

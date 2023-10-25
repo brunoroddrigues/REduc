@@ -1,3 +1,32 @@
+<?php
+  if(!isset($_SESSION)) session_start();
+
+  if ($_SESSION['log'] == 1) {
+    require_once('Back-end/class/conexao/Conexao.class.php');
+    require_once('Back-end/class/users/Usuarios.class.php');
+
+    $username = $_SESSION['username'];
+    $senha = $_SESSION['senha'];
+    
+    $usuario = new Usuario(nomeUsuario: $username, senha: $senha);
+
+    $user_db = $usuario->LoginUsuario();
+
+    $_SESSION['username'] = $user_db['nomeUsuario'];
+    $_SESSION['userid'] = $user_db['id_usuario'];
+    $_SESSION['usercat'] = $user_db['id_categoriaUsuario'];
+    $_SESSION['usernasc'] = $user_db['datanascimento'];
+    $_SESSION['userstatus'] = $user_db['status'];
+
+    if ($_SESSION['userstatus'] == 0) {
+      session_destroy();
+    }
+
+  } else {
+    session_destroy();
+  }
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -32,7 +61,7 @@
     </section>
     <!-- Destaques -->
     <section id='destaques' class='container bg-light rounded shadow mb-5 p-5 d-flex flex-column'>
-      <h2 class='txt-roxo mb-4'>Destaques</h2>
+      <h2 class='txt-roxo mb-4'>Olá, <?php echo $_SESSION['username']; ?></h2>
       <div class='row g-2 card-container'>
 
         <div class="col-md-3">

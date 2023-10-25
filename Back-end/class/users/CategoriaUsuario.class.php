@@ -1,4 +1,5 @@
 <?php
+require_once '..\conexao\Conexao.class.php';
 class CategoriaUsuario extends Conexao{
     public function __construct(
         private int $id_categoria = 0,
