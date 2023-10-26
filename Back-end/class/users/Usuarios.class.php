@@ -1,10 +1,11 @@
 <?php
+// require_once '..\conexao\Conexao.class.php';
 require_once 'Pergunta.class.php';
 require_once 'CategoriaUsuario.class.php';
 require_once 'instituicao.class.php';
 require_once 'RedeSocial.class.php';
 
-class Usuario{
+class Usuario extends Conexao{
     public function __construct(
         private int $id_usuario = 0,
         private string $nomeUsuario = "",
@@ -27,7 +28,9 @@ class Usuario{
         $id_redesocial = 0,
         $tiporede = null,
         $link = ""
-    ){}
+    ){
+        parent:: __construct();
+    }
 
     //set methods
     public function setIdUsuario($id){
@@ -145,5 +148,46 @@ class Usuario{
     }
     public function getRedeSocial(){
         return $this->redesocial;
+    }
+
+    public function BuscarSeguidores() {
+        $sql = "CALL proc_Seguidores(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function AlterarSenha($senhanova) {
+        $sql = "UPDATE users SET senha = ? WHERE id_usuario = ?";
+		$stm = $this->db->prepare($sql);
+		$stm->bindValue(1, $senhanova);
+		$stm->bindValue(2, $this->id_usuario);
+		$stm->execute();
+    }
+
+    public function BuscarTodosRecursosUsuario() {
+        $sql = "CALL proc_TodosRecursos(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function InativarRecurso($id_recurso) {
+        $sql = "CALL proc_InativarRecurso(?,?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+		$stm->bindValue(2, $id_recurso);
+        $stm->execute();
+    }
+
+    public function LoginUsuario() {
+        $sql = "CALL proc_Login(?, ?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->nomeUsuario);
+        $stm->bindValue(2, $this->senha);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 }

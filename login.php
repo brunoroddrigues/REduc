@@ -20,21 +20,17 @@
   <main>
     <div class='container rounded shadow p-5 my-5 cadastrar'>
         <div class='row'>
-          <form method='#' action='#' id='form-cadastro' class='col-lg-6 d-flex flex-column justify-content-around'>
+          <form method='#' action='POST' id='form-cadastro' class='col-lg-6 d-flex flex-column justify-content-around'>
             <h2 class='h2'>Entrar</h2>
             <!-- Login -->
             <div class='seguranca'>
               <label>Digite seu email:</label>
               <br>
-              <input type='text' name='usernmae' class='form-control' placeholder='Digite seu email...'>
+              <input type="email" name='email' class='form-control' placeholder='Digite seu email...'>
               <br>
               <label>Digite sua senha:</label>
               <br>
               <input type='password' name='senha' class='form-control' placeholder='Digite sua senha...'>
-              <br>
-              <label>Pergunta de segurança:</label>
-              <br>
-              <input type='text' name='resp' class='form-control' placeholder='Digite a resposta de segurança.'>
             </div>
             <br>
             <!-- Btns de controle -->

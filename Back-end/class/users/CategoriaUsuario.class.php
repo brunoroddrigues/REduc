@@ -1,10 +1,12 @@
 <?php
-class CategoriaUsuario{
+class CategoriaUsuario extends Conexao{
     public function __construct(
         private int $id_categoria = 0,
         private string $descritivo = "",
         private array $usuario = array()
-    ){}
+    ){
+        parent:: __construct();
+    }
 
     //set methods
     public function setIdCategoria($id){
@@ -26,5 +28,13 @@ class CategoriaUsuario{
     }
     public function getUsuario(){
         return $this->usuario;
+    }
+
+    public function BuscarCategoria() {
+        $sql = "SELECT * FROM categoriausuario WHERE id_categoriaUsuario = ?";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_categoria);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 }

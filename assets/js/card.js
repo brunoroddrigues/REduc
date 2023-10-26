@@ -1,6 +1,7 @@
-const CARD_CONTAINER = document.getElementsByClassName("card-container");
 /*                || src || string || int || bool ||                   */
 function criarCard(imagem, titulo, estrelas, salvo){
+    const CARD_CONTAINER = document.getElementsByClassName("card-container");
+
     let divCol = document.createElement("div");
     divCol.setAttribute("class", "col-lg-3");
 
