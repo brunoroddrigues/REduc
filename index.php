@@ -12,11 +12,15 @@
 
     $user_db = $usuario->LoginUsuario();
 
-    $_SESSION['username'] = $user_db['nomeUsuario'];
-    $_SESSION['userid'] = $user_db['id_usuario'];
-    $_SESSION['usercat'] = $user_db['id_categoriaUsuario'];
-    $_SESSION['usernasc'] = $user_db['datanascimento'];
-    $_SESSION['userstatus'] = $user_db['status'];
+    foreach ($user_db as $user) {
+      $_SESSION['username'] = $user->nomeUsuario;
+      $_SESSION['userid'] = $user->id_usuario;
+      $_SESSION['usercat'] = $user->id_categoriaUsuario;
+      $_SESSION['usernasc'] = $user->datanascimento;
+      $_SESSION['userstatus'] = $user->status;
+    }
+
+    
 
     if ($_SESSION['userstatus'] == 0) {
       session_destroy();

@@ -1,5 +1,5 @@
 <?php
-require_once '..\conexao\Conexao.class.php';
+// require_once '..\conexao\Conexao.class.php';
 require_once 'Pergunta.class.php';
 require_once 'CategoriaUsuario.class.php';
 require_once 'instituicao.class.php';
@@ -186,7 +186,7 @@ class Usuario extends Conexao{
         $sql = "CALL proc_Login(?, ?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $this->nomeUsuario);
-        $stm->bindValue(1, $this->senha);
+        $stm->bindValue(2, $this->senha);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }

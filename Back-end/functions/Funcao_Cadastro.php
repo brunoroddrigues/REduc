@@ -1,6 +1,5 @@
 <?php
-// require_once '../class/conexao/Conexao.class.php';
-require_once '../class/users/Usuarios.class.php';
+require_once '../class/usersRequire.php';
 
 
 if (isset($_POST)) {
