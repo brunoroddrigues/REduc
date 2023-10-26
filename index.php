@@ -1,33 +1,36 @@
 <?php
   if(!isset($_SESSION)) session_start();
 
-  if ($_SESSION['log'] == 1) {
-    require_once('Back-end/class/conexao/Conexao.class.php');
-    require_once('Back-end/class/users/Usuarios.class.php');
-
-    $username = $_SESSION['username'];
-    $senha = $_SESSION['senha'];
-    
-    $usuario = new Usuario(nomeUsuario: $username, senha: $senha);
-
-    $user_db = $usuario->LoginUsuario();
-
-    foreach ($user_db as $user) {
-      $_SESSION['username'] = $user->nomeUsuario;
-      $_SESSION['userid'] = $user->id_usuario;
-      $_SESSION['usercat'] = $user->id_categoriaUsuario;
-      $_SESSION['usernasc'] = $user->datanascimento;
-      $_SESSION['userstatus'] = $user->status;
-    }
-
-    
-
-    if ($_SESSION['userstatus'] == 0) {
+  if($_SESSION['log']){
+    if ($_SESSION['log'] == 1) {
+      require_once('Back-end/class/conexao/Conexao.class.php');
+      require_once('Back-end/class/users/Usuarios.class.php');
+  
+      $username = $_SESSION['username'];
+      $senha = $_SESSION['senha'];
+      
+      $usuario = new Usuario(nomeUsuario: $username, senha: $senha);
+  
+      $user_db = $usuario->LoginUsuario();
+  
+      foreach ($user_db as $user) {
+        $_SESSION['username'] = $user->nomeUsuario;
+        $_SESSION['userid'] = $user->id_usuario;
+        $_SESSION['usercat'] = $user->id_categoriaUsuario;
+        $_SESSION['usernasc'] = $user->datanascimento;
+        $_SESSION['userstatus'] = $user->status;
+      }
+  
+      $logado = $_SESSION['login'] = true;    
+      
+  
+      if ($_SESSION['userstatus'] == 0) {
+        session_destroy();
+      }
+  
+    } else {
       session_destroy();
     }
-
-  } else {
-    session_destroy();
   }
 ?>
 
@@ -64,7 +67,7 @@
     </section>
     <!-- Destaques -->
     <section id='destaques' class='container bg-light rounded shadow mb-5 p-5 d-flex flex-column'>      
-      <h2 class='txt-roxo mb-4'>Destaque?></h2>
+      <h2 class='txt-roxo mb-4'>Destaque?<?php echo $_SESSION['username']; ?></h2>
       <div class='row g-2 card-container'>
 
         <div class="col-md-3">
