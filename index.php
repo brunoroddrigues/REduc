@@ -49,7 +49,10 @@
   <link rel="stylesheet" href="assets/css/index.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script defer src="assets/js/func.js"></script>
+<<<<<<< HEAD:index.html
+=======
   <script defer src="assets/js/card.js"></script>
+>>>>>>> 0dc9a8192dd39db82c068f9f9ee08100684a4ca9:index.php
   <script defer type="module" src="assets/js/componentes.js"></script>
 </head>
 
