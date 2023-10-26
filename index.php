@@ -1,3 +1,36 @@
+<?php
+  if(!isset($_SESSION)) session_start();
+
+  if ($_SESSION['log'] == 1) {
+    require_once('Back-end/class/conexao/Conexao.class.php');
+    require_once('Back-end/class/users/Usuarios.class.php');
+
+    $username = $_SESSION['username'];
+    $senha = $_SESSION['senha'];
+    
+    $usuario = new Usuario(nomeUsuario: $username, senha: $senha);
+
+    $user_db = $usuario->LoginUsuario();
+
+    foreach ($user_db as $user) {
+      $_SESSION['username'] = $user->nomeUsuario;
+      $_SESSION['userid'] = $user->id_usuario;
+      $_SESSION['usercat'] = $user->id_categoriaUsuario;
+      $_SESSION['usernasc'] = $user->datanascimento;
+      $_SESSION['userstatus'] = $user->status;
+    }
+
+    
+
+    if ($_SESSION['userstatus'] == 0) {
+      session_destroy();
+    }
+
+  } else {
+    session_destroy();
+  }
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -30,9 +63,29 @@
 
     </section>
     <!-- Destaques -->
-    <section id='destaques' class='container bg-light rounded shadow mb-5 p-5 d-flex flex-column'>
-      <h2 class='txt-roxo mb-4'>Destaques</h2>
-      <div class='row g-2 card-container'></div>
+    <section id='destaques' class='container bg-light rounded shadow mb-5 p-5 d-flex flex-column'>      
+      <h2 class='txt-roxo mb-4'>Destaque?></h2>
+      <div class='row g-2 card-container'>
+
+        <div class="col-md-3">
+          <!-- Começo do card -->
+
+          <div class="p-1">
+
+            <a href='#' class="card link-reset shadow">
+              <img class="card-img-top" src="img/img-padrao.jpg" alt="Title">
+              <div class="card-body">
+                <h4 class="card-title">Titulo do recurso</h4>
+                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                <button class='btn p-0 card-flag'>&#9873;</button>
+              </div>
+            </a>
+
+          </div>
+
+        </div> <!-- Fim do card -->
+
+      </div>
       <a href='explorar.html' class='btn btn-primary mt-4 align-self-center shadow'>Ir para explorar &#10095;</a>
     </section>
 

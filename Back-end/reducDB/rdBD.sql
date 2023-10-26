@@ -1,6 +1,6 @@
 CREATE DATABASE rductest
 
-CREATE TABLE categoriaUsuario
+CREATE TABLE categoriausuario
 (
 	id_categoriaUsuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	descritivo VARCHAR(15) NOT NULL UNIQUE
@@ -96,6 +96,15 @@ VALUES	(2,1);
 INSERT INTO seguir (id_userseguindo, id_userseguido)
 VALUES	(3,1);
 
+INSERT INTO seguir (id_userseguindo, id_userseguido)
+VALUES	(1,2),
+	(1,3),
+	(1,4),
+	(4,1),
+	(4,2),
+	(4,3),
+	(10,1);
+
 INSERT INTO redesocial (descritivo)
 VALUES	('Twitter'),
 	('Instagram'),
@@ -105,20 +114,25 @@ INSERT INTO user_redesocial (id_usuario, id_redesocial, link_rede)
 VALUES	(1, 1, 
 'https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwigrM3NusaBAxUwpJUCHWRTClEQFnoECBMQAQ&url=https%3A%2F%2Ftwitter.com%2Felonmusk&usg=AOvVaw22rnIkEEG1QYDP93hHTtUL&opi=89978449');
 
-/* Criando uma query para mostrar todos os seguidores do usuario Dérek */
+/* Criando uma procedure para mostrar todos os seguidores do usuario Dérek */
 
-SELECT nomeUsuario "Usuario", c.descritivo "Categoria", i.descritivo "Instituicao", "" "Seguidores"
-FROM users u INNER JOIN categoriausuario c
-ON(u.id_categoriaUsuario = c.id_categoriaUsuario) INNER JOIN instituicao i
-ON(i.id_instituicao = i.id_instituicao)
-WHERE id_usuario = 1
-UNION ALL
-SELECT "", "", "", nomeUsuario
-FROM users u INNER JOIN seguir s
-ON(u.id_usuario = s.id_userseguindo)
-WHERE id_userseguido = 1
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_Seguidores//
+CREATE PROCEDURE proc_Seguidores (IN id_usuarioA INT)
+BEGIN
+	IF (EXISTS(SELECT id_userseguido FROM seguir WHERE id_userseguido = id_usuarioA)) THEN
+		SELECT nomeUsuario "Seguidores"
+		FROM seguir s INNER JOIN users u
+		ON(s.id_userseguindo = u.id_usuario)
+		WHERE id_userseguido = id_usuarioA;
+	ELSE
+		SELECT "Este usuario não possui seguidores" AS msg;
+	END IF;
+END
+//
+DELIMITER ; 
 
-
+CALL proc_Seguidores(1);
 
 # RECURSOS
 
@@ -345,7 +359,147 @@ VALUES	(4, 1, 'Adorei! vou usar com minha turma, eles vão gostar também.', '20
 	
 	
 	
-`
+# CRIANDO UMA PROCEDURE PARA CADASTRAR ALUNOS
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_CadastroAluno//
+CREATE PROCEDURE proc_CadastroAluno (IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT, statusU BOOLEAN)
+BEGIN
+	DECLARE username_exists INT;
+	DECLARE email_exists INT;
+	DECLARE cpf_exists INT;
+	
+	SELECT COUNT(*) INTO username_exists FROM users WHERE nomeUsuario = nomeUsuarioU;
+
+	SELECT COUNT(*) INTO email_exists FROM users WHERE email = emailU;
+
+	SELECT COUNT(*) INTO cpf_exists FROM users WHERE cpf = cpfU;
+	
+	IF (username_exists > 0 OR email_exists > 0 OR cpf_exists > 0) THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'ERRO: Nome de usuário, email ou CPF já cadastrados';
+	ELSE
+		INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario, STATUS)
+		VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU, statusU);
+	END IF;
+END
+//
+DELIMITER ; 
+
+
+
+CALL proc_CadastroAluno('Miguel', 'Souza', 'MSouza', '42101474413', '2004-05-20', 'miguelsouza.brabo@gmail.com', 'testandoprocedure', 1, 'tamandua', 1, 1,1);
+
+
+#CRIANDO UMA PROCEDURE PARA CADASTRAR PROFESSORES
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_CadastroProfessor//
+CREATE PROCEDURE proc_CadastroProfessor (IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), link_lattesU TEXT, area_atuacaoU VARCHAR(25), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT)
+BEGIN
+	INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, link_lattes, area_atuacao, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario)
+	VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, link_lattesU, area_atuacaoU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU);
+END
+//
+DELIMITER ; 
+
+CALL proc_CadastroProfessor('Mateus', 'Oliveira', 'Moliveira', '42145523365', '2004-05-20', 'matoliveira.prof@gmail.com', 'testandoprocedureprofessor', 'https://www.twitch.tv/yoda', 'Streamer', 1, 'tamandua', 1, 2);
+
+
+DELETE FROM users WHERE id_usuario = 7
+
+#CRIANDO UMA QUERY PARA O TESTE DE LOGIN
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_Login//
+CREATE PROCEDURE proc_Login (IN xnomeUsuario VARCHAR(35), xsenha VARCHAR(255))
+BEGIN
+		IF(EXISTS(SELECT * FROM users WHERE nomeUsuario = xnomeUsuario)) THEN
+			IF(EXISTS(SELECT * FROM users WHERE senha = xsenha)) THEN
+				SELECT u.id_usuario, u.id_categoriaUsuario, u.nomeUsuario, u.datanascimento, u.status
+				FROM users u
+				WHERE u.nomeUsuario = xnomeUsuario;
+			ELSE
+				SELECT 'Senha incorreta !' AS msg;
+			END IF;
+		ELSE
+			SELECT 'Usuario nao cadastrado' AS msg;
+		END IF;
+END//
+DELIMITER ; 
+
+CALL proc_Login('RoMao', '$2y$10$6.Q68wmxMURVphx4TGpA1OKz3jkeKTsNayqD27sPMFIxbyNKMjS0a');
+
+#CRIANDO PROCEDURE PARA LISTAR TODOS OS RECURSOS CADASTRADOS PELO USUARIO
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_TodosRecursos //
+CREATE PROCEDURE proc_TodosRecursos (IN id_usuarioA INT)
+BEGIN
+	IF (EXISTS(SELECT id_usuario FROM recursos WHERE id_usuario = id_usuarioA)) THEN 
+		SELECT r.id_recurso, titulo, descricao, datacadastro, (SELECT AVG(nota) FROM avaliacao_recurso WHERE id_recurso = r.id_recurso) "avaliacao"
+		FROM recursos r INNER JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso)
+		WHERE r.id_usuario = id_usuarioA
+		GROUP BY r.id_recurso;
+	ELSE
+		SELECT "Usuario não possui recursos cadastrados..." AS msg;
+	END IF;
+END
+//
+DELIMITER ;
+
+CALL proc_TodosRecursos(1);
+
+
+#CRIANDO PROCEDURE PARA INATIVAR UM RECURSO DO USUARIO
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_InativarRecurso //
+CREATE PROCEDURE proc_InativarRecurso (IN id_usuarioA INT, id_recursoA INT)
+BEGIN
+	IF (id_usuarioA = (SELECT id_usuario FROM recursos WHERE id_recurso = id_recursoA) OR EXISTS(SELECT id_usuario FROM users WHERE id_categoriaUsuario = 3 AND id_usuario = id_usuarioA)) THEN 
+		UPDATE recursos SET STATUS = 0 WHERE id_recurso = id_recursoA;
+	ELSE
+		SELECT "Impossível..." AS msg;
+	END IF;
+END
+//
+DELIMITER ;
+
+CALL proc_InativarRecurso(1,1);
+
+
+#CRIANDO PROCEDURE PARA ATIVAR UM RECURSO DO USUARIO
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_AtivarRecurso //
+CREATE PROCEDURE proc_AtivarRecurso (IN id_usuarioA INT, id_recursoA INT)
+BEGIN
+	IF (id_usuarioA = (SELECT id_usuario FROM recursos WHERE id_recurso = id_recursoA) OR EXISTS(SELECT id_usuario FROM users WHERE id_categoriaUsuario = 3 AND id_usuario = id_usuarioA)) THEN 
+		UPDATE recursos SET STATUS = 1 WHERE id_recurso = id_recursoA;
+	ELSE
+		SELECT "Impossível..." AS msg;
+	END IF;
+END
+//
+DELIMITER ;
+	
+
+CALL proc_AtivarRecurso(10,1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
