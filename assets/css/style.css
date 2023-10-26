@@ -41,6 +41,10 @@ main{
     border-color: var(--roxo-principal) !important;
 }
 
+.bg-primary{
+    background-color: var(--roxo-principal) !important;
+}
+
 @media (max-width: 575px){
     .nav-link{
         margin-bottom: 10px;
