@@ -190,4 +190,13 @@ class Usuario extends Conexao{
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function verificarUsuario() {
+        $sql = "CALL proc_VerificarUsuario(?, ?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->email);
+        $stm->bindValue(2, $this->senha);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
 }

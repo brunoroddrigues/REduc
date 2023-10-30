@@ -1,37 +1,7 @@
 <?php
   if(!isset($_SESSION)) session_start();
 
-  if($_SESSION['log']){
-    if ($_SESSION['log'] == 1) {
-      require_once('Back-end/class/conexao/Conexao.class.php');
-      require_once('Back-end/class/users/Usuarios.class.php');
   
-      $username = $_SESSION['username'];
-      $senha = $_SESSION['senha'];
-      
-      $usuario = new Usuario(nomeUsuario: $username, senha: $senha);
-  
-      $user_db = $usuario->LoginUsuario();
-  
-      foreach ($user_db as $user) {
-        $_SESSION['username'] = $user->nomeUsuario;
-        $_SESSION['userid'] = $user->id_usuario;
-        $_SESSION['usercat'] = $user->id_categoriaUsuario;
-        $_SESSION['usernasc'] = $user->datanascimento;
-        $_SESSION['userstatus'] = $user->status;
-      }
-  
-      $logado = $_SESSION['login'] = true;    
-      
-  
-      if ($_SESSION['userstatus'] == 0) {
-        session_destroy();
-      }
-  
-    } else {
-      session_destroy();
-    }
-  }
 ?>
 
 <!doctype html>
@@ -49,10 +19,7 @@
   <link rel="stylesheet" href="assets/css/index.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script defer src="assets/js/func.js"></script>
-<<<<<<< HEAD:index.html
-=======
   <script defer src="assets/js/card.js"></script>
->>>>>>> 0dc9a8192dd39db82c068f9f9ee08100684a4ca9:index.php
   <script defer type="module" src="assets/js/componentes.js"></script>
 </head>
 

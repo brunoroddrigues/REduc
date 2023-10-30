@@ -13,7 +13,7 @@ if (isset($_POST)) {
   $email = $_POST['email'];
   if (isset($_POST['senha1'])) {
     $senha = $_POST['senha1'];
-    $password_hash = password_hash($senha, PASSWORD_DEFAULT);
+    $password_hash = md5($senha);
   }
   $pergunta = new Pergunta(id_pergunta: intval($_POST['pergunta']));
   $resposta = $_POST['resposta'];

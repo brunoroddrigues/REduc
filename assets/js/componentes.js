@@ -5,7 +5,7 @@ import { criarCard2 } from "./card2.js";
 
 // Header login ?
 $.ajax({
-    url: "teste_js-php.php",
+    url: "Log_status.php",
     type: "post",
     success: (resposta)=>{
         let loginStatus = JSON.parse(resposta);

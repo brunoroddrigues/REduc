@@ -406,27 +406,22 @@ CALL proc_CadastroProfessor('Mateus', 'Oliveira', 'Moliveira', '42145523365', '2
 
 DELETE FROM users WHERE id_usuario = 7
 
-#CRIANDO UMA QUERY PARA O TESTE DE LOGIN
+#CRIANDO UMA QUERY PARA VERIFICAR USUARIO
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS proc_Login//
-CREATE PROCEDURE proc_Login (IN xnomeUsuario VARCHAR(35), xsenha VARCHAR(255))
+DROP PROCEDURE IF EXISTS proc_VerificarUsuario//
+CREATE PROCEDURE proc_VerificarUsuario (IN xemail VARCHAR(255), xsenha VARCHAR(255))
 BEGIN
-		IF(EXISTS(SELECT * FROM users WHERE nomeUsuario = xnomeUsuario)) THEN
-			IF(EXISTS(SELECT * FROM users WHERE senha = xsenha)) THEN
-				SELECT u.id_usuario, u.id_categoriaUsuario, u.nomeUsuario, u.datanascimento, u.status
-				FROM users u
-				WHERE u.nomeUsuario = xnomeUsuario;
-			ELSE
-				SELECT 'Senha incorreta !' AS msg;
-			END IF;
+		IF(EXISTS(SELECT * FROM users WHERE email = xemail AND senha = xsenha)) THEN
+			SELECT id_usuario, nomeUsuario, id_categoriaUsuario FROM users
+			WHERE email = xemail AND senha = xsenha;
 		ELSE
-			SELECT 'Usuario nao cadastrado' AS msg;
+			SELECT "E-mail ou senha não conferem!" AS msg;
 		END IF;
 END//
 DELIMITER ; 
 
-CALL proc_Login('RoMao', '$2y$10$6.Q68wmxMURVphx4TGpA1OKz3jkeKTsNayqD27sPMFIxbyNKMjS0a');
+CALL proc_VerificarUsuario('romao.prof@gmail.com', '$2y$10$6.Q68wmxMURVphx4TGpA1OKz3jkeKTsNayqD27sPMFIxbyNKMjS0a');
 
 #CRIANDO PROCEDURE PARA LISTAR TODOS OS RECURSOS CADASTRADOS PELO USUARIO
 
