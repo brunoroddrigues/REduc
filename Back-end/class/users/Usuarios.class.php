@@ -25,6 +25,7 @@ class Usuario extends Conexao{
         private array $pa = array(),
         private array $seguidores = array(),
         private array $seguindo = array(),
+        private int $status = 0,
         $id_redesocial = 0,
         $tiporede = null,
         $link = ""
@@ -90,6 +91,9 @@ class Usuario extends Conexao{
     public function setRedeSocial($id_redesocial, $tiporede, $link){
         $this->redesocial[] = new RedeSocial($id_redesocial, $tiporede, $link);
     }
+    public function setStatus($status){
+        $this->status = $status;
+    }
 
     //get methods
     public function getIdUsuario(){
@@ -148,6 +152,48 @@ class Usuario extends Conexao{
     }
     public function getRedeSocial(){
         return $this->redesocial;
+    }
+    public function getStatus(){
+        return $this->status;
+    }
+
+    // Other methods
+    public function CadastrarAluno() {
+        $sql = "CALL proc_CadastroAluno(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->nome);
+        $stm->bindValue(2, $this->sobrenome);
+        $stm->bindValue(3, $this->nomeUsuario);
+        $stm->bindValue(4, $this->cpf);
+        $stm->bindValue(5, $this->dataNascimento);
+        $stm->bindValue(6, $this->email);
+        $stm->bindValue(7, $this->senha);
+        $stm->bindValue(8, $this->pergunta->getIdPergunta());
+        $stm->bindValue(9, $this->resposta);
+        $stm->bindValue(10, $this->instituicao->getIdInstituicao());
+        $stm->bindValue(11, $this->categoria->getIdCategoria());
+        $stm->bindValue(12, $this->status);
+        $stm->execute();
+    }
+
+    public function CadastrarProfessor() {
+        $sql = "CALL proc_CadastroProfessor(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->nome);
+        $stm->bindValue(2, $this->sobrenome);
+        $stm->bindValue(3, $this->nomeUsuario);
+        $stm->bindValue(4, $this->cpf);
+        $stm->bindValue(5, $this->dataNascimento);
+        $stm->bindValue(6, $this->email);
+        $stm->bindValue(7, $this->senha);
+        $stm->bindValue(8, $this->lattes);
+        $stm->bindValue(9, $this->areaAtuacao);
+        $stm->bindValue(10, $this->pergunta->getIdPergunta());
+        $stm->bindValue(11, $this->resposta);
+        $stm->bindValue(12, $this->instituicao->getIdInstituicao());
+        $stm->bindValue(13, $this->categoria->getIdCategoria());
+        $stm->bindValue(14, $this->status);
+        $stm->execute();
     }
 
     public function BuscarSeguidores() {
