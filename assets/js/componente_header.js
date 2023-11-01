@@ -1,103 +1,196 @@
-export function criarHeader(){
-    const HEADER = document.getElementById("reduc-header")
+export function criarHeader(login) {
 
-    let nav = document.createElement("nav")
-    nav.setAttribute("class", "navbar navbar-dark navbar-expand-lg")
-    
-    let divContainer = document.createElement("div")
-    divContainer.setAttribute("class", "container")
+  const HEADER = document.getElementById("reduc-header");
 
-    let linkImg = document.createElement("a")
-    linkImg.setAttribute("class", "navbar-brand d-flex align-items-center")
-    linkImg.setAttribute("href", "index.html")
+  let nav = document.createElement("nav");
+  nav.setAttribute("class", "navbar navbar-dark navbar-expand-lg");
 
-    let img = document.createElement("img")
-    img.setAttribute("src", "img/logo.svg")
-    img.setAttribute("alt", "Logo REduc")
+  let divContainer = document.createElement("div");
+  divContainer.setAttribute("class", "container");
 
-    let marca = document.createElement("span")
-    marca.setAttribute("class", "marca link-header")
-    marca.appendChild(document.createTextNode("REduc"))
+  let linkImg = document.createElement("a");
+  linkImg.setAttribute("class", "navbar-brand d-flex align-items-center");
+  linkImg.setAttribute("href", "index.html");
 
-    let mbutton = document.createElement("button")
-    mbutton.setAttribute("class", "navbar-toggler d-lg-none")
-    mbutton.setAttribute("data-bs-toggle", "collapse")
-    mbutton.setAttribute("data-bs-target", "#collapsibleNavId")
+  let img = document.createElement("img");
+  img.setAttribute("src", "img/logo.svg");
+  img.setAttribute("alt", "Logo REduc");
 
-    let mspan = document.createElement("span")
-    mspan.setAttribute("class", "navbar-toggler-icon")
-    mbutton.appendChild(mspan)
+  let marca = document.createElement("span");
+  marca.setAttribute("class", "marca link-header");
+  marca.appendChild(document.createTextNode("REduc"));
 
-    let div1 = document.createElement("div")
-    div1.setAttribute("class", "collapse navbar-collapse justify-content-between")
-    div1.setAttribute("id", "collapsibleNavId")
+  let mbutton = document.createElement("button");
+  mbutton.setAttribute("class", "navbar-toggler d-lg-none");
+  mbutton.setAttribute("data-bs-toggle", "collapse");
+  mbutton.setAttribute("data-bs-target", "#collapsibleNavId");
 
-    let hform = document.createElement("form")
-    // Lembrar de adicionar os action no formulario
-    hform.setAttribute("action", "#")
-    hform.setAttribute("method", "post")
-    hform.setAttribute("class", "container d-flex")
+  let mspan = document.createElement("span");
+  mspan.setAttribute("class", "navbar-toggler-icon");
+  mbutton.appendChild(mspan);
 
-    let input = document.createElement("input")
-    input.setAttribute("type", "text")
-    input.setAttribute("placeholder", "Digite o que procura...")
-    input.setAttribute("class", "form-control")
+  let div1 = document.createElement("div");
+  div1.setAttribute(
+    "class",
+    "collapse navbar-collapse justify-content-between"
+  );
+  div1.setAttribute("id", "collapsibleNavId");
 
-    let sbutton = document.createElement("button")
-    sbutton.setAttribute("type", "submit")
-    sbutton.setAttribute("class", "btn btn-search")
+  let hform = document.createElement("form");
+  // Lembrar de adicionar os action no formulario
+  hform.setAttribute("action", "#");
+  hform.setAttribute("method", "post");
+  hform.setAttribute("class", "container d-flex");
+  hform.setAttribute("id", "header-form");
 
-    let icon = document.createElement("i")
-    icon.setAttribute("class", "bi bi-search")
-    sbutton.appendChild(icon)
+  let input = document.createElement("input");
+  input.setAttribute("type", "text");
+  input.setAttribute("placeholder", "Digite o que procura...");
+  input.setAttribute("class", "form-control");
 
-    let ul = document.createElement("ul")
-    ul.setAttribute("class", "navbar-nav mt-2 mt-lg-0")
-    let li = []
-    for(let i = 0; i < 4; i++){
-        li[i] = document.createElement("li")
-        li[i].setAttribute("class", "nav-item mx-2")
+  let sbutton = document.createElement("button");
+  sbutton.setAttribute("type", "submit");
+  sbutton.setAttribute("class", "btn btn-search");
+
+  let icon = document.createElement("i");
+  icon.setAttribute("class", "bi bi-search");
+  sbutton.appendChild(icon);
+
+  let ul = document.createElement("ul");
+  ul.setAttribute("class", "navbar-nav mt-2 mt-lg-0");
+  let li = [];
+  for (let i = 0; i < 4; i++) {
+    li[i] = document.createElement("li");
+    li[i].setAttribute("class", "nav-item mx-2");
+  }
+
+  let aSobre = document.createElement("a");
+  aSobre.setAttribute("class", "nav-link txt-branco link-header");
+  aSobre.setAttribute("href", "#sobre");
+  aSobre.appendChild(document.createTextNode("Sobre"));
+
+  let aExplorar = document.createElement("a");
+  aExplorar.setAttribute("class", "nav-link txt-branco link-header");
+  aExplorar.setAttribute("href", "explorar.html");
+  aExplorar.appendChild(document.createTextNode("Explorar"));
+
+  let a1 = document.createElement("a");
+  let a2 = document.createElement("a");
+  if (!login) {
+    a1.setAttribute("href", "cadastro.html");
+    a1.setAttribute("class", "nav-link btn btn-outline-light txt-branco");
+    a1.appendChild(document.createTextNode("Cadastrar"));
+    a2.setAttribute("href", "login.html");
+    a2.setAttribute("class", "nav-link btn btn-outline-light txt-branco");
+    a2.appendChild(document.createTextNode("Entrar"));
+    li[3].appendChild(a2);
+  } else {
+    a1.setAttribute("href", "post-recurso.html");
+    a1.setAttribute("class", "nav-link btn btn-outline-light txt-branco");
+    a1.setAttribute("id", "publicar");
+    a1.appendChild(document.createTextNode("+Publicar"));
+    li[3].setAttribute("id", "header-perfil");
+    li[3].setAttribute("onclick", "mostrarMenu()")
+    let perfilImg = document.createElement("img");
+    perfilImg.setAttribute(
+      "class",
+      "rounded-circle border border-light border-2"
+    );
+    perfilImg.setAttribute("src", "img/foto-perfil.avif");
+    perfilImg.setAttribute("id", "perfilImg");
+    let down = document.createElement("i");
+    down.setAttribute("class", "bi bi-caret-down-fill text-light");
+    li[3].appendChild(perfilImg);
+    li[3].appendChild(down);
+    var login_ul = document.createElement("ul");
+    login_ul.setAttribute("class", "navbar-nav d-none");
+    login_ul.setAttribute("id", "perfil-adm-sair");
+    var links = [];
+    for (let i = 0; i < 3; i++) {
+      links[i] = document.createElement("li");
+      links[i].setAttribute("class", "nav-item mx-2");
     }
-    
-    let aSobre = document.createElement("a")
-    aSobre.setAttribute("class", "nav-link txt-branco link-header")
-    aSobre.setAttribute("href", "#sobre")
-    aSobre.appendChild(document.createTextNode("Sobre"))
 
-    let aExplorar = document.createElement("a")
-    aExplorar.setAttribute("class", "nav-link txt-branco link-header")
-    aExplorar.setAttribute("href", "explorar.html")
-    aExplorar.appendChild(document.createTextNode("Explorar"))
+    // Icone perfil
+    let icon_perfil = document.createElement("i");
+    icon_perfil.setAttribute("class", "bi bi-person-circle");
+    //
 
-    let a1 = document.createElement("a")
+    // Icone painel adm
+    let icon_adm = document.createElement("i");
+    icon_adm.setAttribute("class", "bi bi-clipboard-data");
+    //
 
-    let a2 = document.createElement("a")
+    // Icone sair
+    let icon_sair = document.createElement("i");
+    icon_sair.setAttribute("class", "bi bi-box-arrow-right");
+    //
 
-    // Inserir os elementos nos containers
+    let link_perfil = document.createElement("a");
+    link_perfil.setAttribute("class", "nav-link txt-branco link-header");
+    link_perfil.setAttribute("href", "meuPerfil.html");
 
-    li[0].appendChild(aSobre)
-    li[1].appendChild(aExplorar)
-    li[2].appendChild(a1)
-    li[3].appendChild(a2)
+    let link_adm = document.createElement("a");
+    link_adm.setAttribute("class", "nav-link txt-branco link-header");
+    link_adm.setAttribute("href", "adm.html");
 
-    for(let i = 0; i < 4; i++){
-        ul.appendChild(li[i])
+    let link_sair = document.createElement("a");
+    link_sair.setAttribute("class", "nav-link txt-branco link-header");
+    link_sair.setAttribute("href", "#");
+
+    link_perfil.appendChild(icon_perfil);
+    link_perfil.appendChild(document.createTextNode("Perfil"));
+
+    link_adm.appendChild(icon_adm);
+    link_adm.appendChild(document.createTextNode("Painel do ADM"));
+
+    link_sair.appendChild(icon_sair);
+    link_sair.appendChild(document.createTextNode("Sair"));
+
+    links[0].appendChild(link_perfil);
+    links[1].appendChild(link_adm);
+    links[2].appendChild(link_sair);
+
+    for (let i = 0; i < 3; i++) {
+      login_ul.appendChild(links[i]);
     }
+  }
 
-    hform.appendChild(input)
-    hform.appendChild(sbutton)
+  // Inserir os elementos nos containers
 
-    div1.appendChild(hform)
-    div1.appendChild(ul)
+  li[0].appendChild(aSobre);
+  li[1].appendChild(aExplorar);
+  li[2].appendChild(a1);
 
-    linkImg.appendChild(img)
-    linkImg.appendChild(marca)
+  for (let i = 0; i < 4; i++) {
+    ul.appendChild(li[i]);
+  }
 
-    divContainer.appendChild(linkImg)
-    divContainer.appendChild(mbutton)
-    divContainer.appendChild(div1)
+  hform.appendChild(input);
+  hform.appendChild(sbutton);
 
-    nav.appendChild(divContainer)
+  div1.appendChild(hform);
+  div1.appendChild(ul);
+  if (login) {
+    div1.appendChild(login_ul);
+  }
 
-    HEADER.appendChild(nav)
+  linkImg.appendChild(img);
+  linkImg.appendChild(marca);
+
+  divContainer.appendChild(linkImg);
+  divContainer.appendChild(mbutton);
+  divContainer.appendChild(div1);
+
+  nav.appendChild(divContainer);
+
+  HEADER.appendChild(nav);
+
+}
+
+function mostrarMenu() {
+  if (window.innerWidth >= 992) {
+    let menu = document.getElementById("perfil-adm-sair");
+    menu.classList.toggle("d-none");
+  }
 }
