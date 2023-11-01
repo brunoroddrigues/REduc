@@ -1,6 +1,7 @@
 :root{
     --color-light: #f8f9fa;
     --roxo-principal: #131267;
+    --error-color: #f72702;
 }
 
 .cadastrar{
@@ -75,4 +76,14 @@ label{
     .img-cadastro{
         display: none;
     }
+}
+
+.error{
+    content: "";
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid var(--error-color);
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
 }

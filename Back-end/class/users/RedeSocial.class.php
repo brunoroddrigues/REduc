@@ -1,12 +1,14 @@
 <?php
 require_once 'TipoRedeSocial.class.php';    
 
-class RedeSocial{
+class RedeSocial extends Conexao{
     public function __construct(
         private int $id_redesocial = 0,
-        private ?TipoRedeSocial $tiporede = null,
+        private $tiporede = null,
         private string $link = ""
-    ){}
+    ){
+        parent:: __construct();
+    }
 
     //set methods
     public function setIdRede($id_redesocial){
@@ -29,4 +31,13 @@ class RedeSocial{
     public function getLink(){
         return $this->link;
     }
+
+    public function BuscarRedesocial() {
+        $sql = "SELECT * FROM user_redesocial WHERE id_userrede = ?";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_redesocial);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
 }
