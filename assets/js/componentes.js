@@ -3,10 +3,6 @@ import { criarHeader } from "./componente_header.js";
 // import { criarCard } from "./card.js";
 // import { criarCard2 } from "./card2.js";
 
-// $.ajax({
-    
-// })
-
 // Header login ?
 $.ajax({
     url: "Log_status.php",
