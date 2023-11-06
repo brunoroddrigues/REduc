@@ -1,6 +1,45 @@
+<?php
+  require_once "Back-end/class/usersRequire.php";
+  if ($_POST) {
+    $nome = $_POST['nome'];
+    $sobrenome = $_POST['sobrenome'];
+    $nomeUsuario = $_POST['username'];
+    $datanascimento = $_POST['data_nascimento'];
+    $cpf = $_POST['cpf'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha1'];
+    $password_hash = md5($senha);
+    $pergunta = new Pergunta(id_pergunta: $_POST['pergunta']);
+    $resposta = $_POST['resposta'];
+    $instituicao = new Instituicao(id_instituicao: $_POST['instituicao']);
+    $categoria = new CategoriaUsuario(id_categoria: $_POST['categoria']);
+    if ($_POST['categoria'] == 2) {
+      $lattes = $_POST['linkLattes'];
+      $areaatuacao = $_POST['area'];
+      $usuario = new Usuario(nome:$nome, sobrenome: $sobrenome, nomeUsuario: $nomeUsuario, dataNascimento: $datanascimento, cpf: $cpf, email: $email, senha: $password_hash, pergunta: $pergunta, resposta: $resposta, lattes: $lattes, areaAtuacao: $areaatuacao, categoria: $categoria, instituicao: $instituicao, status: 0);
+      try {
+        $usuario->CadastrarProfessor();
+        header("location:login.php");
+      } catch (PDOException $e) {
+        echo 'Erro: ' . $e->getMessage();
+        header("location:cadastro.php");
+      }
+    }
+    if ($_POST['categoria'] == 1) {
+      $usuario = new Usuario(nome:$nome, sobrenome: $sobrenome, nomeUsuario: $nomeUsuario, dataNascimento: $datanascimento, cpf: $cpf, email: $email, senha: $password_hash, pergunta: $pergunta, resposta: $resposta, categoria: $categoria, instituicao: $instituicao, status: 1);
+      try {
+        $usuario->CadastrarAluno();
+        header("location:login.php");
+      } catch (PDOException $e) {
+        echo 'Erro: ' . $e->getMessage();
+        header("location:cadastro.php");
+      }
+    } 
+  }  
+?>
+
 <!doctype html>
 <html lang="pt-br">
-
 <head>
   <title>Cadastro</title>
   <!-- Required meta tags -->
@@ -26,7 +65,7 @@
   <main>
     <div class='container rounded shadow p-5 my-5 cadastrar'>
       <div class='row'>
-        <form method='POST' action='Back-end/functions/Funcao_Cadastro.php' id='form-cadastro' class='col-lg-6 d-flex flex-column justify-content-between'>
+        <form method='POST' action='#' id='form-cadastro' class='col-lg-6 d-flex flex-column justify-content-between'>
           <h2 class='h2'>Cadastrar usuário</h2>
 
           <!-- 1. Categoria do usuário -->

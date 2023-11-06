@@ -393,10 +393,10 @@ CALL proc_CadastroAluno('Miguel', 'Souza', 'MSouza', '42101474413', '2004-05-20'
 #CRIANDO UMA PROCEDURE PARA CADASTRAR PROFESSORES
 DELIMITER //
 DROP PROCEDURE IF EXISTS proc_CadastroProfessor//
-CREATE PROCEDURE proc_CadastroProfessor (IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), link_lattesU TEXT, area_atuacaoU VARCHAR(25), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT)
+CREATE PROCEDURE proc_CadastroProfessor (IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), link_lattesU TEXT, area_atuacaoU VARCHAR(25), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT, statusU BOOLEAN)
 BEGIN
-	INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, link_lattes, area_atuacao, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario)
-	VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, link_lattesU, area_atuacaoU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU);
+	INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, link_lattes, area_atuacao, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario, STATUS)
+	VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, link_lattesU, area_atuacaoU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU, statusU);
 END
 //
 DELIMITER ; 
