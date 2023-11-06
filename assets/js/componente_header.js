@@ -10,7 +10,7 @@ export function criarHeader(login) {
 
   let linkImg = document.createElement("a");
   linkImg.setAttribute("class", "navbar-brand d-flex align-items-center");
-  linkImg.setAttribute("href", "index.html");
+  linkImg.setAttribute("href", "index.php");
 
   let img = document.createElement("img");
   img.setAttribute("src", "img/logo.svg");
@@ -136,7 +136,7 @@ export function criarHeader(login) {
 
     let link_sair = document.createElement("a");
     link_sair.setAttribute("class", "nav-link txt-branco link-header");
-    link_sair.setAttribute("href", "#");
+    link_sair.setAttribute("href", "logout.php");
 
     link_perfil.appendChild(icon_perfil);
     link_perfil.appendChild(document.createTextNode("Perfil"));
