@@ -1,11 +1,11 @@
 import { criarRodape } from "./componente_footer.js";
 import { criarHeader } from "./componente_header.js";
-import { criarCard } from "./card.js";
-import { criarCard2 } from "./card2.js";
+// import { criarCard } from "./card.js";
+// import { criarCard2 } from "./card2.js";
 
-$.ajax({
+// $.ajax({
     
-})
+// })
 
 // Header login ?
 $.ajax({
