@@ -2,10 +2,14 @@
 
   if(!isset($_SESSION)) session_start();
 
+  $resposta = array();
+
   if (!empty($_SESSION)) {
-    $logado = true; 
+    $resposta['img'] = $_SESSION['perfil'];
+    $resposta['status'] = true; 
   } else {
-    $logado = false;
+    $resposta['status'] = false;
   }
-  echo json_encode($logado);
+
+  echo json_encode($resposta);
 ?>

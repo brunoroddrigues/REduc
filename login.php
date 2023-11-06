@@ -2,7 +2,7 @@
   require_once "Back-end/class/conexao/Conexao.class.php";
   require_once "Back-end/class/users/Usuarios.class.php";
 
-  $msg = array("", "");
+  $msg = array("", "", "");
 
   if ($_POST) {
     $erro = false;
@@ -20,14 +20,14 @@
       $retorno = $usuario->verificarUsuario();
       if (is_array($retorno) && count($retorno) > 0) {
         if (!isset($_SESSION)) session_start(); 
-
         $_SESSION["id_usuario"] = $retorno[0]->id_usuario;
         $_SESSION["username"] = $retorno[0]->nomeUsuario;
         $_SESSION['categoria'] = $retorno[0]->id_categoriaUsuario;
+        $_SESSION['perfil'] = $retorno[0]->img_path;
         header("location: index.php");
         die();
       } else {
-        $msg = "E-mail ou senha não conferem!";
+        $msg[3] = "E-mail ou senha não conferem!";
       }
     }
   }
@@ -59,6 +59,8 @@
             <h2 class='h2'>Entrar</h2>
             <!-- Login -->
             <div class='seguranca'>
+              <span class="text-danger"><?php if(!empty($msg[3])) echo $msg[3] ?></span>
+              <br>
               <label>Digite seu email:</label>
               <br>
               <input type="email" name='email' class='form-control' placeholder='Digite seu email...'>
