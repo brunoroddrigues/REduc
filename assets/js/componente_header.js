@@ -1,5 +1,9 @@
 export function criarHeader(login, perfil) {
 
+  if (perfil == null) {
+    perfil = "img/imgUsers/foto-perfil.avif";
+  }
+
   const HEADER = document.getElementById("reduc-header");
 
   let nav = document.createElement("nav");

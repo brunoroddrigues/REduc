@@ -486,19 +486,19 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS proc_BuscarQuatroRecursos //
 CREATE PROCEDURE proc_BuscarQuatroRecursos()
 BEGIN
-	SELECT r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota", r.status
+	SELECT r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota"
 	FROM recursos r LEFT JOIN avaliacao_recurso ar
 	ON(r.id_recurso = ar.id_recurso)	
+	WHERE r.status <> 0	
 	GROUP BY r.id_recurso
-	HAVING r.status <> 0
 	ORDER BY AVG(ar.nota) DESC
-	LIMIT 4
+	LIMIT 4;
 END//
 DELIMITER ;
 
 
 
-
+CALL proc_BuscarQuatroRecursos
 
 
 
