@@ -4,6 +4,7 @@ require_once 'Ferramentas.class.php';
 require_once 'Cursos.class.php';
 require_once 'CategoriaRecurso.class.php';
 require_once 'AreaConhecimento.class.php';
+require_once '../conexao/Conexao.class.php';
 
 class Recursos {
     public function __construct(
@@ -21,7 +22,9 @@ class Recursos {
       private $categoria = null,
       private array $area = array(),  
       private $usuario = null
-    ){}
+    ){
+        
+    }
 
     // metodos set
     public function setIdRecurso($id){
@@ -109,6 +112,22 @@ class Recursos {
     }
     public function getNota(){
         return $this->nota;
+    }
+
+    public function card4(){
+        $sql = "CALL proc_4";
+        $stm = $this->db->prepare($sql);
+        $stm->execute();
+        $this->db = null;
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function cardTodos(){
+        $sql = "CALL proc_todos";
+        $stm = $this->db->prepare($sql);
+        $stm->execute();
+        $this->db = null;
+        return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 }
 
