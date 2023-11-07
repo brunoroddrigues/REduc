@@ -11,7 +11,7 @@ $.ajax({
         let loginStatus = JSON.parse(resposta);
         
         if (loginStatus.status) {
-            let img = loginStatus.img;
+            // let img = loginStatus.img;
             criarHeader(loginStatus.status, loginStatus.img);
             console.log(loginStatus);
         } else {
@@ -31,10 +31,13 @@ function criarCards(qtd){
             quantidade: qtd
         },
         success: (resposta)=>{
-            let cards = JSON.parse(resposta);
-            
+            let recursos = JSON.parse(resposta);
+
+            console.log(recursos);
         }
     })
 }
+
+criarCards(4);
 
 criarRodape()

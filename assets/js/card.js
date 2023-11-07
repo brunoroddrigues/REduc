@@ -1,5 +1,5 @@
 /*                || src || string || int || bool ||                   */
-export function criarCard(imagem, titulo, estrelas, salvo){
+function criarCard(imagem, titulo, estrelas, salvo){
     const CARD_CONTAINER = document.getElementsByClassName("card-container");
 
     let divCol = document.createElement("div");

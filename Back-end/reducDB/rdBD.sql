@@ -501,6 +501,20 @@ DELIMITER ;
 CALL proc_BuscarQuatroRecursos
 
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS proc_buscarTodosRecursos $$
+CREATE PROCEDURE proc_buscarTodosRecursos ()
+BEGIN
+	SELECT r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota"
+	FROM recursos r LEFT JOIN avaliacao_recurso ar
+	ON(r.id_recurso = ar.id_recurso)	
+	WHERE r.status <> 0	
+	GROUP BY r.id_recurso
+	ORDER BY AVG(ar.nota) DESC;
+END $$
+DELIMITER ;
+
+
 
 
 
