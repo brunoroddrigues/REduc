@@ -9,7 +9,15 @@ $.ajax({
     type: "post",
     success: (resposta)=>{
         let loginStatus = JSON.parse(resposta);
-        criarHeader(loginStatus);
+        
+        if (loginStatus.status) {
+            let img = loginStatus.img;
+            criarHeader(loginStatus.status, loginStatus.img);
+            console.log(loginStatus);
+        } else {
+            criarHeader(loginStatus.status);
+        }
+        
     }
 })
 

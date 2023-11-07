@@ -1,4 +1,4 @@
-export function criarHeader(login) {
+export function criarHeader(login, perfil) {
 
   const HEADER = document.getElementById("reduc-header");
 
@@ -77,10 +77,10 @@ export function criarHeader(login) {
   let a1 = document.createElement("a");
   let a2 = document.createElement("a");
   if (!login) {
-    a1.setAttribute("href", "cadastro.html");
+    a1.setAttribute("href", "cadastro.php");
     a1.setAttribute("class", "nav-link btn btn-outline-light txt-branco");
     a1.appendChild(document.createTextNode("Cadastrar"));
-    a2.setAttribute("href", "login.html");
+    a2.setAttribute("href", "login.php");
     a2.setAttribute("class", "nav-link btn btn-outline-light txt-branco");
     a2.appendChild(document.createTextNode("Entrar"));
     li[3].appendChild(a2);
@@ -96,7 +96,7 @@ export function criarHeader(login) {
       "class",
       "rounded-circle border border-light border-2"
     );
-    perfilImg.setAttribute("src", "img/foto-perfil.avif");
+    perfilImg.setAttribute("src", perfil);
     perfilImg.setAttribute("id", "perfilImg");
     let down = document.createElement("i");
     down.setAttribute("class", "bi bi-caret-down-fill text-light");
