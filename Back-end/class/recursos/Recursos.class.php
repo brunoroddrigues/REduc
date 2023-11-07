@@ -113,5 +113,21 @@ class Recursos {
     public function getNota(){
         return $this->nota;
     }
+
+    public function card4(){
+        $sql = "CALL proc_4";
+        $stm = $this->db->prepare($sql);
+        $stm->execute();
+        $this->db = null;
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function cardTodos(){
+        $sql = "CALL proc_todos";
+        $stm = $this->db->prepare($sql);
+        $stm->execute();
+        $this->db = null;
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
 }
 

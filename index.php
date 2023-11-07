@@ -38,7 +38,7 @@
     <!-- Destaques -->
     <section id='destaques' class='container bg-light rounded shadow mb-5 p-5 d-flex flex-column'>      
       <h2 class='txt-roxo mb-4'>Destaque?<?php if(isset($_SESSION['username'])) echo $_SESSION['username']; ?></h2>
-      <div class='row g-2 card-container'>
+      <div class='row g-2 card-container' onload="criarCards(4)">
 
         <div class="col-md-3">
           <!-- Começo do card -->

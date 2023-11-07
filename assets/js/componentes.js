@@ -14,16 +14,19 @@ $.ajax({
 })
 
 // Cards
-$.ajax({
-    url: "",
-    type: "post",
-    data: {
-        conteiner4: 4,
-        conteiner: "*"
-    },
-    success: (resposta)=>{
-        let cards = JSON.parse(resposta);
 
-    }
-})
+function criarCards(qtd){
+    $.ajax({
+        url: "",
+        type: "post",
+        data: {
+            quantidade: qtd
+        },
+        success: (resposta)=>{
+            let cards = JSON.parse(resposta);
+            
+        }
+    })
+}
+
 criarRodape()
