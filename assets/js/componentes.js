@@ -12,7 +12,7 @@ $.ajax({
         
         if (loginStatus.status) {
             let img = loginStatus.img;
-            criarHeader(loginStatus.status, loginStatus.img);
+            criarHeader(loginStatus.status, loginStatus.img, loginStatus.id_usuario);
             console.log(loginStatus);
         } else {
             criarHeader(loginStatus.status);
