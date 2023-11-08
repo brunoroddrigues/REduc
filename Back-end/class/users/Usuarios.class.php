@@ -253,4 +253,37 @@ class Usuario extends Conexao{
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function BuscarPerfilUsuario() {
+        $sql = "CALL proc_BuscarPerfilUsuario(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function AdicionarRedeSocial() {
+        $sql = "CALL proc_AdicionarRedeSocial(?,?,?)";
+        $stm = $this->db-prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->bindValue(2, $this->id_redesocial);
+        $stm->bindValue(3, $this->link);
+        $stm->execute();
+    }
+
+    public function RedeSocialDisponivel() {
+        $sql = "CALL proc_RedeSocialParaCadastrar(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function BuscarNumeroRedeSociasUsuario() {
+        $sql = "CALL proc_BuscarNumeroRedeSociasUsuario(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
 }

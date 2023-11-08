@@ -1,13 +1,14 @@
 <?php
   if(!isset($_SESSION)) session_start();
 
-  var_dump($_SESSION);
-
   if (!$_SESSION['id_usuario']) {
     header('location:index.php');
     die();
-  } 
-
+  } else {
+    require_once "Back-end/class/usersRequire.php";
+    $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
+  }
+  
 ?>
 
 <!doctype html>
@@ -35,14 +36,16 @@
   <main class='container'>
     <section id="perfil" class="rounded shadow my-5 p-4">
       <figure id="perfil-foto">
-        <img src=<?php echo $_SESSION['perfil'] ?> alt="foto de perfil" class='shadow'>
+        <img src=
+        <?php 
+            $dados = $usuario->BuscarPerfilUsuario(); 
+            echo $dados[0]->img_path;
+        ?> alt="foto de perfil" class='shadow'>
       </figure>
       <article id="perfil-dados">
         <h2 class='h2 text-light'><?php echo $_SESSION['username']; ?></h2>
         <h3 class='h3 text-light'>
           <?php
-              require_once "Back-end/class/usersRequire.php";
-
               $categoria = new CategoriaUsuario(id_categoria: $_SESSION['categoria']);
               $resultado = $categoria->BuscarCategoria();
               
@@ -50,16 +53,22 @@
           ?>
         </h3>
         <p class="text-light">
+          
           Uma mini-bio Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil rerum facilis accusamus consequatur dolore dolores officiis magnam sit quibusdam, quod explicabo repellat, vitaeamet ea animi temporibus nulla!
         </p>
       </article>
       <div id='perfil-links'>
         <ul>
-          <li data-bs-toggle="modal" data-bs-target="#modalId"  >
-            <i class="bi bi-plus-circle-fill"></i>
-          </li>
           <?php
-            $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
+            $nmrRedes = $usuario->BuscarNumeroRedeSociasUsuario();
+
+            if ($nmrRedes > 0) {
+              echo "<li data-bs-toggle='modal' data-bs-target='#modalId'  >
+                    <i class='bi bi-plus-circle-fill'></i>
+                    </li>";
+            }
+          ?>
+          <?php
             $redesocial = $usuario->BuscarRedeSocial();
 
             if (is_array($redesocial) && count($redesocial) > 0) {
@@ -110,27 +119,34 @@
                     <h5 class="modal-title" id="modalTitleId">Adicionar rede social</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <label>Insira a rede social:</label><br>
+                <form action="#" method="post">
+                  <div class="modal-body">
+                  <label>Insira a rede social:</label><br>
                     <select class='form-select'>
-                        <option selected></option>
-                        <option>Facebook</option>
-                        <option>Twitter X</option>
-                        <option>Instagram</option>
-                        <option>LinkedIn</option>
+                      <option selected></option>
+                      <?php
+                        $tipos = $usuario->RedeSocialDisponivel();
+                        var_dump($tipos);
+                        if (is_array($tipos)) {
+                          foreach ($tipos as $dado) {
+                            echo "<option value='{$dado->id_redesocial}'>{$dado->descritivo}</option>";
+                          }
+                        }
+                      ?>
                     </select>
                     <br>
                     <label>Insira o link da rede social:</label><br>
                     <input type='text' name='link-rede-social' placeholder='Insira o link' class='form-control'>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success">Salvar</button>
-                </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                      <input type="submit" class="btn btn-success" value="Salvar">
+                  </div>
+                  </div>
+                </form>
             </div>
         </div>
     </div>
-
     <section id='meus-recursos' class='container bg-light rounded shadow mb-5 mt-5 p-5 d-flex flex-column'>
       <h2 class='txt-roxo mb-4'>Recursos postados</h2>
       <div class='row g-2'>
