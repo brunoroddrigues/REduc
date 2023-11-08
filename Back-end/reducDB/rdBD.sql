@@ -413,10 +413,8 @@ DROP PROCEDURE IF EXISTS proc_VerificarUsuario//
 CREATE PROCEDURE proc_VerificarUsuario (IN xemail VARCHAR(255), xsenha VARCHAR(255))
 BEGIN
 		IF(EXISTS(SELECT * FROM users WHERE email = xemail AND senha = xsenha)) THEN
-			SELECT id_usuario, nomeUsuario, id_categoriaUsuario FROM users
+			SELECT id_usuario, nomeUsuario, id_categoriaUsuario, IFNULL(img_path, "img/imgUsers/foto-perfil.avif") FROM users
 			WHERE email = xemail AND senha = xsenha;
-		ELSE
-			SELECT "E-mail ou senha não conferem!" AS msg;
 		END IF;
 END//
 DELIMITER ; 
@@ -482,18 +480,45 @@ DELIMITER ;
 CALL proc_AtivarRecurso(10,1);
 
 
+# Criando uma procedure para buscar os 4 recursos mais bem avaliados
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_BuscarQuatroRecursos //
+CREATE PROCEDURE proc_BuscarQuatroRecursos()
+BEGIN
+	SELECT r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota"
+	FROM recursos r LEFT JOIN avaliacao_recurso ar
+	ON(r.id_recurso = ar.id_recurso)	
+	WHERE r.status <> 0	
+	GROUP BY r.id_recurso
+	ORDER BY AVG(ar.nota) DESC
+	LIMIT 4;
+END//
+DELIMITER ;
 
 
 
+CALL proc_BuscarQuatroRecursos
+
+#criando uma procedure para buscar as redes socias do usuario
+
+DELIMITER // 
+DROP PROCEDURE IF EXISTS proc_BuscarRedeSocial //
+CREATE PROCEDURE proc_BuscarRedeSocial(IN xid_usuario INT)
+BEGIN
+	IF(EXISTS(SELECT * FROM user_redesocial WHERE id_usuario = xid_usuario)) THEN
+		SELECT id_redesocial, link_rede 
+		FROM user_redesocial
+		WHERE id_usuario = xid_usuario;
+	END IF;
+END //
+DELIMITER ;
+
+CALL proc_BuscarRedeSocial()
 
 
 
-
-
-
-
-
-
+SELECT * FROM redesocial ORDER BY id_redesocial
 
 
 

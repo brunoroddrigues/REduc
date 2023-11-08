@@ -1,8 +1,20 @@
+<?php
+  if(!isset($_SESSION)) session_start();
+
+  var_dump($_SESSION);
+
+  if (!$_SESSION['id_usuario']) {
+    header('location:index.php');
+    die();
+  } 
+
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
 <head>
-  <title>REduc - Início</title>
+  <title>REduc - Perfil</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,11 +35,20 @@
   <main class='container'>
     <section id="perfil" class="rounded shadow my-5 p-4">
       <figure id="perfil-foto">
-        <img src="img/adicionar_imagem.png" alt="foto de perfil" class='shadow'>
+        <img src=<?php echo $_SESSION['perfil'] ?> alt="foto de perfil" class='shadow'>
       </figure>
       <article id="perfil-dados">
-        <h2 class='h2 text-light'>Nicolas Rissi</h2>
-        <h3 class='h3 text-light'>Administrador</h3>
+        <h2 class='h2 text-light'><?php echo $_SESSION['username']; ?></h2>
+        <h3 class='h3 text-light'>
+          <?php
+              require_once "Back-end/class/usersRequire.php";
+
+              $categoria = new CategoriaUsuario(id_categoria: $_SESSION['categoria']);
+              $resultado = $categoria->BuscarCategoria();
+              
+              echo $resultado[0]->descritivo;
+          ?>
+        </h3>
         <p class="text-light">
           Uma mini-bio Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil rerum facilis accusamus consequatur dolore dolores officiis magnam sit quibusdam, quod explicabo repellat, vitaeamet ea animi temporibus nulla!
         </p>
@@ -37,18 +58,40 @@
           <li data-bs-toggle="modal" data-bs-target="#modalId"  >
             <i class="bi bi-plus-circle-fill"></i>
           </li>
-          <li>
-            <i class="bi bi-facebook"></i>
-          </li>
-          <li>
-            <i class="bi bi-instagram"></i>
-          </li>
-          <li>
-            <i class="bi bi-twitter"></i>
-          </li>
-          <li>
-            <i class="bi bi-linkedin"></i>
-          </li>
+          <?php
+            $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
+            $redesocial = $usuario->BuscarRedeSocial();
+
+            if (is_array($redesocial) && count($redesocial) > 0) {
+              for ($x=0; $x < count($redesocial); $x++) { 
+                if ($redesocial[$x]->id_redesocial == 1) {
+                  echo "<li>
+                        <a href='{$redesocial[$x]->link_rede}' class='bi bi-twitter text-light'></a>
+                        </li>";
+                }
+                if ($redesocial[$x]->id_redesocial == 2) {
+                  echo "<li>
+                        <a href='{$redesocial[$x]->link_rede}' class='bi bi-instagram text-light'></a>
+                        </li>";
+                }
+                if ($redesocial[$x]->id_redesocial == 3) {
+                  echo "<li>
+                        <a href='{$redesocial[$x]->link_rede}' class='bi bi-github text-light'></a>
+                        </li>";
+                }
+                if ($redesocial[$x]->id_redesocial == 4) {
+                  echo "<li>
+                        <a href='{$redesocial[$x]->link_rede}' class='bi bi-facebook text-light'></a>
+                        </li>";
+                }
+                if ($redesocial[$x]->id_redesocial == 5) {
+                  echo "<li>
+                        <a href='{$redesocial[$x]->link_rede}' class='bi bi-linkedin text-light'></a>
+                        </li>";
+                }
+              }
+            }
+          ?>
         </ul>
       </div>
       <div id="perfil-config">

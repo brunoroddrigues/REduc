@@ -1,4 +1,8 @@
-export function criarHeader(login) {
+export function criarHeader(login, perfil) {
+
+  if (perfil == null) {
+    perfil = "img/imgUsers/foto-perfil.avif";
+  }
 
   const HEADER = document.getElementById("reduc-header");
 
@@ -10,7 +14,7 @@ export function criarHeader(login) {
 
   let linkImg = document.createElement("a");
   linkImg.setAttribute("class", "navbar-brand d-flex align-items-center");
-  linkImg.setAttribute("href", "index.html");
+  linkImg.setAttribute("href", "index.php");
 
   let img = document.createElement("img");
   img.setAttribute("src", "img/logo.svg");
@@ -77,10 +81,10 @@ export function criarHeader(login) {
   let a1 = document.createElement("a");
   let a2 = document.createElement("a");
   if (!login) {
-    a1.setAttribute("href", "cadastro.html");
+    a1.setAttribute("href", "cadastro.php");
     a1.setAttribute("class", "nav-link btn btn-outline-light txt-branco");
     a1.appendChild(document.createTextNode("Cadastrar"));
-    a2.setAttribute("href", "login.html");
+    a2.setAttribute("href", "login.php");
     a2.setAttribute("class", "nav-link btn btn-outline-light txt-branco");
     a2.appendChild(document.createTextNode("Entrar"));
     li[3].appendChild(a2);
@@ -96,7 +100,7 @@ export function criarHeader(login) {
       "class",
       "rounded-circle border border-light border-2"
     );
-    perfilImg.setAttribute("src", "img/foto-perfil.avif");
+    perfilImg.setAttribute("src", perfil);
     perfilImg.setAttribute("id", "perfilImg");
     let down = document.createElement("i");
     down.setAttribute("class", "bi bi-caret-down-fill text-light");
@@ -128,7 +132,7 @@ export function criarHeader(login) {
 
     let link_perfil = document.createElement("a");
     link_perfil.setAttribute("class", "nav-link txt-branco link-header");
-    link_perfil.setAttribute("href", "meuPerfil.html");
+    link_perfil.setAttribute("href", "meuPerfil.php");
 
     let link_adm = document.createElement("a");
     link_adm.setAttribute("class", "nav-link txt-branco link-header");
@@ -136,7 +140,7 @@ export function criarHeader(login) {
 
     let link_sair = document.createElement("a");
     link_sair.setAttribute("class", "nav-link txt-branco link-header");
-    link_sair.setAttribute("href", "#");
+    link_sair.setAttribute("href", "logout.php");
 
     link_perfil.appendChild(icon_perfil);
     link_perfil.appendChild(document.createTextNode("Perfil"));
