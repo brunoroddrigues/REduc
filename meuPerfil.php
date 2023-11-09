@@ -8,7 +8,22 @@
     require_once "Back-end/class/usersRequire.php";
     $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
   }
-  
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    var_dump($_POST);
+    
+    $link = $_POST['link_rede'];
+    $tipo = $_POST['tipo_rede'];
+    $adicionar_rede = new RedeSocial(id_redesocial: $tipo, link: $link);
+    $adicionar_rede->AdicionarRedeSocial($_SESSION['id_usuario']);
+    
+    // Apague os dados do $_POST
+    unset($_POST);
+    
+    // Redirecione para a mesma página
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit();
+  }
 ?>
 
 <!doctype html>
@@ -28,6 +43,7 @@
   <link rel="stylesheet" href="assets/css/meuPerfil.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script defer src="assets/js/func.js"></script>
+  <script defer src="assets/js/validacoes.js"></script>
   <script defer type="module" src="assets/js/componentes.js"></script>
 </head>
 
@@ -53,16 +69,19 @@
           ?>
         </h3>
         <p class="text-light">
-          
-          Uma mini-bio Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil rerum facilis accusamus consequatur dolore dolores officiis magnam sit quibusdam, quod explicabo repellat, vitaeamet ea animi temporibus nulla!
+          <?php
+            if (!$dados[0]->descricao) {
+              echo "Vá até configurações para adicionar um bio no seu perfil!";
+            }
+            echo $dados[0]->descricao;
+          ?> 
         </p>
       </article>
       <div id='perfil-links'>
         <ul>
           <?php
             $nmrRedes = $usuario->BuscarNumeroRedeSociasUsuario();
-
-            if ($nmrRedes > 0) {
+            if ($nmrRedes[0]->RedesDisponiveis > 0) {
               echo "<li data-bs-toggle='modal' data-bs-target='#modalId'  >
                     <i class='bi bi-plus-circle-fill'></i>
                     </li>";
@@ -119,14 +138,13 @@
                     <h5 class="modal-title" id="modalTitleId">Adicionar rede social</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="#" method="post">
+                <form action="#" method="post" id='form_redesocial'>
                   <div class="modal-body">
                   <label>Insira a rede social:</label><br>
-                    <select class='form-select'>
-                      <option selected></option>
+                    <select class='form-select' name='tipo_rede'>
+                      <option selected>Escolha qual a rede social...</option>
                       <?php
                         $tipos = $usuario->RedeSocialDisponivel();
-                        var_dump($tipos);
                         if (is_array($tipos)) {
                           foreach ($tipos as $dado) {
                             echo "<option value='{$dado->id_redesocial}'>{$dado->descritivo}</option>";
@@ -136,11 +154,11 @@
                     </select>
                     <br>
                     <label>Insira o link da rede social:</label><br>
-                    <input type='text' name='link-rede-social' placeholder='Insira o link' class='form-control'>
+                    <input type='text' name='link_rede' placeholder='Insira o link' class='form-control'>
                   </div>
                   <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-                      <input type="submit" class="btn btn-success" value="Salvar">
+                      <input type="submit" class="btn btn-success" value="Salvar" onclick="ValidarFormRedesocial()">
                   </div>
                   </div>
                 </form>

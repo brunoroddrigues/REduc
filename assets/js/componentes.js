@@ -2,13 +2,10 @@ import { criarRodape } from "./componente_footer.js";
 import { criarHeader } from "./componente_header.js";
 // import { criarCard } from "./card.js";
 // import { criarCard2 } from "./card2.js";
-<<<<<<< HEAD
 
 // $.ajax({
     
 // })
-=======
->>>>>>> fdd9c24314ef8922d229178fc0f145bfeb9fe32e
 
 // Header login ?
 $.ajax({

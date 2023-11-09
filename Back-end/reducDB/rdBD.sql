@@ -236,6 +236,14 @@ CREATE TABLE comentarios_recursos
 	
 );
 
+CREATE TABLE recursos_salvos 
+(
+	id_fav INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_recurso INT NOT NULL,
+	id_usuario INT NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES users (id_usuario),
+	FOREIGN KEY (id_recurso) REFERENCES recursos (id_recurso)
+);
 
 
 /* Populando a parte de recursos */
@@ -560,10 +568,9 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS proc_RedeSocialParaCadastrar //
 CREATE PROCEDURE proc_RedeSocialParaCadastrar (IN xid_usuario INT)
 BEGIN
-	IF(NOT EXISTS(SELECT * FROM user_redesocial WHERE id_usuario = xid_usuario)) THEN
-		SELECT id_redesocial, descritivo
-		FROM redesocial;
-	END IF;
+	SELECT id_redesocial, descritivo
+	FROM redesocial
+	WHERE id_redesocial NOT IN (SELECT id_redesocial FROM user_redesocial WHERE id_usuario = xid_usuario);
 END //
 DELIMITER ;
 
@@ -579,4 +586,7 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL proc_BuscarNumeroRedeSociasUsuario (2)
+CALL proc_BuscarNumeroRedeSociasUsuario (11)
+
+
+DELETE FROM user_redesocial WHERE id_usuario = 3
