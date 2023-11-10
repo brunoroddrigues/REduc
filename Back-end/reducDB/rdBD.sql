@@ -33,6 +33,7 @@ CREATE TABLE users
 	sobrenome VARCHAR(25)NOT NULL,
 	email VARCHAR(300) NOT NULL UNIQUE,
 	cpf CHAR(11) NOT NULL UNIQUE,
+	descricao VARCHAR(255) ,
 	datanascimento DATE NOT NULL,
 	id_instituicao INT NOT NULL,
 	link_lattes TEXT,
@@ -235,6 +236,14 @@ CREATE TABLE comentarios_recursos
 	
 );
 
+CREATE TABLE recursos_salvos 
+(
+	id_fav INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_recurso INT NOT NULL,
+	id_usuario INT NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES users (id_usuario),
+	FOREIGN KEY (id_recurso) REFERENCES recursos (id_recurso)
+);
 
 
 /* Populando a parte de recursos */
@@ -413,7 +422,7 @@ DROP PROCEDURE IF EXISTS proc_VerificarUsuario//
 CREATE PROCEDURE proc_VerificarUsuario (IN xemail VARCHAR(255), xsenha VARCHAR(255))
 BEGIN
 		IF(EXISTS(SELECT * FROM users WHERE email = xemail AND senha = xsenha)) THEN
-			SELECT id_usuario, nomeUsuario, id_categoriaUsuario, IFNULL(img_path, "img/imgUsers/foto-perfil.avif") FROM users
+			SELECT id_usuario, nomeUsuario, id_categoriaUsuario, IFNULL(img_path, "img/imgUsers/foto-perfil.avif") "img_path" FROM users
 			WHERE email = xemail AND senha = xsenha;
 		END IF;
 END//
@@ -532,6 +541,7 @@ BEGIN
 		SELECT id_redesocial, link_rede 
 		FROM user_redesocial
 		WHERE id_usuario = xid_usuario;
+		
 	END IF;
 END //
 DELIMITER ;
@@ -543,6 +553,63 @@ CALL proc_BuscarRedeSocial()
 SELECT * FROM redesocial ORDER BY id_redesocial
 >>>>>>> fdd9c24314ef8922d229178fc0f145bfeb9fe32e
 
+# Procedure para buscar os dados do perfil do usuario
+
+DELIMITER // 
+DROP PROCEDURE IF EXISTS proc_BuscarPerfilUsuario //
+CREATE PROCEDURE proc_BuscarPerfilUsuario (IN xid_usuario INT)
+BEGIN
+	IF(EXISTS(SELECT * FROM users WHERE id_usuario = xid_usuario)) THEN
+		SELECT nomeUsuario, IFNULL(img_path, "img/imgUsers/foto-perfil.avif") "img_path", descricao
+		FROM users
+		WHERE id_usuario = xid_usuario;
+	END IF;
+END //
+DELIMITER ;
+
+CALL proc_BuscarPerfilUsuario (2)
 
 
 
+# Procedure para adicionar redesocial do usuario
+
+DELIMITER // 
+DROP PROCEDURE IF EXISTS proc_AdicionarRedeSocial //
+CREATE PROCEDURE proc_AdicionarRedeSocial (IN xid_usuario INT, xid_redesocial INT, link_redesocial VARCHAR(255))
+BEGIN
+	INSERT INTO user_redesocial (id_redesocial, id_usuario, link_rede)
+	VALUES (xid_redesocial, xid_usuario, link_redesocial);
+END //
+DELIMITER ;
+
+CALL proc_AdicionarRedeSocial(11, 1, "youtube.com");
+
+
+# Procedure para listar somente as redes sociais que o usuario não tem
+
+DELIMITER // 
+DROP PROCEDURE IF EXISTS proc_RedeSocialParaCadastrar //
+CREATE PROCEDURE proc_RedeSocialParaCadastrar (IN xid_usuario INT)
+BEGIN
+	SELECT id_redesocial, descritivo
+	FROM redesocial
+	WHERE id_redesocial NOT IN (SELECT id_redesocial FROM user_redesocial WHERE id_usuario = xid_usuario);
+END //
+DELIMITER ;
+
+CALL proc_RedeSocialParaCadastrar(11)
+
+# Procedure para comparar o numero de redes sociais existente e o numero que o usuario tem
+
+DELIMITER // 
+DROP PROCEDURE IF EXISTS proc_BuscarNumeroRedeSociasUsuario //
+CREATE PROCEDURE proc_BuscarNumeroRedeSociasUsuario (IN xid_usuario INT)
+BEGIN
+	SELECT (SELECT COUNT(id_redesocial) FROM redesocial) - (SELECT COUNT(id_usuario) FROM user_redesocial WHERE id_usuario = xid_usuario) "RedesDisponiveis";
+END //
+DELIMITER ;
+
+CALL proc_BuscarNumeroRedeSociasUsuario (11)
+
+
+DELETE FROM user_redesocial WHERE id_usuario = 3

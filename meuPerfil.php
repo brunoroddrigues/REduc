@@ -1,13 +1,29 @@
 <?php
   if(!isset($_SESSION)) session_start();
 
-  var_dump($_SESSION);
-
   if (!$_SESSION['id_usuario']) {
     header('location:index.php');
     die();
-  } 
+  } else {
+    require_once "Back-end/class/usersRequire.php";
+    $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
+  }
 
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    var_dump($_POST);
+    
+    $link = $_POST['link_rede'];
+    $tipo = $_POST['tipo_rede'];
+    $adicionar_rede = new RedeSocial(id_redesocial: $tipo, link: $link);
+    $adicionar_rede->AdicionarRedeSocial($_SESSION['id_usuario']);
+    
+    // Apague os dados do $_POST
+    unset($_POST);
+    
+    // Redirecione para a mesma página
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit();
+  }
 ?>
 
 <!doctype html>
@@ -27,6 +43,7 @@
   <link rel="stylesheet" href="assets/css/meuPerfil.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script defer src="assets/js/func.js"></script>
+  <script defer src="assets/js/validacoes.js"></script>
   <script defer type="module" src="assets/js/componentes.js"></script>
 </head>
 
@@ -35,14 +52,16 @@
   <main class='container'>
     <section id="perfil" class="rounded shadow my-5 p-4">
       <figure id="perfil-foto">
-        <img src=<?php echo $_SESSION['perfil'] ?> alt="foto de perfil" class='shadow'>
+        <img src=
+        <?php 
+            $dados = $usuario->BuscarPerfilUsuario(); 
+            echo $dados[0]->img_path;
+        ?> alt="foto de perfil" class='shadow'>
       </figure>
       <article id="perfil-dados">
         <h2 class='h2 text-light'><?php echo $_SESSION['username']; ?></h2>
         <h3 class='h3 text-light'>
           <?php
-              require_once "Back-end/class/usersRequire.php";
-
               $categoria = new CategoriaUsuario(id_categoria: $_SESSION['categoria']);
               $resultado = $categoria->BuscarCategoria();
               
@@ -50,16 +69,25 @@
           ?>
         </h3>
         <p class="text-light">
-          Uma mini-bio Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil rerum facilis accusamus consequatur dolore dolores officiis magnam sit quibusdam, quod explicabo repellat, vitaeamet ea animi temporibus nulla!
+          <?php
+            if (!$dados[0]->descricao) {
+              echo "Vá até configurações para adicionar um bio no seu perfil!";
+            }
+            echo $dados[0]->descricao;
+          ?> 
         </p>
       </article>
       <div id='perfil-links'>
         <ul>
-          <li data-bs-toggle="modal" data-bs-target="#modalId"  >
-            <i class="bi bi-plus-circle-fill"></i>
-          </li>
           <?php
-            $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
+            $nmrRedes = $usuario->BuscarNumeroRedeSociasUsuario();
+            if ($nmrRedes[0]->RedesDisponiveis > 0) {
+              echo "<li data-bs-toggle='modal' data-bs-target='#modalId'  >
+                    <i class='bi bi-plus-circle-fill'></i>
+                    </li>";
+            }
+          ?>
+          <?php
             $redesocial = $usuario->BuscarRedeSocial();
 
             if (is_array($redesocial) && count($redesocial) > 0) {
@@ -110,27 +138,33 @@
                     <h5 class="modal-title" id="modalTitleId">Adicionar rede social</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <label>Insira a rede social:</label><br>
-                    <select class='form-select'>
-                        <option selected></option>
-                        <option>Facebook</option>
-                        <option>Twitter X</option>
-                        <option>Instagram</option>
-                        <option>LinkedIn</option>
+                <form action="#" method="post" id='form_redesocial'>
+                  <div class="modal-body">
+                  <label>Insira a rede social:</label><br>
+                    <select class='form-select' name='tipo_rede'>
+                      <option selected>Escolha qual a rede social...</option>
+                      <?php
+                        $tipos = $usuario->RedeSocialDisponivel();
+                        if (is_array($tipos)) {
+                          foreach ($tipos as $dado) {
+                            echo "<option value='{$dado->id_redesocial}'>{$dado->descritivo}</option>";
+                          }
+                        }
+                      ?>
                     </select>
                     <br>
                     <label>Insira o link da rede social:</label><br>
-                    <input type='text' name='link-rede-social' placeholder='Insira o link' class='form-control'>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success">Salvar</button>
-                </div>
+                    <input type='text' name='link_rede' placeholder='Insira o link' class='form-control'>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                      <input type="submit" class="btn btn-success" value="Salvar" onclick="ValidarFormRedesocial()">
+                  </div>
+                  </div>
+                </form>
             </div>
         </div>
     </div>
-
     <section id='meus-recursos' class='container bg-light rounded shadow mb-5 mt-5 p-5 d-flex flex-column'>
       <h2 class='txt-roxo mb-4'>Recursos postados</h2>
       <div class='row g-2'>

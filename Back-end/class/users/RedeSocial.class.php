@@ -40,4 +40,13 @@ class RedeSocial extends Conexao{
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function AdicionarRedeSocial($id_usuario) {
+        $sql = "CALL proc_AdicionarRedeSocial(?, ?, ?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $id_usuario);
+        $stm->bindValue(2, $this->id_redesocial);
+        $stm->bindValue(3, $this->link);
+        $stm->execute();
+    }
+
 }
