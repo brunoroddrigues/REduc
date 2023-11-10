@@ -245,4 +245,12 @@ class Usuario extends Conexao{
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function BuscarRedeSocial() {
+        $sql = "CALL proc_BuscarRedeSocial(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
 }

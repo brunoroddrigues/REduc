@@ -31,7 +31,7 @@ class CategoriaUsuario extends Conexao{
     }
 
     public function BuscarCategoria() {
-        $sql = "SELECT * FROM categoriausuario WHERE id_categoriaUsuario = ?";
+        $sql = "SELECT descritivo FROM categoriausuario WHERE id_categoriaUsuario = ?";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $this->id_categoria);
         $stm->execute();

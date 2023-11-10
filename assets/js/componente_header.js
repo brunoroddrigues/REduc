@@ -132,7 +132,7 @@ export function criarHeader(login, perfil) {
 
     let link_perfil = document.createElement("a");
     link_perfil.setAttribute("class", "nav-link txt-branco link-header");
-    link_perfil.setAttribute("href", "meuPerfil.html");
+    link_perfil.setAttribute("href", "meuPerfil.php");
 
     let link_adm = document.createElement("a");
     link_adm.setAttribute("class", "nav-link txt-branco link-header");

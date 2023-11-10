@@ -66,4 +66,4 @@ function criarCard(imagem, titulo, estrelas, salvo){
     }
 }
 
-criarCard(null, "Titulo do recurso", 5, false)
+// export default criarCard;

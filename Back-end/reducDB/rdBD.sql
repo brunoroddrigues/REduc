@@ -413,7 +413,7 @@ DROP PROCEDURE IF EXISTS proc_VerificarUsuario//
 CREATE PROCEDURE proc_VerificarUsuario (IN xemail VARCHAR(255), xsenha VARCHAR(255))
 BEGIN
 		IF(EXISTS(SELECT * FROM users WHERE email = xemail AND senha = xsenha)) THEN
-			SELECT id_usuario, nomeUsuario, id_categoriaUsuario, img_path FROM users
+			SELECT id_usuario, nomeUsuario, id_categoriaUsuario, IFNULL(img_path, "img/imgUsers/foto-perfil.avif") FROM users
 			WHERE email = xemail AND senha = xsenha;
 		END IF;
 END//
@@ -500,6 +500,7 @@ DELIMITER ;
 
 CALL proc_BuscarQuatroRecursos
 
+<<<<<<< HEAD
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS proc_buscarTodosRecursos $$
@@ -520,6 +521,27 @@ DELIMITER ;
 
 
 
+=======
+#criando uma procedure para buscar as redes socias do usuario
+
+DELIMITER // 
+DROP PROCEDURE IF EXISTS proc_BuscarRedeSocial //
+CREATE PROCEDURE proc_BuscarRedeSocial(IN xid_usuario INT)
+BEGIN
+	IF(EXISTS(SELECT * FROM user_redesocial WHERE id_usuario = xid_usuario)) THEN
+		SELECT id_redesocial, link_rede 
+		FROM user_redesocial
+		WHERE id_usuario = xid_usuario;
+	END IF;
+END //
+DELIMITER ;
+
+CALL proc_BuscarRedeSocial()
+
+
+
+SELECT * FROM redesocial ORDER BY id_redesocial
+>>>>>>> fdd9c24314ef8922d229178fc0f145bfeb9fe32e
 
 
 

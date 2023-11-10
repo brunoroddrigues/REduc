@@ -1,7 +1,5 @@
 import { criarRodape } from "./componente_footer.js";
 import { criarHeader } from "./componente_header.js";
-// import { criarCard } from "./card.js";
-// import { criarCard2 } from "./card2.js";
 
 // Header login ?
 $.ajax({
@@ -11,8 +9,8 @@ $.ajax({
         let loginStatus = JSON.parse(resposta);
         
         if (loginStatus.status) {
-            // let img = loginStatus.img;
-            criarHeader(loginStatus.status, loginStatus.img);
+            let img = loginStatus.img;
+            criarHeader(loginStatus.status, loginStatus.img, loginStatus.id_usuario);
             console.log(loginStatus);
         } else {
             criarHeader(loginStatus.status);
@@ -23,21 +21,7 @@ $.ajax({
 
 // Cards
 
-function criarCards(qtd){
-    $.ajax({
-        url: "",
-        type: "post",
-        data: {
-            quantidade: qtd
-        },
-        success: (resposta)=>{
-            let recursos = JSON.parse(resposta);
 
-            console.log(recursos);
-        }
-    })
-}
-
-criarCards(4);
+// criarCards(4)
 
 criarRodape()
