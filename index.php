@@ -1,7 +1,5 @@
 <?php
   if(!isset($_SESSION)) session_start();
-
-  
 ?>
 
 <!doctype html>
@@ -18,11 +16,10 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/index.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <script defer src="assets/js/func.js"></script>
 </head>
 
-<body onload="criarCards(4)">
-  <header id='reduc-header'></header>
+<body>
+  <header id="reduc-header"></header>
   <main>
     <!-- Seção de pesquisa -->
     <section id='pesquisa'>
