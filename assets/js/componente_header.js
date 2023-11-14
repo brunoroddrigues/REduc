@@ -75,7 +75,7 @@ export function criarHeader(login, perfil) {
 
   let aExplorar = document.createElement("a");
   aExplorar.setAttribute("class", "nav-link txt-branco link-header");
-  aExplorar.setAttribute("href", "explorar.html");
+  aExplorar.setAttribute("href", "explorar.php");
   aExplorar.appendChild(document.createTextNode("Explorar"));
 
   let a1 = document.createElement("a");
