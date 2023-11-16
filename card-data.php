@@ -1,15 +1,18 @@
 <?php
+    require_once "Back-end/class/conexao/Conexao.class.php";
     require_once "Back-end/class/recursos/Recursos.class.php";
 
-    if(/*$_POST["quantidade"] == 4*/true) {
-        $recurso = new Recurso();
-        $resposta = $recurso->card4();
+    if($_POST["quantidade"] == 4) {
+        $recurso = new Recursos();
+        $retorno = $recurso->card4();
     } else {
-        $recurso = new Recurso();
-        $resposta = $recurso->cardTodos();
+        $recurso = new Recursos();
+        $retorno = $recurso->cardTodos();
     }
 
-    var_dump($resposta);
+    foreach($retorno as $recurso){
+        $resposta[] = $recurso;
+    }
 
     echo json_encode($resposta);
 ?>

@@ -1,13 +1,6 @@
 import { criarRodape } from "./componente_footer.js";
 import { criarHeader } from "./componente_header.js";
-// import { criarCard } from "./card.js";
-// import { criarCard2 } from "./card2.js";
 
-// $.ajax({
-    
-// })
-
-// Header login ?
 $.ajax({
     url: "Log_status.php",
     type: "post",
@@ -24,21 +17,5 @@ $.ajax({
         
     }
 })
-
-// Cards
-
-function criarCards(qtd){
-    $.ajax({
-        url: "",
-        type: "post",
-        data: {
-            quantidade: qtd
-        },
-        success: (resposta)=>{
-            let cards = JSON.parse(resposta);
-            
-        }
-    })
-}
 
 criarRodape()

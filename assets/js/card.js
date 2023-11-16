@@ -1,6 +1,6 @@
 /*                || src || string || int || bool ||                   */
-export function criarCard(imagem, titulo, estrelas, salvo){
-    const CARD_CONTAINER = document.getElementsByClassName("card-container");
+function criarCard(imagem, titulo, estrelas, salvo){
+    const CARD_CONTAINER = document.querySelector('[data-container]');
 
     let divCol = document.createElement("div");
     divCol.setAttribute("class", "col-lg-3");
@@ -10,6 +10,7 @@ export function criarCard(imagem, titulo, estrelas, salvo){
 
     let cardA = document.createElement("a");
     cardA.setAttribute("class", "card link-reset shadow");
+    cardA.setAttribute("href", "recurso.php?")
 
     let cardImg = document.createElement("img");
     cardImg.setAttribute("class", "card-img-top");
@@ -61,9 +62,26 @@ export function criarCard(imagem, titulo, estrelas, salvo){
 
     divCol.appendChild(divP);
 
-    for(let x = 0; x < CARD_CONTAINER.length; x++){
-        CARD_CONTAINER[x].appendChild(divCol);
-    }
+    CARD_CONTAINER.appendChild(divCol);
 }
 
-criarCard(null, "Titulo do recurso", 5, false)
+function criarCards(){
+    $.ajax({
+        url: "card-data.php",
+        type: "post",
+        dataType: "json",
+        data: {
+            quantidade: document.querySelector('[data-container]').dataset.container
+        },
+        success: (resposta)=>{
+            resposta.forEach(recurso => {
+                criarCard(recurso.img_recurso_path, recurso.titulo, recurso.nota);
+            });
+        },
+        error: () => {
+            console.log("Não foi possível realizar a operação!");
+        }
+    })
+}
+
+criarCards();

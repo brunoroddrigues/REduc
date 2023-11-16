@@ -509,6 +509,28 @@ DELIMITER ;
 
 CALL proc_BuscarQuatroRecursos
 
+<<<<<<< HEAD
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS proc_buscarTodosRecursos $$
+CREATE PROCEDURE proc_buscarTodosRecursos ()
+BEGIN
+	SELECT r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota"
+	FROM recursos r LEFT JOIN avaliacao_recurso ar
+	ON(r.id_recurso = ar.id_recurso)	
+	WHERE r.status <> 0	
+	GROUP BY r.id_recurso
+	ORDER BY AVG(ar.nota) DESC;
+END $$
+DELIMITER ;
+
+
+
+
+
+
+
+=======
 #criando uma procedure para buscar as redes socias do usuario
 
 DELIMITER // 
@@ -529,6 +551,7 @@ CALL proc_BuscarRedeSocial()
 
 
 SELECT * FROM redesocial ORDER BY id_redesocial
+>>>>>>> fdd9c24314ef8922d229178fc0f145bfeb9fe32e
 
 # Procedure para buscar os dados do perfil do usuario
 

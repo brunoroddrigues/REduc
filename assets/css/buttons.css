@@ -21,3 +21,11 @@
 .btn-search:hover{
     background-color: #dedede !important;
 }
+
+.btn {
+    white-space: nowrap;
+}
+
+#btn-footer:hover {
+    background-color: var(--roxo-principal-escuro)
+}

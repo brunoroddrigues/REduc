@@ -1,7 +1,5 @@
 <?php
   if(!isset($_SESSION)) session_start();
-
-  
 ?>
 
 <!doctype html>
@@ -18,13 +16,10 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/index.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <script defer src="assets/js/func.js"></script>
-  <script defer src="assets/js/card.js"></script>
-  <script defer type="module" src="assets/js/componentes.js"></script>
 </head>
 
 <body>
-  <header id='reduc-header'></header>
+  <header id="reduc-header"></header>
   <main>
     <!-- Seção de pesquisa -->
     <section id='pesquisa'>
@@ -37,26 +32,8 @@
     </section>
     <!-- Destaques -->
     <section id='destaques' class='container bg-light rounded shadow mb-5 p-5 d-flex flex-column'>      
-      <h2 class='txt-roxo mb-4'>Destaque?<?php if(isset($_SESSION['username'])) echo $_SESSION['username']; ?></h2>
-      <div class='row g-2 card-container' onload="criarCards(4)">
-
-        <div class="col-md-3">
-          <!-- Começo do card -->
-
-          <div class="p-1">
-
-            <a href='#' class="card link-reset shadow">
-              <img class="card-img-top" src="img/img-padrao.jpg" alt="Title">
-              <div class="card-body">
-                <h4 class="card-title">Titulo do recurso</h4>
-                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                <button class='btn p-0 card-flag'>&#9873;</button>
-              </div>
-            </a>
-
-          </div>
-
-        </div> <!-- Fim do card -->
+      <h2 class='txt-roxo mb-4'>Destaques<?php if(isset($_SESSION['username'])) echo $_SESSION['username']; ?></h2>
+      <div class='row g-2 card-container'>
 
       </div>
       <a href='explorar.html' class='btn btn-primary mt-4 align-self-center shadow'>Ir para explorar &#10095;</a>
@@ -102,6 +79,10 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script type="module" src="assets/js/componentes.js"></script>
+  <script src="assets/js/func.js"></script>
+  <script src="assets/js/card.js"></script>
+  <script src="assets/js/criarCard.js"></script>
 </body>
 
 </html>

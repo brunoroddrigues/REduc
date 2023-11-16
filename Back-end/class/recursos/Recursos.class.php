@@ -1,12 +1,12 @@
 <?php
+// require_once '../conexao/Conexao.class.php';
 require_once 'Disciplinas.class.php';
 require_once 'Ferramentas.class.php';
 require_once 'Cursos.class.php';
 require_once 'CategoriaRecurso.class.php';
 require_once 'AreaConhecimento.class.php';
-require_once '../conexao/Conexao.class.php';
 
-class Recursos {
+class Recursos extends Conexao{
     public function __construct(
       private int $id_recurso = 0,
       private string $titulo = "",
@@ -23,7 +23,7 @@ class Recursos {
       private array $area = array(),  
       private $usuario = null
     ){
-        
+        parent:: __construct();
     }
 
     // metodos set
@@ -114,20 +114,18 @@ class Recursos {
         return $this->nota;
     }
 
-    public function card4(){
-        $sql = "CALL proc_4";
+    public function card4() {
+        $sql = "CALL proc_BuscarQuatroRecursos()";
         $stm = $this->db->prepare($sql);
         $stm->execute();
-        $this->db = null;
-        return $stm->fetchAll(PDO::FETCH_OBJ);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function cardTodos(){
-        $sql = "CALL proc_todos";
+        $sql = "CALL proc_buscarTodosRecursos()";
         $stm = $this->db->prepare($sql);
         $stm->execute();
-        $this->db = null;
-        return $stm->fetchAll(PDO::FETCH_OBJ);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 
