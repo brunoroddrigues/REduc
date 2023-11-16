@@ -123,7 +123,7 @@
         </ul>
       </div>
       <div id="perfil-config">
-        <a href="config.html" class='btn btn-outline-light'>
+        <a href="config.php" class='btn btn-outline-light'>
           <i class="bi bi-gear-fill"></i>
           Configurações
         </a>

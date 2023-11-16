@@ -1,3 +1,15 @@
+<?php
+  if(!isset($_SESSION)) session_start();
+
+  if (!$_SESSION['id_usuario']) {
+    header('location:index.php');
+    die();
+  } else {
+    require_once "Back-end/class/usersRequire.php";
+    $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
+  }
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -37,13 +49,13 @@
                 <label class="form-label">E-mail</label>
                 <input type="email" class="form-control" name="" placeholder="Digite o novo e-mail...">
                 <br>
-                <label class="form-label">BIO:</label>
+                <label class="form-label">Bio:</label>
                 <textarea id="input-bio" class="form-control" placeholder="Digite a nova BIO..."></textarea>
                 <br>
                 <label class="form-label">Data de nascimento:</label>
                 <input type="date" class="form-control" name="">
                 <br>
-                <label class="form-label">Link do Lattes:</label>
+                <label class="form-label">Currículo Lattes:</label>
                 <input type="url" class="form-control" name="" placeholder="Insira o link do Lattes...">
                 <br>
                 <label class="form-label">Área de atuação:</label>
@@ -66,7 +78,12 @@
             <div id="config-img" class="d-flex justify-content-start align-items-center flex-column">
                 <h3 class="h3 txt-roxo mb-4">Alterar imagem</h3>
                 <label for="input-img" id="label-img" class="rounded-circle mb-4">
-                    <img id="perfil-img" class="border border-4 border-primary rounded-circle">
+                    <img src=
+                    <?php
+                      $dados = $usuario->BuscarPerfilUsuario(); 
+                      echo $dados[0]->img_path;
+                    ?>
+                    id="perfil-img" class="border border-4 border-primary rounded-circle">
                     <span id="alterar-img">Alterar<br>Imagem</span> 
                 </label>
                 <input id="input-img" type="file" class="form-control">
