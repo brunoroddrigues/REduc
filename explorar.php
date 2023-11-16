@@ -1,3 +1,7 @@
+<?php
+    
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -10,11 +14,9 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/explorar.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <!-- Scripts do REduc -->
-    <script defer src='assets/js/card.js'></script>
     <script defer src="assets/js/func.js"></script>
     <script defer type="module" src="assets/js/componentes.js"></script>
 
@@ -54,7 +56,7 @@
 
                                 <hr>
 
-                                    <h6>Datas:</h6>
+                                <h6>Datas:</h6>
 
                                 <input type="radio" name="data" class="form-check-input">
                                 <label class="form-check-label">Todas</label><br>
@@ -79,6 +81,15 @@
                                 <label class="form-check-label">Área do conhecimento</label><br>
                                 <select class="in-text form-select my-1 d-none" disabled>
                                     <option selected>Selecione uma opção...</option>
+                                    <option value="exatas">Ciências exatas e da Terra</option>
+                                    <option value="biologicas">Ciências biológicas</option>
+                                    <option value="engenharia">Engenharia/Tecnologia</option>
+                                    <option value="saude">Ciências da saúde</option>
+                                    <option value="agrarias">Ciências agrárias</option>
+                                    <option value="sociais">Ciências sociais</option>
+                                    <option value="humanas">Ciências humanas</option>
+                                    <option value="linguistica">Linguística</option>
+                                    <option value="letras">Letras e artes</option>
                                 </select>
 
                                 <input type="checkbox" name="fermt" class="form-check-input in-check" onclick="checado()">
@@ -108,7 +119,7 @@
 
             <div class="container mt-4">
 
-                <div id='explorar' class="row g-1">
+                <div id='explorar' class="row g-1" data-container="">
 
                 </div>
 
@@ -119,14 +130,10 @@
     <footer id="reduc-footer"></footer>
     <script src="assets/js/explorar.js"></script>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-        </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-        </script>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="assets/js/card.js"></script>
 </body>
 
 </html>

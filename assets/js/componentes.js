@@ -1,11 +1,6 @@
 import { criarRodape } from "./componente_footer.js";
 import { criarHeader } from "./componente_header.js";
 
-// $.ajax({
-    
-// })
-
-// Header login ?
 $.ajax({
     url: "Log_status.php",
     type: "post",
@@ -22,10 +17,5 @@ $.ajax({
         
     }
 })
-
-// Cards
-
-
-// criarCards(4)
 
 criarRodape()
