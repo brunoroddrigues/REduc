@@ -1,4 +1,7 @@
 <?php
+
+  $msg = array("", "", "");
+
   if(!isset($_SESSION)) session_start();
 
   if (!$_SESSION['id_usuario']) {
@@ -8,6 +11,32 @@
     require_once "Back-end/class/usersRequire.php";
     $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
   }
+
+  if (isset($_POST)) {
+    if (isset($_FILES)) {
+      $img_usuario = $_FILES['file'];
+      $img_nova = explode('.', $img_usuario['name']);
+
+      if ($img_nova[sizeof($img_nova)-1] != 'jpg') {
+        $msg[0] = 'Não é possivel salvar esse arquivo!';
+      } else {
+        move_uploaded_file($img_usuario['tmp_name'], 'img/imgUsers/'. $img_usuario['name']);
+        $new_path = 'img/imgUsers/'. $img_usuario['name'];
+
+        $usuario->TrocarImg($new_path);
+
+        // Apague os dados do $_POST
+        unset($_POST);
+        
+        // Redirecione para a mesma página
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit();
+    }
+    }
+    
+  }
+  var_dump($_FILES);
+  var_dump($img_nova);
 ?>
 
 <!doctype html>
@@ -31,49 +60,56 @@
 <body>
   <header id="reduc-header"></header>
   <main>
-    <form id="config-form" class="container shadow rounded bg-light my-5 p-5">
+    <form action="#" method="post" id="config-form" class="container shadow rounded bg-light my-5 p-5" enctype="multipart/form-data">
         <h2 id="titulo" class="h2 txt-roxo d-flex justify-content-between">Alterar configurações de conta<a href="meuPerfil.html" id="voltar"><i class="bi bi-arrow-left"></i>Voltar</a></h2>
         <hr class="mb-5">
         <div id="campos" class="mb-5">
             <div id="config-dados">
                 <h3 class="h3 txt-roxo mb-5">Dados da conta</h3>
                 <label class="form-label">Nome de usuário:</label>
-                <input type="text" class="form-control" name="" placeholder="Digite o novo nome de usuário...">
+                <input type="text" class="form-control" name="username" placeholder="Digite o novo nome de usuário..." value="<?php echo isset($_POST['username'])?$_POST['username']:''?>">
+                <span class="text-danger"></span>
                 <br>
                 <label class="form-label">Nome:</label>
-                <input type="text" class="form-control" name="" placeholder="Digite o novo nome...">
+                <input type="text" class="form-control" name="nome" placeholder="Digite o novo nome..." value="<?php echo isset($_POST['nome'])?$_POST['nome']:''?>">
                 <br>
                 <label class="form-label">Sobrenome:</label>
-                <input type="text" class="form-control" name="" placeholder="Digite o novo sobrenome...">
+                <input type="text" class="form-control" name="sobrenome" placeholder="Digite o novo sobrenome..." value="<?php echo isset($_POST['sobrenome'])?$_POST['sobrenome']:''?>">
                 <br>
                 <label class="form-label">E-mail</label>
-                <input type="email" class="form-control" name="" placeholder="Digite o novo e-mail...">
+                <input type="email" class="form-control" name="email" placeholder="Digite o novo e-mail..." value="<?php echo isset($_POST['email'])?$_POST['email']:''?>">
                 <br>
                 <label class="form-label">Bio:</label>
-                <textarea id="input-bio" class="form-control" placeholder="Digite a nova BIO..."></textarea>
-                <br>
-                <label class="form-label">Data de nascimento:</label>
-                <input type="date" class="form-control" name="">
+                <textarea id="input-bio" class="form-control" placeholder="<?php echo isset($_POST['bio'])?$_POST['bio']:'Digite a nova BIO...'?>" name="bio"></textarea>
                 <br>
                 <label class="form-label">Currículo Lattes:</label>
-                <input type="url" class="form-control" name="" placeholder="Insira o link do Lattes...">
+                <input type="url" class="form-control" name="lattes" placeholder="Insira o link do Lattes..." value="<?php echo isset($_POST['lattes'])?$_POST['lattes']:''?>">
                 <br>
                 <label class="form-label">Área de atuação:</label>
-                <input type="text" name="" class="form-control" placeholder="Digite a área de atuação...">
+                <input type="text" name="atuacao" class="form-control" placeholder="Digite a área de atuação..." value="<?php echo isset($_POST['atuacao'])?$_POST['atuacao']:''?>">
                 <br>
                 <label class="form-label">Senha:</label>
-                <input type="password" class="form-control" name="" placeholder="Digite sua nova senha...">
+                <input type="password" class="form-control" name="senha" placeholder="Digite sua nova senha..." value="<?php echo isset($_POST['senha'])?$_POST['senha']:''?>">
                 <br>
                 <label class="form-label">Repita a senha:</label>
-                <input type="password" class="form-control" name="" placeholder="Repita sua senha...">
+                <input type="password" class="form-control" name="senha2" placeholder="Repita sua senha..." value="<?php echo isset($_POST['senha2'])?$_POST['senha2']:''?>">
                 <br>
                 <label class="form-label">Pergunta de segurança:</label>
-                <select class='form-select'>
+                <select class='form-select' name="pergunta">
                     <option selected>Selecione a pergunta...</option>
+                    <?php
+                    $pergunta = new Pergunta();
+                    $retorno = $pergunta->BuscarTodasPerguntas();
+                    if (is_array($retorno)) {
+                      foreach ($retorno as $dado) {
+                        echo "<option value='{$dado->id_pergunta}'>{$dado->descritivo}</option>";
+                      }
+                    }
+                  ?>
                 </select>
                 <br>
                 <label class="form-label">Resposta de segurança:</label>
-                <input type="text" name="" class="form-control" placeholder="Digite a resposta de segurança...">
+                <input type="text" name="resposta" class="form-control" placeholder="Digite a resposta de segurança..." name="resposta" value="<?php echo isset($_POST['resposta'])?$_POST['resposta']:''?>">
             </div>
             <div id="config-img" class="d-flex justify-content-start align-items-center flex-column">
                 <h3 class="h3 txt-roxo mb-4">Alterar imagem</h3>
@@ -86,7 +122,9 @@
                     id="perfil-img" class="border border-4 border-primary rounded-circle">
                     <span id="alterar-img">Alterar<br>Imagem</span> 
                 </label>
-                <input id="input-img" type="file" class="form-control">
+                <input id="input-img" type="file" class="form-control" name='file'>
+                <br>
+                <span class="text-danger"><?php echo $msg[0] ?></span>
             </div>
         </div>
         <input type="reset" value="Redefinir" class="btn btn-danger">

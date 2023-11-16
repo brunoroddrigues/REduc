@@ -63,12 +63,12 @@
               <br>
               <label>Digite seu email:</label>
               <br>
-              <input type="email" name='email' class='form-control' placeholder='Digite seu email...'>
+              <input type="email" name='email' class='form-control' placeholder='Digite seu email...' value="<?php echo isset($_POST['email'])?$_POST['email']:''?>">
               <span class="text-danger"><?php echo $msg[0] ?></span>
               <br>
               <label>Digite sua senha:</label>
               <br>
-              <input type='password' name='senha' class='form-control' placeholder='Digite sua senha...'>
+              <input type='password' name='senha' class='form-control' placeholder='Digite sua senha...' value="<?php echo isset($_POST['senha'])?$_POST['senha']:''?>">
               <span class="text-danger"><?php echo $msg[1] ?></span>
             </div>
             <br>

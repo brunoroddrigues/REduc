@@ -277,4 +277,12 @@ class Usuario extends Conexao{
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function TrocarImg($nova_img) {
+        $sql = "UPDATE users SET img_path = ? WHERE id_usuario = ?";
+        $stm = $this->db->prepare($sql);
+		$stm->bindValue(1, $nova_img);
+        $stm->bindValue(2, $this->id_usuario);
+        $stm->execute();
+    }
 }
