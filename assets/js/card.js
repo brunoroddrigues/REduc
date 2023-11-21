@@ -1,5 +1,5 @@
 /*                || src || string || int || bool ||                   */
-function criarCard(imagem, titulo, estrelas, salvo){
+function criarCard(codigo = 1, imagem, titulo, estrelas, salvo = false){
     const CARD_CONTAINER = document.querySelector('[data-container]');
 
     let divCol = document.createElement("div");
@@ -10,7 +10,8 @@ function criarCard(imagem, titulo, estrelas, salvo){
 
     let cardA = document.createElement("a");
     cardA.setAttribute("class", "card link-reset shadow");
-    cardA.setAttribute("href", "recurso.php?")
+    cardA.setAttribute("href", "recurso.php?");
+    cardA.setAttribute("data-codigo", codigo);
 
     let cardImg = document.createElement("img");
     cardImg.setAttribute("class", "card-img-top");
@@ -42,14 +43,12 @@ function criarCard(imagem, titulo, estrelas, salvo){
     }
 
     let button = document.createElement("button");
-    button.setAttribute("class", "btn p-0 card-flag");
-    let bandeira = document.createElement("i");
-    bandeira.setAttribute("class", "bi bi-bookmark");
-    if(salvo){
-        bandeira.classList.remove("bi-bookmark");
-        bandeira.classList.add("bi-bookmark-fill");
+    button.setAttribute("onclick", "favorito(event, this)");
+    if(!salvo) {
+        button.setAttribute("class", "btn p-0 card-flag bi-bookmark");
+    } else {
+        button.setAttribute("class", "btn p-0 card-flag bi-bookmark-fill");
     }
-    button.appendChild(bandeira);
 
     divBody.appendChild(h4);
     divBody.appendChild(span);
@@ -75,7 +74,7 @@ function criarCards(){
         },
         success: (resposta)=>{
             resposta.forEach(recurso => {
-                criarCard(recurso.img_recurso_path, recurso.titulo, recurso.nota);
+                criarCard(recurso.codigo, recurso.img_recurso_path, recurso.titulo, recurso.nota);
             });
         },
         error: () => {
@@ -85,3 +84,25 @@ function criarCards(){
 }
 
 criarCards();
+
+function favorito(event, elemento) {
+    event.preventDefault();
+
+    if(elemento.classList.contains("bi-bookmark-fill")) {
+        elemento.classList.remove("bi-bookmark-fill");
+        elemento.classList.add("bi-bookmark");
+        $.ajax({
+            url: "",
+            type: "post",
+            data: {
+                id_recurso: elemento.parentNode.parentNode.dataset.codigo
+            },
+            error: () => {
+                alert("Ocorreu um erro inesperado e não foi possível realizar a operação!");
+            }
+        })
+    } else {
+        elemento.classList.remove("bi-bookmark")
+        elemento.classList.add("bi-bookmark-fill")
+    }
+}

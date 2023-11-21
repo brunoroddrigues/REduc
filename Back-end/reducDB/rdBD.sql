@@ -515,7 +515,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS proc_buscarTodosRecursos $$
 CREATE PROCEDURE proc_buscarTodosRecursos ()
 BEGIN
-	SELECT r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota"
+	SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota"
 	FROM recursos r LEFT JOIN avaliacao_recurso ar
 	ON(r.id_recurso = ar.id_recurso)	
 	WHERE r.status <> 0	
@@ -525,7 +525,16 @@ END $$
 DELIMITER ;
 
 
-
+SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota", (
+	SELECT rs.id_fav 
+	FROM recursos_salvos rs
+	WHERE r.id_recurso = rs.id_recurso
+) "recurso_salvo"
+FROM recursos r LEFT JOIN avaliacao_recurso ar
+ON(r.id_recurso = ar.id_recurso)
+WHERE r.status <> 0	
+GROUP BY r.id_recurso
+ORDER BY AVG(ar.nota) DESC;
 
 
 
