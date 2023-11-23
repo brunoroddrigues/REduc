@@ -13,13 +13,16 @@
   }
 
   if (isset($_POST)) {
-    if (isset($_FILES)) {
+    if ($_FILES) {
       $img_usuario = $_FILES['file'];
       $img_nova = explode('.', $img_usuario['name']);
 
       if ($img_nova[sizeof($img_nova)-1] != 'jpg') {
-        $msg[0] = 'Não é possivel salvar esse arquivo!';
+        $msg[0] = 'Não é possivel salvar esse arquivo, apenas imagens jpg!';
       } else {
+        $img_antiga = $usuario->BuscarPerfilUsuario();
+        unlink($img_antiga[0]->img_path);
+
         move_uploaded_file($img_usuario['tmp_name'], 'img/imgUsers/'. $img_usuario['name']);
         $new_path = 'img/imgUsers/'. $img_usuario['name'];
 
@@ -35,8 +38,6 @@
     }
     
   }
-  var_dump($_FILES);
-  var_dump($img_nova);
 ?>
 
 <!doctype html>
