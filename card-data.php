@@ -4,10 +4,6 @@
     require_once "Back-end/class/users/Usuarios.class.php";
 
     if(!isset($_SESSION)) session_start();
-
-    $usuario = new Usuario();
-    $_SESSION["id_usuario"] = $usuario->getIdUsuario();
-    
     var_dump($_SESSION["id_usuario"]);
 
     $_POST["quantidade"] = 1;
