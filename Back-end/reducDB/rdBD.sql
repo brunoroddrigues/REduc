@@ -524,20 +524,39 @@ BEGIN
 END $$
 DELIMITER ;
 
+CALL proc_buscarTodosRecursos();
 
-SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota", (
-	SELECT rs.id_fav 
-	FROM recursos_salvos rs
-	WHERE r.id_recurso = rs.id_recurso
-) "recurso_salvo"
-FROM recursos r LEFT JOIN avaliacao_recurso ar
-ON(r.id_recurso = ar.id_recurso)
-WHERE r.status <> 0	
-GROUP BY r.id_recurso
-ORDER BY AVG(ar.nota) DESC;
+	SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota", IFNULL((
+		SELECT rs.id_fav 
+		FROM recursos_salvos rs
+		WHERE r.id_recurso = rs.id_recurso
+	), 0) "favorito"
+	FROM recursos r LEFT JOIN avaliacao_recurso ar
+	ON(r.id_recurso = ar.id_recurso)
+	WHERE r.status <> 0	
+	GROUP BY r.id_recurso
+	ORDER BY AVG(ar.nota) DESC;
 
 
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS proc_buscarTodosRecursos $$
+CREATE PROCEDURE proc_buscarTodosRecursos (IN codigo INT)
+BEGIN
+	SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota", IFNULL((
+		SELECT rs.id_fav 
+		FROM recursos_salvos rs
+		WHERE r.id_recurso = rs.id_recurso AND codigo = rs.id_usuario
+	), 0) "favorito"
+	FROM recursos r LEFT JOIN avaliacao_recurso ar
+	ON(r.id_recurso = ar.id_recurso)
+	WHERE r.status <> 0	
+	GROUP BY r.id_recurso
+	ORDER BY AVG(ar.nota) DESC;
+END $$
+DELIMITER ;
+
+CALL proc_buscarTodosRecursos(1);
 
 =======
 #criando uma procedure para buscar as redes socias do usuario

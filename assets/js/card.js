@@ -1,5 +1,5 @@
 /*                || src || string || int || bool ||                   */
-function criarCard(codigo = 1, imagem, titulo, estrelas, salvo = false){
+function criarCard(codigo = 1, imagem, titulo, estrelas, salvo){
     const CARD_CONTAINER = document.querySelector('[data-container]');
 
     let divCol = document.createElement("div");
@@ -44,7 +44,7 @@ function criarCard(codigo = 1, imagem, titulo, estrelas, salvo = false){
 
     let button = document.createElement("button");
     button.setAttribute("onclick", "favorito(event, this)");
-    if(!salvo) {
+    if(salvo == 0) {
         button.setAttribute("class", "btn p-0 card-flag bi-bookmark");
     } else {
         button.setAttribute("class", "btn p-0 card-flag bi-bookmark-fill");
@@ -74,7 +74,7 @@ function criarCards(){
         },
         success: (resposta)=>{
             resposta.forEach(recurso => {
-                criarCard(recurso.codigo, recurso.img_recurso_path, recurso.titulo, recurso.nota);
+                criarCard(recurso.codigo, recurso.img_recurso_path, recurso.titulo, recurso.nota, recurso.favorito);
             });
         },
         error: () => {
@@ -87,22 +87,28 @@ criarCards();
 
 function favorito(event, elemento) {
     event.preventDefault();
-
+    var salvo;
     if(elemento.classList.contains("bi-bookmark-fill")) {
         elemento.classList.remove("bi-bookmark-fill");
         elemento.classList.add("bi-bookmark");
-        $.ajax({
-            url: "",
-            type: "post",
-            data: {
-                id_recurso: elemento.parentNode.parentNode.dataset.codigo
-            },
-            error: () => {
-                alert("Ocorreu um erro inesperado e não foi possível realizar a operação!");
-            }
-        })
+        salvo = false;
+        console.log("Salvo");
     } else {
         elemento.classList.remove("bi-bookmark")
         elemento.classList.add("bi-bookmark-fill")
+        salvo = true;
+        console.log("Não salvo");
     }
+
+    $.ajax({
+        url: "",
+        type: "post",
+        data: {
+            id_recurso: elemento.parentNode.parentNode.dataset.codigo,
+            salvar: salvo
+        },
+        error: () => {
+            alert("Ocorreu um erro inesperado e não foi possível realizar a operação!");
+        }
+    })
 }
