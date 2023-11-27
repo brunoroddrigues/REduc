@@ -45,6 +45,10 @@ main{
     background-color: var(--roxo-principal) !important;
 }
 
+.text-primary {
+    color: var(--roxo-principal) !important;
+}
+
 @media (max-width: 575px){
     .nav-link{
         margin-bottom: 10px;
