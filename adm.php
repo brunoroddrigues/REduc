@@ -1,11 +1,19 @@
+<?php
+    if(!isset($_SESSION)) session_start();
+
+    if($_SESSION["categoria"] != 3) {
+        header("location: index.php");
+        die();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script defer src="assets/js/func.js"></script>
@@ -19,8 +27,7 @@
         padding: 0%;
     }
 
-
-    .nav-link {
+    .tab-link {
         padding-left: 50px;
         padding-right: 50px;
         color: #fff;
@@ -31,7 +38,7 @@
         margin-top: 30px;
     }
 
-    .nav-link:hover {
+    .tab-link:hover {
         background-color: #fff;
         color: #131267;
     }
@@ -43,38 +50,27 @@
     <header id='reduc-header'></header>
     <div>
         <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="img/Logo.svg" alt="">
-                </a>
+            <div class="container p-0">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
                     <i class="bi bi-list" style="color: white;"></i>
                 </button>
 
-                <div class="collapse navbar-collapse  justify-content-end" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <ul class="text-light nav nav-tabs fw-bold">
 
-                        <li class="nav-item ">
-                            <a class="nav-link active " data-bs-toggle="tab" data-bs-target="#ted" role="tab">
-                                TED
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " data-bs-toggle="tab" data-bs-target="#pa" role="tab">
-                                PA
-                            </a>
+                        <li class="nav-item">
+                            <a class="nav-link active tab-link" data-bs-toggle="tab" data-bs-target="#ted" role="tab">TED</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#comen" role="tab">
-                                Comentarios
-                            </a>
+                            <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#pa" role="tab">PA</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#usua" role="tab">
-                                Usuario
-                            </a>
+                            <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#comen" role="tab">Comentarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#usua" role="tab">Usuario</a>
                         </li>
 
                     </ul>
@@ -85,19 +81,51 @@
 
     </div>
 
-    <div class="container tab-content">
+    <main class="container tab-content">
 
 
         <div class="tab-pane fade show active " id="ted">
+            <?php
+                require_once("Back-end/class/conexao/Conexao.class.php");
+                require_once("Back-end/class/recursos/Recursos.class.php");
+
+                $recursos = new Recursos();
+                $dados = $recursos->buscarRecursosNaoPostados();
+
+                if(is_array(($dados))) {
+                    foreach($dados as $dado) {
+                        echo "
+                            <div class='card m-4'>
+                                <div class='card-header text-light d-flex' style='background-color: #131267;'>
+                                    <h3 class='h5'>{$dado->titulo}</h3>
+                                </div>
+                                <div class='card-body'>
+                                    <h4 class='card-subtitle mb-2 fw-bold'>{$dado->usuario}</h4>
+                                    <p class='m-3 card-text'>
+                                        <h4 class='fw-bold h6'>Descrição:</h4>
+                                        {$dado->descricao}
+                                    </p>
+                                    <a href='' class='btn btn-primary'>Visualizar</a>
+                                    <a href='aprovar_recurso.php?id_recurso={$dado->codigo}' class='btn btn-success'>Aprovar</a>
+                                    <a href='' class='btn btn-danger'>Reprovar</a>
+                                </div>
+                                <div class='card-footer'>
+                                    Postado em: {$dado->cadastro}
+                                </div>
+                            </div>
+                        ";
+                    }
+                }
+            ?>
 
             <!-- Conteudo para Provação TED -->
 
-            <div class="card m-4">
+            <!-- <div class="card m-4">
                 <div class="card-header text-light   d-flex" style=" background-color: #131267;">
 
                     <h5>
                         Java Scrip Basico
-                        <!-- Titulo Da TED -->
+                        <!-- Titulo Da TED 
                     </h5>
 
                 </div>
@@ -105,7 +133,7 @@
                     <h6 class="card-subtitle mb-2 fw-bold">
                         <p>
                             Derek Nunes
-                            <!-- Nick Do Usuario -->
+                            <!-- Nick Do Usuario 
                         </p>
                     </h6>
                     <p class="m-3 card-text ">
@@ -140,10 +168,10 @@
             <!-- Fim Do Conteudo TED-->
 
         </div>
-        <div class="tab-pane fade" id="pa" ">
+        <div class="tab-pane fade" id="pa">
                 Em densevolvimento
         </div>
-        <div class=" tab-pane fade " id=" comen" ">
+        <div class=" tab-pane fade " id=" comen">
             
             <!-- Denuncia De Comentario -->
 
@@ -259,16 +287,14 @@
         </div>
     </div>
     <!-- Fim da Aba de Banir Usuario -->
-    </div>
+    </main>
 
     <!-- Fim do Tabs -->
 
-    <footer>
+    <footer id="reduc-footer">
 
     </footer>
-    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-        </script>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </html>

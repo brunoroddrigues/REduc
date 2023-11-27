@@ -128,5 +128,20 @@ class Recursos extends Conexao{
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function buscarRecursosNaoPostados() {
+        $sql = "CALL proc_buscarRecursosNaoPostados()";
+        $stm = $this->db->prepare($sql);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function ativar($codigo) {
+        $sql = "CALL proc_ativar_recurso(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $codigo);
+        $stm->execute();
+        $this->db = null;
+    }
 }
 

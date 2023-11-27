@@ -509,21 +509,6 @@ DELIMITER ;
 
 CALL proc_BuscarQuatroRecursos
 
-<<<<<<< HEAD
-
-DELIMITER $$
-DROP PROCEDURE IF EXISTS proc_buscarTodosRecursos $$
-CREATE PROCEDURE proc_buscarTodosRecursos ()
-BEGIN
-	SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota"
-	FROM recursos r LEFT JOIN avaliacao_recurso ar
-	ON(r.id_recurso = ar.id_recurso)	
-	WHERE r.status <> 0	
-	GROUP BY r.id_recurso
-	ORDER BY AVG(ar.nota) DESC;
-END $$
-DELIMITER ;
-
 DELIMITER $$
 DROP PROCEDURE IF EXISTS proc_buscarTodosRecursos $$
 CREATE PROCEDURE proc_buscarTodosRecursos (IN codigo INT)
@@ -555,6 +540,7 @@ WHERE r.status <> 0
 GROUP BY r.id_recurso
 ORDER BY AVG(ar.nota) DESC;
 
+END 
 
 
 
@@ -579,7 +565,6 @@ CALL proc_BuscarRedeSocial()
 
 
 SELECT * FROM redesocial ORDER BY id_redesocial
->>>>>>> fdd9c24314ef8922d229178fc0f145bfeb9fe32e
 
 # Procedure para buscar os dados do perfil do usuario
 
@@ -638,3 +623,15 @@ END //
 DELIMITER ;
 
 CALL proc_BuscarNumeroRedeSociasUsuario (11)
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS buscarRecursosNaoPostados $$
+CREATE PROCEDURE buscarRecursosNaoPostados ()
+BEGIN
+	SELECT r.id_recurso "codigo", r.descricao, r.titulo, r.datacadastro "cadastro", u.nome "usuario"
+	FROM recursos r INNER JOIN users u
+	ON (r.id_usuario = u.id_usuario)
+	WHERE r.status = 0; 
+END $$
+DELIMITER ;
