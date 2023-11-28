@@ -42,6 +42,11 @@
         background-color: #fff;
         color: #131267;
     }
+
+    .card:hover {
+        transform: scale(1.0);
+        cursor: auto;
+    }
 </style>
 <title>Document</title>
 </head>
@@ -117,55 +122,6 @@
                     }
                 }
             ?>
-
-            <!-- Conteudo para Provação TED -->
-
-            <!-- <div class="card m-4">
-                <div class="card-header text-light   d-flex" style=" background-color: #131267;">
-
-                    <h5>
-                        Java Scrip Basico
-                        <!-- Titulo Da TED 
-                    </h5>
-
-                </div>
-                <div class="card-body">
-                    <h6 class="card-subtitle mb-2 fw-bold">
-                        <p>
-                            Derek Nunes
-                            <!-- Nick Do Usuario 
-                        </p>
-                    </h6>
-                    <p class="m-3 card-text ">
-                    <h6 class="fw-bold">Descrição:</h6>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem similique cumque dolores debitis
-                    quidem ratione illo! Officia cum quam rerum, esse qui nostrum id natus? Soluta officia labore enim
-                    optio?
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates inventore blanditiis est ad
-                    consequatur tenetur pariatur nisi. Sunt, consequatur itaque, eaque, dolorem error iusto praesentium
-                    quas magnam maiores optio perferendis.
-                    </p>
-                    <div class=" d-flex justify-content-end">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <button class="btn btn-primary m-2 ">Vizualizar</button>
-                            </div>
-                            <div class="col-lg-3">
-                                <button class="btn btn-success m-2 ">Aprovado</button>
-                            </div>
-                            <div class="col-lg-3">
-                                <button class="btn btn-danger m-2">Reprovado</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer bg-transparent ">
-                    Postado em 20/04/2023
-                </div>
-
-            </div>
-
-            <!-- Fim Do Conteudo TED-->
 
         </div>
         <div class="tab-pane fade" id="pa">

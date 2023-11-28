@@ -137,7 +137,15 @@ class Recursos extends Conexao{
     }
 
     public function ativar($codigo) {
-        $sql = "CALL proc_ativar_recurso(?)";
+        $sql = "CALL proc_ativar_recurso_adm(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $codigo);
+        $stm->execute();
+        $this->db = null;
+    }
+
+    public function reprovar($codigo) {
+        $sql = "CALL proc_reprovar_recurso_adm(?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $codigo);
         $stm->execute();

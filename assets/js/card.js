@@ -73,12 +73,17 @@ function criarCards(){
             quantidade: document.querySelector('[data-container]').dataset.container
         },
         success: (resposta)=>{
-            resposta.forEach(recurso => {
-                criarCard(recurso.codigo, recurso.img_recurso_path, recurso.titulo, recurso.nota, recurso.favorito);
-            });
+            if(resposta && resposta.length > 0){
+                resposta.forEach(recurso => {
+                    criarCard(recurso.codigo, recurso.img, recurso.titulo, recurso.nota, recurso.favorito);
+                });
+            }
         },
-        error: () => {
+        error: (xhr, status, error) => {
             console.log("Não foi possível realizar a operação!");
+            console.log("Erro: " + error);
+            console.log("Status: " + status);
+            console.log("XHR: " + xhr);
         }
     })
 }
