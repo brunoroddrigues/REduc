@@ -21,7 +21,6 @@
         $usuario->CadastrarProfessor();
         header("location:login.php");
       } catch (PDOException $e) {
-        echo 'Erro: ' . $e->getMessage();
         header("location:cadastro.php");
       }
     }
@@ -31,7 +30,6 @@
         $usuario->CadastrarAluno();
         header("location:login.php");
       } catch (PDOException $e) {
-        echo 'Erro: ' . $e->getMessage();
         header("location:cadastro.php");
       }
     } 

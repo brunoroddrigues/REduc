@@ -89,7 +89,7 @@ export function criarHeader(login, perfil) {
     a2.appendChild(document.createTextNode("Entrar"));
     li[3].appendChild(a2);
   } else {
-    a1.setAttribute("href", "post-recurso.html");
+    a1.setAttribute("href", "post_recurso.php");
     a1.setAttribute("class", "nav-link btn btn-outline-light txt-branco");
     a1.setAttribute("id", "publicar");
     a1.appendChild(document.createTextNode("+Publicar"));

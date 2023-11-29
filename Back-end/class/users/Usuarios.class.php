@@ -177,7 +177,7 @@ class Usuario extends Conexao{
     }
 
     public function CadastrarProfessor() {
-        $sql = "CALL proc_CadastroProfessor(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "CALL proc_CadastroProfessor(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $this->nome);
         $stm->bindValue(2, $this->sobrenome);
