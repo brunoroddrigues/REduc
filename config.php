@@ -1,6 +1,6 @@
 <?php
-
-  $msg = array("", "", "");
+  require_once 'Back-end/functions/func_conexao.php';
+  $msg = array("", "", "", "");
 
   if(!isset($_SESSION)) session_start();
 
@@ -13,7 +13,141 @@
   }
 
   if (isset($_POST)) {
-    if ($_FILES) {
+    if (!empty($_POST['username'])) {
+      $novoUsername = $_POST['username'];
+      // Testando existencia do novo Nome
+      $sql = "SELECT nomeUsuario from users where nomeUsuario = ?";
+      $consulta = $cnx->prepare($sql);
+      $consulta->bindValue(1, $novoUsername);
+      $consulta->execute();
+      $teste = $consulta->fetchAll(PDO::FETCH_OBJ);
+      if (!empty($teste)) {
+        $msg[1] = "Nome de usuário ja cadastrado!";
+      } else {
+        $sql = "UPDATE users SET nomeUsuario = ? WHERE id_usuario = ?";
+        $consulta = $cnx->prepare($sql);
+        $consulta->bindValue(1, $novoUsername);
+        $consulta->bindValue(2, $_SESSION['id_usuario']);
+        $consulta->execute();
+        unset($_POST['username']);
+      }
+      
+    }
+
+    if (!empty($_POST['nome'])) {
+      $novoNome = $_POST['nome'];
+      $sql = "UPDATE users SET nome = ? WHERE id_usuario = ?";
+      $consulta = $cnx->prepare($sql);
+      $consulta->bindValue(1, $novoNome);
+      $consulta->bindValue(2, $_SESSION['id_usuario']);
+      $consulta->execute();
+      unset($_POST['nome']);
+    }
+
+    if (!empty($_POST['sobrenome'])) {
+      $novoSobrenome = $_POST['sobrenome'];
+      $sql = "UPDATE users SET sobrenome = ? WHERE id_usuario = ?";
+      $consulta = $cnx->prepare($sql);
+      $consulta->bindValue(1, $novoSobrenome);
+      $consulta->bindValue(2, $_SESSION['id_usuario']);
+      $consulta->execute();
+      unset($_POST['sobrenome']);
+    }
+
+    if (!empty($_POST['email'])) {
+      $novoEmail = $_POST['email'];
+      // Testando existencia do novo Nome
+      $sql = "SELECT email from users where email = ?";
+      $consulta = $cnx->prepare($sql);
+      $consulta->bindValue(1, $novoEmail);
+      $consulta->execute();
+      $teste = $consulta->fetchAll(PDO::FETCH_OBJ);
+      if (!empty($teste)) {
+        $msg[2] = "Email ja cadastrado!";
+      } else {
+        $sql = "UPDATE users SET email = ? WHERE id_usuario = ?";
+        $consulta = $cnx->prepare($sql);
+        $consulta->bindValue(1, $novoEmail);
+        $consulta->bindValue(2, $_SESSION['id_usuario']);
+        $consulta->execute();
+        unset($_POST['email']);
+      }
+      
+    }
+
+    if (!empty($_POST['bio'])) {
+      $novaBio = $_POST['bio'];
+      $sql = "UPDATE users SET descricao = ? WHERE id_usuario = ?";
+      $consulta = $cnx->prepare($sql);
+      $consulta->bindValue(1, $novaBio);
+      $consulta->bindValue(2, $_SESSION['id_usuario']);
+      $consulta->execute();
+      unset($_POST['bio']);
+    }
+
+    if (!empty($_POST['lattes'])) {
+      $novoLattes = $_POST['lattes'];
+      $sql = "UPDATE users SET link_lattes = ? WHERE id_usuario = ?";
+      $consulta = $cnx->prepare($sql);
+      $consulta->bindValue(1, $novoLattes);
+      $consulta->bindValue(2, $_SESSION['id_usuario']);
+      $consulta->execute();
+      unset($_POST['lattes']);
+    }
+
+    if (!empty($_POST['atuacao'])) {
+      $novaAtuacao = $_POST['atuacao'];
+      $sql = "UPDATE users SET area_atuacao = ? WHERE id_usuario = ?";
+      $consulta = $cnx->prepare($sql);
+      $consulta->bindValue(1, $novaAtuacao);
+      $consulta->bindValue(2, $_SESSION['id_usuario']);
+      $consulta->execute();
+      unset($_POST['atuacao']);
+    }
+
+    if (!empty($_POST['senha'])) {
+      if (!empty($_POST['senha2'])) {
+        if ($_POST['senha2'] == $_POST['senha']) {
+          $novaSenha = md5($_POST['senha']);
+          $sql = "UPDATE users SET senha = ? WHERE id_usuario = ?";
+          $consulta = $cnx->prepare($sql);
+          $consulta->bindValue(1, $novaSenha);
+          $consulta->bindValue(2, $_SESSION['id_usuario']);
+          $consulta->execute();
+          unset($_POST['senha']);
+          unset($_POST['senha2']);
+        } else {
+          $msg[3] = "As senhas precisam ser iguais!";
+        }
+      } else {
+        $msg[3] = "Preencha a senha!";
+      }
+    }
+
+    if (!empty($_POST['pergunta'])) {
+      if ($_POST['pergunta'] != '0') {
+        $novaPergunta = $_POST['pergunta'];
+        $sql = "UPDATE users SET id_pergunta = ? WHERE id_usuario = ?";
+        $consulta = $cnx->prepare($sql);
+        $consulta->bindValue(1, $novaPergunta);
+        $consulta->bindValue(2, $_SESSION['id_usuario']);
+        $consulta->execute();
+        unset($_POST['pergunta']);
+      }
+    }
+
+    if (!empty($_POST['resposta'])) {
+      $novaResposta = $_POST['resposta'];
+      $sql = "UPDATE users SET resposta_seguranca = ? WHERE id_usuario = ?";
+      $consulta = $cnx->prepare($sql);
+      $consulta->bindValue(1, $novaResposta);
+      $consulta->bindValue(2, $_SESSION['id_usuario']);
+      $consulta->execute();
+      unset($_POST['resposta']);
+    }
+
+    if (!empty($_FILES['name'])) {
+      var_dump($_FILES);
       $img_usuario = $_FILES['file'];
       $img_nova = explode('.', $img_usuario['name']);
 
@@ -34,7 +168,7 @@
         // Redirecione para a mesma página
         header('Location: ' . $_SERVER['PHP_SELF']);
         exit();
-    }
+      }
     }
     
   }
@@ -69,7 +203,7 @@
                 <h3 class="h3 txt-roxo mb-5">Dados da conta</h3>
                 <label class="form-label">Nome de usuário:</label>
                 <input type="text" class="form-control" name="username" placeholder="Digite o novo nome de usuário..." value="<?php echo isset($_POST['username'])?$_POST['username']:''?>">
-                <span class="text-danger"></span>
+                <span class="text-danger"><?php echo $msg[1]; ?></span>
                 <br>
                 <label class="form-label">Nome:</label>
                 <input type="text" class="form-control" name="nome" placeholder="Digite o novo nome..." value="<?php echo isset($_POST['nome'])?$_POST['nome']:''?>">
@@ -79,6 +213,7 @@
                 <br>
                 <label class="form-label">E-mail</label>
                 <input type="email" class="form-control" name="email" placeholder="Digite o novo e-mail..." value="<?php echo isset($_POST['email'])?$_POST['email']:''?>">
+                <span class="text-danger"><?php echo $msg[2]; ?></span>
                 <br>
                 <label class="form-label">Bio:</label>
                 <textarea id="input-bio" class="form-control" placeholder="<?php echo isset($_POST['bio'])?$_POST['bio']:'Digite a nova BIO...'?>" name="bio"></textarea>
@@ -94,10 +229,11 @@
                 <br>
                 <label class="form-label">Repita a senha:</label>
                 <input type="password" class="form-control" name="senha2" placeholder="Repita sua senha..." value="<?php echo isset($_POST['senha2'])?$_POST['senha2']:''?>">
+                <span class="text-danger"><?php echo $msg[3]; ?></span>
                 <br>
                 <label class="form-label">Pergunta de segurança:</label>
                 <select class='form-select' name="pergunta">
-                    <option selected>Selecione a pergunta...</option>
+                    <option value='0' selected>Selecione a pergunta...</option>
                     <?php
                     $pergunta = new Pergunta();
                     $retorno = $pergunta->BuscarTodasPerguntas();
