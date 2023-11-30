@@ -1,4 +1,5 @@
 <?php
+    require_once "Back-end/functions/func_conexao.php";
     if(!isset($_SESSION)) session_start();
 ?>
 
@@ -29,7 +30,7 @@
 
     <main class="container py-5">
         <h2 class="h2 text-primary">Publicar um recurso</h2>
-        <form id="form" action="" method="post" enctype=multipart/form-data>
+        <form id="form" action="#" method="post" enctype=multipart/form-data>
             <div class="row">
                 <div class="col-md-6">
                     <label class="form-label">Título</label>    
@@ -42,35 +43,73 @@
                     <br> 
                 </div>
                 <div class="col-md-6">
-                    <img id="img" src="img/img-padrao.jpg" class="rounded mb-2 bg-dark">
+                    <label class="h3 txt-roxo mb-4">Imagem</label>   
+                    <img id="img" src="img/imgRecursos/img_recuros_padrao.jpg" class="rounded mb-2 bg-dark">
                     <input type="file" name="imagem_recurso" class="form-control" onchange="mostrar(this)">
                 </div>
 
                 <div class="row m-0 my-5">
                     <div class="col-md-3">
                         <label class="form-label">Disciplina:</label>
-                        <select class="form-select">
+                        <select class="form-select" name="disciplina">
                             <option selected>Selecione a disciplia</option>
+                            <?php
+                                $sql = "SELECT * FROM disciplinas";
+                                $consulta = $cnx->prepare($sql);
+                                $consulta->execute();
+                                $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
+                                foreach ($resultado as $disciplina) {
+                                    echo "<option value='{$disciplina->id_disciplina}'>{$disciplina->descritivo}</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Curso:</label>
-                        <select class="form-select">
+                        <select class="form-select" name="curso">
                             <option selected>Selecione o curso</option>
+                            <?php
+                                $sql = "SELECT * FROM cursos";
+                                $consulta = $cnx->prepare($sql);
+                                $consulta->execute();
+                                $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
+                                foreach ($resultado as $curso) {
+                                    echo "<option value='{$curso->id_curso}'>{$curso->descritivo}</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="col-md-3">
                         
-                        <label class="form-label">Categoria:</label>
-                        <select class="form-select">
-                            <option selected>Informe a categoria</option>
+                        <label class="form-label">Ferramenta:</label>
+                        <select class="form-select" name="ferramenta">
+                            <option selected>Selecione a Ferramenta</option>
+                            <?php
+                                $sql = "SELECT * FROM ferramentas";
+                                $consulta = $cnx->prepare($sql);
+                                $consulta->execute();
+                                $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
+                                foreach ($resultado as $ferramenta) {
+                                    echo "<option value='{$ferramenta->id_ferramenta}'>{$ferramenta->descritivo}</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Tipo:</label>
-                        <select class="form-select">
-                            <option selected>Informe o tipo</option>
+                        <select class="form-select" name="tipo">
+                            <option selected>Selecione o Tipo</option>
+                            <?php
+                                $sql = "SELECT * FROM tiporecurso";
+                                $consulta = $cnx->prepare($sql);
+                                $consulta->execute();
+                                $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
+                                foreach ($resultado as $tipo) {
+                                    echo "<option value='{$tipo->id_tiporecurso}'>{$tipo->descritivo}</option>";
+                                }
+                            ?>
                         </select>
+                        <span class="text-danger erro"></span>
                     </div>
                     <label class="form-label mt-5">Selecione seu recurso:</label>
                     <input id="file_recurso" type="file" name="arquivo" class="form-control ">
@@ -78,7 +117,7 @@
                 </div>
             </div>
             <input type="submit" value="Publicar" class="btn btn-success"  onclick="validar(event)">
-            <a href="criar_recurso.html" class="btn btn-primary mx-2"><i class="bi bi-pencil-fill"></i> Escrever recurso</a>
+            <!-- <a href="criar_recurso.html" class="btn btn-primary mx-2"><i class="bi bi-pencil-fill"></i> Escrever recurso</a> -->
         </form>
     </main>
 

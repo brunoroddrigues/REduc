@@ -132,9 +132,15 @@ CREATE TABLE `cursos` (
   `descritivo` varchar(50) NOT NULL,
   PRIMARY KEY (`id_curso`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `cursos` */
+
+insert  into `cursos`(`id_curso`,`descritivo`) values 
+(3,'Construção Naval'),
+(4,'Recursos Hídricos'),
+(2,'Sistemas Navais'),
+(1,'Sistemas para Internet');
 
 /*Table structure for table `disciplinas` */
 
@@ -145,9 +151,15 @@ CREATE TABLE `disciplinas` (
   `descritivo` varchar(50) NOT NULL,
   PRIMARY KEY (`id_disciplina`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `disciplinas` */
+
+insert  into `disciplinas`(`id_disciplina`,`descritivo`) values 
+(2,'Algorítmos e lógica de programação'),
+(3,'Cálculo I'),
+(4,'Cálculo II'),
+(1,'Programação de servidores');
 
 /*Table structure for table `ferramentas` */
 
@@ -158,9 +170,16 @@ CREATE TABLE `ferramentas` (
   `descritivo` varchar(25) NOT NULL,
   PRIMARY KEY (`id_ferramenta`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `ferramentas` */
+
+insert  into `ferramentas`(`id_ferramenta`,`descritivo`) values 
+(3,'AutoCAD'),
+(4,'C'),
+(2,'JavaScript'),
+(1,'PHP'),
+(5,'Python');
 
 /*Table structure for table `instituicao` */
 
@@ -191,6 +210,7 @@ CREATE TABLE `pa` (
   `img_pa_path` text DEFAULT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_tipo` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
   PRIMARY KEY (`id_pa`),
   KEY `id_tipo` (`id_tipo`),
   KEY `id_usuario` (`id_usuario`),
@@ -282,6 +302,7 @@ CREATE TABLE `recursos` (
   `id_usuario` int(11) NOT NULL,
   `id_ferramenta` int(11) DEFAULT NULL,
   `id_tiporecurso` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
   PRIMARY KEY (`id_recurso`),
   KEY `id_usuario` (`id_usuario`),
   KEY `id_ferramenta` (`id_ferramenta`),
@@ -349,9 +370,13 @@ CREATE TABLE `tiporecurso` (
   `descritivo` varchar(10) NOT NULL,
   PRIMARY KEY (`id_tiporecurso`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tiporecurso` */
+
+insert  into `tiporecurso`(`id_tiporecurso`,`descritivo`) values 
+(2,'Artigo'),
+(1,'Vídeo');
 
 /*Table structure for table `tipos_pa` */
 

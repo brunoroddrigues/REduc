@@ -13,7 +13,11 @@ function validar(event) {
     }
     if(form.file_recurso.value == "") {
         erro = true;
-        erros[2].innerHTML = "É necessário um arquivo para o recurso!";
+        erros[3].innerHTML = "É necessário um arquivo para o recurso!";
+    }
+    if(form.tipo.value == "Selecione o Tipo") {
+        erro = true;
+        erros[2].innerHTML = "É necessário informar o tipo de recurso!";
     }
     if(erro) {
         event.preventDefault();
