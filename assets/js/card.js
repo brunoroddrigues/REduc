@@ -36,7 +36,7 @@ function criarCard(codigo = 1, imagem, titulo, estrelas, salvo){
     }
     for(i = 0; i < estrelas; i++){
         nota[i].classList.remove("bi-star");
-        nota[i].classList.add("bi-star-fill");
+        nota[i].classList.add("-");
     }
     for(i = 0; i < 5; i++){
         span.appendChild(nota[i]);
@@ -90,30 +90,35 @@ function criarCards(){
 
 criarCards();
 
-function favorito(event, elemento) {
+function favorito(event, elemento, logado) {
     event.preventDefault();
-    var salvo;
-    if(elemento.classList.contains("bi-bookmark-fill")) {
-        elemento.classList.remove("bi-bookmark-fill");
-        elemento.classList.add("bi-bookmark");
-        salvo = false;
-        console.log("Salvo");
+    if(logado == 0) {
+        event.preventDefault();
+        alert("Você só pode favoritar um post quando estiver logado!");
     } else {
-        elemento.classList.remove("bi-bookmark")
-        elemento.classList.add("bi-bookmark-fill")
-        salvo = true;
-        console.log("Não salvo");
-    }
-
-    $.ajax({
-        url: "",
-        type: "post",
-        data: {
-            id_recurso: elemento.parentNode.parentNode.dataset.codigo,
-            salvar: salvo
-        },
-        error: () => {
-            alert("Ocorreu um erro inesperado e não foi possível realizar a operação!");
+        var salvo;
+        if(elemento.classList.contains("bi-bookmark-fill")) {
+            elemento.classList.remove("bi-bookmark-fill");
+            elemento.classList.add("bi-bookmark");
+            salvo = false;
+            console.log("Salvo");
+        } else {
+            elemento.classList.remove("bi-bookmark")
+            elemento.classList.add("bi-bookmark-fill")
+            salvo = true;
+            console.log("Não salvo");
         }
-    })
+    
+        $.ajax({
+            url: "",
+            type: "post",
+            data: {
+                id_recurso: elemento.parentNode.parentNode.dataset.codigo,
+                salvar: salvo
+            },
+            error: () => {
+                alert("Ocorreu um erro inesperado e não foi possível realizar a operação!");
+            }
+        })
+    }
 }

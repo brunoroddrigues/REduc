@@ -114,19 +114,20 @@ class Recursos extends Conexao{
         return $this->nota;
     }
 
-    public function card4($codigo) {
-        $sql = "CALL proc_BuscarQuatroRecursos()";
+    public function recursos4($codigo) {
+        $sql = "CALL proc_BuscarQuatroRecursos(?)";
         $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $codigo);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function cardTodos($codigo){
+    public function recursosTodos($codigo){
         $sql = "CALL proc_buscarTodosRecursos(?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $codigo);
         $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function buscarRecursosNaoPostados() {

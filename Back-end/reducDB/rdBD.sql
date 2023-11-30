@@ -1,5 +1,4 @@
-
-USE rductest;
+CREATE DATABASE rductest
 
 CREATE TABLE categoriausuario
 (
@@ -98,7 +97,14 @@ VALUES	(2,1);
 INSERT INTO seguir (id_userseguindo, id_userseguido)
 VALUES	(3,1);
 
-
+INSERT INTO seguir (id_userseguindo, id_userseguido)
+VALUES	(1,2),
+	(1,3),
+	(1,4),
+	(4,1),
+	(4,2),
+	(4,3),
+	(10,1);
 
 INSERT INTO redesocial (descritivo)
 VALUES	('Twitter'),
@@ -487,15 +493,29 @@ CALL proc_AtivarRecurso(10,1);
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS proc_BuscarQuatroRecursos //
-CREATE PROCEDURE proc_BuscarQuatroRecursos()
+CREATE PROCEDURE proc_BuscarQuatroRecursos(IN codigo INT)
 BEGIN
-	SELECT r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota"
-	FROM recursos r LEFT JOIN avaliacao_recurso ar
-	ON(r.id_recurso = ar.id_recurso)	
-	WHERE r.status <> 0	
-	GROUP BY r.id_recurso
-	ORDER BY AVG(ar.nota) DESC
-	LIMIT 4;
+	IF(codigo = 0) THEN
+		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", 0 "favorito"
+		FROM recursos r LEFT JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso)
+		WHERE r.status <> 0	
+		GROUP BY r.id_recurso
+		ORDER BY AVG(ar.nota) DESC
+		LIMIT 4;
+	ELSE
+		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", IFNULL((
+			SELECT rs.id_fav 
+			FROM recursos_salvos rs
+			WHERE r.id_recurso = rs.id_recurso AND codigo = rs.id_usuario
+		), 0) "favorito"
+		FROM recursos r LEFT JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso)
+		WHERE r.status <> 0	
+		GROUP BY r.id_recurso
+		ORDER BY AVG(ar.nota) DESC
+		LIMIT 4;
+	END IF;
 END//
 DELIMITER ;
 
@@ -507,20 +527,29 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS proc_buscarTodosRecursos $$
 CREATE PROCEDURE proc_buscarTodosRecursos (IN codigo INT)
 BEGIN
-	SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota", IFNULL((
-		SELECT rs.id_fav 
-		FROM recursos_salvos rs
-		WHERE r.id_recurso = rs.id_recurso AND codigo = rs.id_usuario
-	), 0) "favorito"
-	FROM recursos r LEFT JOIN avaliacao_recurso ar
-	ON(r.id_recurso = ar.id_recurso)
-	WHERE r.status <> 0	
-	GROUP BY r.id_recurso
-	ORDER BY AVG(ar.nota) DESC;
+	IF(codigo = 0) THEN
+		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", 0 "favorito"
+		FROM recursos r LEFT JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso)
+		WHERE r.status <> 0	
+		GROUP BY r.id_recurso
+		ORDER BY AVG(ar.nota) DESC;
+	ELSE
+		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", IFNULL((
+			SELECT rs.id_fav 
+			FROM recursos_salvos rs
+			WHERE r.id_recurso = rs.id_recurso AND codigo = rs.id_usuario
+		), 0) "favorito"
+		FROM recursos r LEFT JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso)
+		WHERE r.status <> 0	
+		GROUP BY r.id_recurso
+		ORDER BY AVG(ar.nota) DESC;
+	END IF;
 END $$
 DELIMITER ;
 
-CALL proc_buscarTodosRecursos (1)
+CALL proc_buscarTodosRecursos ();
 BEGIN
 
 SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota", (
@@ -620,12 +649,30 @@ CALL proc_BuscarNumeroRedeSociasUsuario (11)
 
 
 DELIMITER $$
-DROP PROCEDURE IF EXISTS buscarRecursosNaoPostados $$
-CREATE PROCEDURE buscarRecursosNaoPostados ()
+DROP PROCEDURE IF EXISTS proc_buscarRecursosNaoPostados $$
+CREATE PROCEDURE proc_buscarRecursosNaoPostados ()
 BEGIN
-	SELECT r.id_recurso "codigo", r.descricao, r.titulo, r.datacadastro "cadastro", u.nome "usuario"
+	SELECT r.id_recurso "codigo", r.descricao, r.titulo, DATE_FORMAT(r.datacadastro, "%d/%m/%Y") "cadastro", u.nome "usuario"
 	FROM recursos r INNER JOIN users u
 	ON (r.id_usuario = u.id_usuario)
 	WHERE r.status = 0; 
+END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS proc_ativar_recurso_adm $$
+CREATE PROCEDURE proc_ativar_recurso_adm (IN codigo INT)
+BEGIN
+	UPDATE recursos SET STATUS = 1
+	WHERE codigo = id_recurso;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS proc_reprovar_recurso_adm $$
+CREATE PROCEDURE proc_reprovar_recurso_adm (IN codigo INT)
+BEGIN
+	DELETE FROM recursos
+	WHERE id_recurso = codigo;
 END $$
 DELIMITER ;

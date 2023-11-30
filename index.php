@@ -33,8 +33,47 @@
     <!-- Destaques -->
     <section id='destaques' class='container bg-light rounded shadow mb-5 p-5 d-flex flex-column'>      
       <h2 class='txt-roxo mb-4'>Destaques</h2>
-      <div class='row g-2 card-container'>
+      <div class='row g-2'>
+        <?php
+          require_once("Back-end/class/conexao/Conexao.class.php");
+          require_once("Back-end/class/recursos/Recursos.class.php");
 
+          $recurso = new Recursos();
+          $codigo = isset($_SESSION["id_usuario"]) ? $_SESSION["id_usuario"] : 0;
+          $recursos = $recurso->recursos4($codigo);
+
+          if(is_array($recursos)) {
+            foreach($recursos as $dado) {
+              echo "
+                <div class='col-lg-3'>
+                  <div class='p-1'>
+                    <a href='' class='card link-reset shadow' data-codigo='{$dado->codigo}'>
+                      <img src='{$dado->img}' class='card-img-top' alt='Imagem do recurso'>
+                      <div class='card-body'>
+                        <h4 class='card-title'>{$dado->titulo}</h4>
+                        <span class='card-star'>";
+              $nota1 = 5 - $dado->nota;
+              $nota2 = 5 - $nota1;
+              for($i = 0; $i < $nota2; $i++) {
+                echo "<i class='bi-star-fill'></i>";
+              }
+              for($i = 0; $i < $nota1; $i++) {
+                echo "<i class='bi bi-star mx-1'></i>";
+              }
+              echo     "</span>";
+              if($dado->favorito == 0) {
+                echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
+              } else {
+                echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
+              }
+              echo   "</div>
+                    </a>
+                  </div>
+                </div>
+              ";
+            }
+          }
+        ?>
       </div>
       <a href='explorar.html' class='btn btn-primary mt-4 align-self-center shadow'>Ir para explorar &#10095;</a>
     </section>
