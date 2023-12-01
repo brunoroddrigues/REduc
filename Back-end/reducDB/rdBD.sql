@@ -676,3 +676,17 @@ BEGIN
 	WHERE id_recurso = codigo;
 END $$
 DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS proc_buscar_recurso $$
+CREATE PROCEDURE proc_buscar_recurso (IN codigo INT)
+BEGIN
+	IF(EXISTS(SELECT id_recurso FROM recursos WHERE codigo = id_recurso)) THEN
+		SELECT id_recurso "codigo", titulo, descricao, datacadastro "data", video_path "video"
+		FROM recursos
+		WHERE id_recurso = codigo;
+	ELSE
+		SELECT "O código mencionado não possui recursos" AS alerta;
+	END IF;
+END $$
+DELIMITER ;

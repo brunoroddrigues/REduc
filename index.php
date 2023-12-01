@@ -55,10 +55,10 @@
               $nota1 = 5 - $dado->nota;
               $nota2 = 5 - $nota1;
               for($i = 0; $i < $nota2; $i++) {
-                echo "<i class='bi-star-fill'></i>";
+                echo "<i class='bi bi-star-fill'></i>";
               }
               for($i = 0; $i < $nota1; $i++) {
-                echo "<i class='bi bi-star mx-1'></i>";
+                echo "<i class='bi bi-star'></i>";
               }
               echo     "</span>";
               if($dado->favorito == 0) {

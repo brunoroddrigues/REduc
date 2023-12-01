@@ -1,0 +1,10 @@
+@import "variaveis.css";
+
+video {
+    background-color: #000;
+    width: 100%;
+}
+
+.bi-star {
+    font-size: 2rem;
+}

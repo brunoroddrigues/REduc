@@ -114,6 +114,14 @@ class Recursos extends Conexao{
         return $this->nota;
     }
 
+    public function buscarRecurso() {
+        $sql = "CALL proc_buscar_recurso(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_recurso);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public function recursos4($codigo) {
         $sql = "CALL proc_BuscarQuatroRecursos(?)";
         $stm = $this->db->prepare($sql);
