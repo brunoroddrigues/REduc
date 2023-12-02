@@ -1,4 +1,4 @@
-export function criarHeader(login, perfil) {
+export function criarHeader(login, perfil, categoria) {
 
   if (perfil == null) {
     perfil = "img/imgUsers/foto-perfil.avif";
@@ -70,7 +70,7 @@ export function criarHeader(login, perfil) {
 
   let aSobre = document.createElement("a");
   aSobre.setAttribute("class", "nav-link txt-branco link-header");
-  aSobre.setAttribute("href", "#sobre");
+  aSobre.setAttribute("href", "index.php#sobre");
   aSobre.appendChild(document.createTextNode("Sobre"));
 
   let aExplorar = document.createElement("a");
@@ -110,7 +110,8 @@ export function criarHeader(login, perfil) {
     login_ul.setAttribute("class", "navbar-nav d-none");
     login_ul.setAttribute("id", "perfil-adm-sair");
     var links = [];
-    for (let i = 0; i < 3; i++) {
+    var id_categoria = categoria == 3 ? 3 : 2;
+    for (let i = 0; i < id_categoria; i++) {
       links[i] = document.createElement("li");
       links[i].setAttribute("class", "nav-item mx-2");
     }
@@ -121,22 +122,29 @@ export function criarHeader(login, perfil) {
     //
 
     // Icone painel adm
-    let icon_adm = document.createElement("i");
-    icon_adm.setAttribute("class", "bi bi-clipboard-data");
-    //
+    if(categoria == 3) {
+      // icone
+      var icon_adm = document.createElement("i");
+      icon_adm.setAttribute("class", "bi bi-clipboard-data");
+
+      // link
+      var link_adm = document.createElement("a");
+      link_adm.setAttribute("class", "nav-link txt-branco link-header");
+      link_adm.setAttribute("href", "adm.php");
+
+      link_adm.appendChild(icon_adm);
+      link_adm.appendChild(document.createTextNode("Painel do ADM"));
+    }
 
     // Icone sair
     let icon_sair = document.createElement("i");
     icon_sair.setAttribute("class", "bi bi-box-arrow-right");
-    //
 
     let link_perfil = document.createElement("a");
     link_perfil.setAttribute("class", "nav-link txt-branco link-header");
     link_perfil.setAttribute("href", "meuPerfil.php");
 
-    let link_adm = document.createElement("a");
-    link_adm.setAttribute("class", "nav-link txt-branco link-header");
-    link_adm.setAttribute("href", "adm.php");
+
 
     let link_sair = document.createElement("a");
     link_sair.setAttribute("class", "nav-link txt-branco link-header");
@@ -145,17 +153,18 @@ export function criarHeader(login, perfil) {
     link_perfil.appendChild(icon_perfil);
     link_perfil.appendChild(document.createTextNode("Perfil"));
 
-    link_adm.appendChild(icon_adm);
-    link_adm.appendChild(document.createTextNode("Painel do ADM"));
-
     link_sair.appendChild(icon_sair);
     link_sair.appendChild(document.createTextNode("Sair"));
 
     links[0].appendChild(link_perfil);
-    links[1].appendChild(link_adm);
-    links[2].appendChild(link_sair);
+    if(categoria == 3){
+      links[1].appendChild(link_adm);
+      links[2].appendChild(link_sair);
+    } else {
+      links[1].appendChild(link_sair);
+    }
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < id_categoria; i++) {
       login_ul.appendChild(links[i]);
     }
   }

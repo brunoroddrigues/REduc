@@ -8,3 +8,9 @@ video {
 .bi-star {
     font-size: 2rem;
 }
+
+#fotoUsuario {
+    width: 4.6875rem;
+    height: 4.6875rem;
+    object-fit: cover;
+}

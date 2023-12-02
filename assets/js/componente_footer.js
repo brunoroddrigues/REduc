@@ -11,7 +11,7 @@ export function criarRodape(){
     }
     
     // Textos do rodapé
-    let txtH2 = document.createTextNode("REduc")
+    let txtH2 = document.createTextNode("REduc BETA")
     let copyrightTxt = document.createTextNode("Todos os direitos reservados")
     let link = document.createTextNode("Voltar ao topo")
 
