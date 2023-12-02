@@ -147,7 +147,6 @@
     }
 
     if (!empty($_FILES['name'])) {
-      var_dump($_FILES);
       $img_usuario = $_FILES['file'];
       $img_nova = explode('.', $img_usuario['name']);
 

@@ -1,6 +1,92 @@
 <?php
     require_once "Back-end/functions/func_conexao.php";
+    require_once "Back-end/class/recursosRequire.php";
+    require_once "Back-end/class/usersRequire.php";
+
     if(!isset($_SESSION)) session_start();
+
+    if (!$_SESSION['id_usuario']) {
+        header('location:index.php');
+        die();
+    }
+
+    $msgErro = array("", "");
+
+    if (!empty($_POST)) {
+        if ($_POST['tipo'] == 1) {
+            $rotaArquivo = "/Recursos/videos/";
+            $nomeCampo = "arquivo";
+            $nomeArquivo = explode(".", $_FILES[$nomeCampo]["name"]);
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $tmpName = $_FILES[$nomeCampo]["tmp_name"];
+            $mimeType = finfo_file($finfo, $tmpName);
+            $extensao = end($nomeArquivo);
+
+            $extensoesPermitidas = array("mp4", "webm", "ogg");
+            $tiposMidiaPermitida = array("video/mp4", "video/webm", "video/ogg");
+
+            // Valdando arquivo.
+            if (!in_array(strtolower($mimeType), $tiposMidiaPermitida) || !in_array(strtolower($extensao), $extensoesPermitidas)) {
+                $msgErro[0] = "Arquivo incompatível!";
+                $erro = true;
+            } else {
+                // Gerando nome aleatório.
+                $nome = sha1(microtime()) . "." . $extensao;
+                // Gerando o caminho do arquivo
+                $caminhoDoArquivo =  $rotaArquivo . $nome;  
+
+                $erro = false;
+                // move_uploaded_file($tmpName, dirname(__FILE__) . $caminhoDoArquivo);
+            }
+
+            if (!empty($_FILES['imagem_recurso']['name'])) {
+                $rotaArquivo = "img/imgRecursos/";
+                $nomeCampo = "imagem_recurso";
+                $nomeArquivo = explode(".", $_FILES[$nomeCampo]["name"]);
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $tmpNameVideo = $_FILES[$nomeCampo]["tmp_name"];
+                $mimeType = finfo_file($finfo, $tmpNameVideo);
+                $extensao = end($nomeArquivo);
+                
+                $extensoesPermitidas = array("jpeg", "png", "svg", 'jpg');
+                $tiposMidiaPermitida = array("image/png", "image/svg+xml", "image/jpeg", "image/jpg");
+
+                if (!in_array(strtolower($mimeType), $tiposMidiaPermitida) || !in_array(strtolower($extensao), $extensoesPermitidas)) {
+                    $msgErro[1] = "Arquivo incompatível!";
+                    $erro = true;
+                } else {
+                    // Gerando nome aleatório.
+                    $nome = sha1(microtime()) . "." . $extensao;
+                    // Gerando o caminho do arquivo
+                    $caminhoDaImagem = $rotaArquivo . $nome;  
+    
+                    $erro = false;
+                    // move_uploaded_file($tmpNameVideo, $caminhoDaImagem);
+                }
+                      
+            } else {
+                $caminhoDaImagem = 'img/imgRecursos/img_recursos_padrao.jpg';
+            }
+
+            if (!$erro) {
+                $titulo = $_POST['titulo'];
+                $descricao = $_POST['descritivo'];
+                $tipo = $_POST['tipo'];
+                $link_video = $caminhoDoArquivo;
+                $link_img = $caminhoDaImagem;
+                $id_usuario = $_SESSION['id_usuario'];
+                $categoria = new CategoriaRecurso(id_categoria: $tipo);
+
+                $recurso = new Recursos(titulo: $titulo, descricao: $descricao, categoria: $categoria, link_video: $link_video, link_img: $link_img);
+
+                $id_recurso = $recurso->cadastrarRecursoVideo($id_usuario);
+
+            }
+
+        }
+                 
+    }
+
 ?>
 
 <!doctype html>
@@ -44,8 +130,9 @@
                 </div>
                 <div class="col-md-6">
                     <label class="h3 txt-roxo mb-4">Imagem</label>   
-                    <img id="img" src="img/imgRecursos/img_recuros_padrao.jpg" class="rounded mb-2 bg-dark">
+                    <img id="img" src="img/imgRecursos/img_recursos_padrao.jpg" class="rounded mb-2 bg-dark">
                     <input type="file" name="imagem_recurso" class="form-control" onchange="mostrar(this)">
+                    <span class="text-danger erro"><?php echo $msgErro[1]; ?></span>
                 </div>
 
                 <div class="row m-0 my-5">
@@ -111,9 +198,9 @@
                         </select>
                         <span class="text-danger erro"></span>
                     </div>
-                    <label class="form-label mt-5">Selecione seu recurso:</label>
+                    <label class="form-label mt-5">Selecione seu Arquivo:</label>
                     <input id="file_recurso" type="file" name="arquivo" class="form-control ">
-                    <span class="text-danger erro"></span>
+                    <span class="text-danger erro"><?php echo $msgErro[0]; ?></span>
                 </div>
             </div>
             <input type="submit" value="Publicar" class="btn btn-success"  onclick="validar(event)">

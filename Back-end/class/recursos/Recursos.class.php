@@ -15,6 +15,7 @@ class Recursos extends Conexao{
       private string $link_img = "",
       private string $link_artigo = "",
       private string $link_video = "",
+      private int $status = 0,
       private int $nota = 0,
       private array $disciplina = array(),
       private $ferramenta = null,
@@ -69,6 +70,9 @@ class Recursos extends Conexao{
     public function setNota($nota){
         $this->nota = $nota;
     }
+    public function setStatus($status){
+        $this->status = $status;
+    }
 
     //metodos get
     public function getId(){
@@ -112,6 +116,24 @@ class Recursos extends Conexao{
     }
     public function getNota(){
         return $this->nota;
+    }
+    public function getStatus(){
+        return $this->status;
+    }
+
+    public function cadastrarRecursoVideo($id_usuario) {
+        $sql = "CALL proc_CadastroRecursoVideo(?, ?, ?, ?, ?, ?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->titulo);
+        $stm->bindValue(2, $this->descricao);
+        $stm->bindValue(3, $this->link_video);
+        $stm->bindValue(4, $id_usuario);
+        $stm->bindValue(5, $this->link_img);
+        $stm->bindValue(6, $this->categoria->getIdCategoria());
+        $stm->execute();
+
+        // Obter o ID do último registro inserido
+        return $this->id_recurso = $stm->lastInsertId();
     }
 
     public function buscarRecurso() {
