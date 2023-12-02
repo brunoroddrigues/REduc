@@ -679,14 +679,36 @@ DELIMITER ;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS proc_buscar_recurso $$
-CREATE PROCEDURE proc_buscar_recurso (IN codigo INT)
+CREATE PROCEDURE proc_buscar_recurso (IN codigor INT, codigou INT)
 BEGIN
-	IF(EXISTS(SELECT id_recurso FROM recursos WHERE codigo = id_recurso)) THEN
-		SELECT id_recurso "codigo", titulo, descricao, datacadastro "data", video_path "video"
-		FROM recursos
-		WHERE id_recurso = codigo;
+	IF(EXISTS(SELECT id_recurso FROM recursos WHERE codigor = id_recurso)) THEN
+		IF(codigou = 0) THEN
+			SELECT r.id_recurso "codigo", r.titulo, r.descricao, r.datacadastro "data", r.video_path "video", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota", # Dados do recurso
+			       u.nomeUsuario "usuario", img_path "imgu", #dados do usuario 
+			       IFNULL((
+						SELECT rs.id_fav
+						FROM recursos_salvos rs
+						WHERE rs.id_recurso = r.id_recurso AND codigou = rs.id_usuario
+			       ), 0) "favorito"
+			FROM recursos r INNER JOIN users u
+			ON (r.id_usuario = u.id_usuario) INNER JOIN avaliacao_recurso ar
+			ON (r.id_recurso = ar.id_recurso)
+			WHERE r.id_recurso = codigor;
+		ELSE
+			SELECT r.id_recurso "codigo", r.titulo, r.descricao, r.datacadastro "data", r.video_path "video", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota", # Dados do recurso
+			       u.nomeUsuario "usuario", img_path "imgu", #dados do usuario  
+			       IFNULL((
+						SELECT rs.id_fav
+						FROM recursos_salvos rs
+						WHERE rs.id_recurso = r.id_recurso AND codigou = rs.id_usuario
+			       ), 0) "favorito"
+			FROM recursos r INNER JOIN users u
+			ON (r.id_usuario = u.id_usuario) INNER JOIN avaliacao_recurso ar
+			ON (r.id_recurso = ar.id_recurso)
+			WHERE r.id_recurso = codigor;
+		END IF;
 	ELSE
-		SELECT "O código mencionado não possui recursos" AS alerta;
+		SELECT "O recurso não existe!" AS alerta;
 	END IF;
 END $$
 DELIMITER ;

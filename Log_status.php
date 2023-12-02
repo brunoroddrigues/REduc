@@ -7,6 +7,7 @@
   if (!empty($_SESSION)) {
     $resposta['img'] = $_SESSION['perfil'];
     $resposta['status'] = true; 
+    $resposta['categoria'] = $_SESSION['categoria'];
   } else {
     $resposta['status'] = false;
   }

@@ -9,7 +9,7 @@ $.ajax({
         
         if (loginStatus.status) {
             let img = loginStatus.img;
-            criarHeader(loginStatus.status, loginStatus.img, loginStatus.id_usuario);
+            criarHeader(loginStatus.status, loginStatus.img, loginStatus.categoria);
             console.log(loginStatus);
         } else {
             criarHeader(loginStatus.status);
