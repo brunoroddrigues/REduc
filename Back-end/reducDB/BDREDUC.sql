@@ -1,18 +1,17 @@
 /*
-SQLyog Community v13.1.7 (64 bit)
-MySQL - 10.4.21-MariaDB : Database - reduc
+SQLyog Enterprise - MySQL GUI v8.12 
+MySQL - 5.5.5-10.4.32-MariaDB : Database - reduc
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
 /*!40101 SET SQL_MODE=''*/;
 
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`reduc` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`reduc` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `reduc`;
 
@@ -27,7 +26,7 @@ CREATE TABLE `area_conhecimento` (
   PRIMARY KEY (`id_areaconhecimento`),
   UNIQUE KEY `codcapes` (`codcapes`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `area_conhecimento` */
 
@@ -45,7 +44,7 @@ CREATE TABLE `avaliacao_pa` (
   KEY `id_pa` (`id_pa`),
   CONSTRAINT `avaliacao_pa_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `avaliacao_pa_ibfk_2` FOREIGN KEY (`id_pa`) REFERENCES `pa` (`id_pa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `avaliacao_pa` */
 
@@ -63,7 +62,7 @@ CREATE TABLE `avaliacao_recurso` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `avaliacao_recurso_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `avaliacao_recurso_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `avaliacao_recurso` */
 
@@ -76,14 +75,11 @@ CREATE TABLE `categoriausuario` (
   `descritivo` varchar(15) NOT NULL,
   PRIMARY KEY (`id_categoriaUsuario`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `categoriausuario` */
 
-insert  into `categoriausuario`(`id_categoriaUsuario`,`descritivo`) values 
-(3,'Administrador'),
-(1,'Aluno'),
-(2,'Professor');
+insert  into `categoriausuario`(`id_categoriaUsuario`,`descritivo`) values (3,'Administrador'),(1,'Aluno'),(2,'Professor');
 
 /*Table structure for table `comentarios_pa` */
 
@@ -100,7 +96,7 @@ CREATE TABLE `comentarios_pa` (
   KEY `id_pa` (`id_pa`),
   CONSTRAINT `comentarios_pa_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `comentarios_pa_ibfk_2` FOREIGN KEY (`id_pa`) REFERENCES `pa` (`id_pa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `comentarios_pa` */
 
@@ -119,7 +115,7 @@ CREATE TABLE `comentarios_recursos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `comentarios_recursos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `comentarios_recursos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `comentarios_recursos` */
 
@@ -132,15 +128,11 @@ CREATE TABLE `cursos` (
   `descritivo` varchar(50) NOT NULL,
   PRIMARY KEY (`id_curso`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `cursos` */
 
-insert  into `cursos`(`id_curso`,`descritivo`) values 
-(3,'Construção Naval'),
-(4,'Recursos Hídricos'),
-(2,'Sistemas Navais'),
-(1,'Sistemas para Internet');
+insert  into `cursos`(`id_curso`,`descritivo`) values (3,'Construção Naval'),(4,'Recursos Hídricos'),(2,'Sistemas Navais'),(1,'Sistemas para Internet');
 
 /*Table structure for table `disciplinas` */
 
@@ -151,15 +143,11 @@ CREATE TABLE `disciplinas` (
   `descritivo` varchar(50) NOT NULL,
   PRIMARY KEY (`id_disciplina`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `disciplinas` */
 
-insert  into `disciplinas`(`id_disciplina`,`descritivo`) values 
-(2,'Algorítmos e lógica de programação'),
-(3,'Cálculo I'),
-(4,'Cálculo II'),
-(1,'Programação de servidores');
+insert  into `disciplinas`(`id_disciplina`,`descritivo`) values (2,'Algorítmos e lógica de programação'),(3,'Cálculo I'),(4,'Cálculo II'),(1,'Programação de servidores');
 
 /*Table structure for table `ferramentas` */
 
@@ -170,16 +158,11 @@ CREATE TABLE `ferramentas` (
   `descritivo` varchar(25) NOT NULL,
   PRIMARY KEY (`id_ferramenta`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `ferramentas` */
 
-insert  into `ferramentas`(`id_ferramenta`,`descritivo`) values 
-(3,'AutoCAD'),
-(4,'C'),
-(2,'JavaScript'),
-(1,'PHP'),
-(5,'Python');
+insert  into `ferramentas`(`id_ferramenta`,`descritivo`) values (3,'AutoCAD'),(4,'C'),(2,'JavaScript'),(1,'PHP'),(5,'Python');
 
 /*Table structure for table `instituicao` */
 
@@ -190,12 +173,11 @@ CREATE TABLE `instituicao` (
   `descritivo` varchar(100) NOT NULL,
   PRIMARY KEY (`id_instituicao`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `instituicao` */
 
-insert  into `instituicao`(`id_instituicao`,`descritivo`) values 
-(1,'Fatec-Jahu');
+insert  into `instituicao`(`id_instituicao`,`descritivo`) values (1,'Fatec-Jahu');
 
 /*Table structure for table `pa` */
 
@@ -216,7 +198,7 @@ CREATE TABLE `pa` (
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `pa_ibfk_1` FOREIGN KEY (`id_tipo`) REFERENCES `tipos_pa` (`id_tipo`),
   CONSTRAINT `pa_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `pa` */
 
@@ -229,12 +211,11 @@ CREATE TABLE `perguntaseguranca` (
   `descritivo` varchar(80) NOT NULL,
   PRIMARY KEY (`id_pergunta`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `perguntaseguranca` */
 
-insert  into `perguntaseguranca`(`id_pergunta`,`descritivo`) values 
-(1,'Qual o nome do seu cachorro?');
+insert  into `perguntaseguranca`(`id_pergunta`,`descritivo`) values (1,'Qual o nome do seu cachorro?');
 
 /*Table structure for table `recurso_capes` */
 
@@ -249,7 +230,7 @@ CREATE TABLE `recurso_capes` (
   KEY `id_areaconhecimento` (`id_areaconhecimento`),
   CONSTRAINT `recurso_capes_ibfk_1` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`),
   CONSTRAINT `recurso_capes_ibfk_2` FOREIGN KEY (`id_areaconhecimento`) REFERENCES `area_conhecimento` (`id_areaconhecimento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recurso_capes` */
 
@@ -266,7 +247,7 @@ CREATE TABLE `recurso_curso` (
   KEY `id_curso` (`id_curso`),
   CONSTRAINT `recurso_curso_ibfk_1` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`),
   CONSTRAINT `recurso_curso_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recurso_curso` */
 
@@ -283,7 +264,7 @@ CREATE TABLE `recurso_disciplina` (
   KEY `id_disciplina` (`id_disciplina`),
   CONSTRAINT `recurso_disciplina_ibfk_1` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`),
   CONSTRAINT `recurso_disciplina_ibfk_2` FOREIGN KEY (`id_disciplina`) REFERENCES `disciplinas` (`id_disciplina`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recurso_disciplina` */
 
@@ -310,7 +291,7 @@ CREATE TABLE `recursos` (
   CONSTRAINT `recursos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `recursos_ibfk_2` FOREIGN KEY (`id_ferramenta`) REFERENCES `ferramentas` (`id_ferramenta`),
   CONSTRAINT `recursos_ibfk_3` FOREIGN KEY (`id_tiporecurso`) REFERENCES `tiporecurso` (`id_tiporecurso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recursos` */
 
@@ -327,7 +308,7 @@ CREATE TABLE `recursos_salvos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `recursos_salvos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `recursos_salvos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recursos_salvos` */
 
@@ -340,7 +321,7 @@ CREATE TABLE `redesocial` (
   `descritivo` varchar(10) NOT NULL,
   PRIMARY KEY (`id_redesocial`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `redesocial` */
 
@@ -357,7 +338,7 @@ CREATE TABLE `seguir` (
   KEY `id_userseguindo` (`id_userseguindo`),
   CONSTRAINT `seguir_ibfk_1` FOREIGN KEY (`id_userseguido`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `seguir_ibfk_2` FOREIGN KEY (`id_userseguindo`) REFERENCES `users` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `seguir` */
 
@@ -370,13 +351,11 @@ CREATE TABLE `tiporecurso` (
   `descritivo` varchar(10) NOT NULL,
   PRIMARY KEY (`id_tiporecurso`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tiporecurso` */
 
-insert  into `tiporecurso`(`id_tiporecurso`,`descritivo`) values 
-(2,'Artigo'),
-(1,'Vídeo');
+insert  into `tiporecurso`(`id_tiporecurso`,`descritivo`) values (2,'Artigo'),(1,'Vídeo');
 
 /*Table structure for table `tipos_pa` */
 
@@ -387,7 +366,7 @@ CREATE TABLE `tipos_pa` (
   `descritivo` varchar(25) NOT NULL,
   PRIMARY KEY (`id_tipo`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tipos_pa` */
 
@@ -406,7 +385,7 @@ CREATE TABLE `user_redesocial` (
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `user_redesocial_ibfk_1` FOREIGN KEY (`id_redesocial`) REFERENCES `redesocial` (`id_redesocial`),
   CONSTRAINT `user_redesocial_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `user_redesocial` */
 
@@ -442,15 +421,11 @@ CREATE TABLE `users` (
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_categoriaUsuario`) REFERENCES `categoriausuario` (`id_categoriaUsuario`),
   CONSTRAINT `users_ibfk_2` FOREIGN KEY (`id_pergunta`) REFERENCES `perguntaseguranca` (`id_pergunta`),
   CONSTRAINT `users_ibfk_3` FOREIGN KEY (`id_instituicao`) REFERENCES `instituicao` (`id_instituicao`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`) values 
-(1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1),
-(2,1,'Bruno','Bruno','Rodrigues','bruno.rodrigues@fatec.sp.gov.br','75412465389',NULL,'2002-12-04',1,NULL,NULL,'581cde1cd6176cb9cde694bc3363c505',1,'blabla','img/imgUsers/img62ad40fbb379f6.58844781.jpg',1),
-(3,1,'Pedro','Pedro','Domingos','pedro.domingos@fatec.sp.gov.br','54632110144',NULL,'2002-12-04',1,NULL,NULL,'c6cc8094c2dc07b700ffcc36d64e2138',1,'blabla','img/imgUsers/img62ad40fbb379f6.58844781.jpg',1),
-(4,2,'marcelo','marcelo','Rodrigues','marcelo@marcelo.com','468.013.488',NULL,'2002-12-04',1,'https://site.alura.com.br/artigos/como-colocar-projeto-no-ar-com-github-pages?utm_term=&utm_campaign=%5BSearch%5D+%5BPerformance%5D+-+Dynamic+Search+Ads+-+Artigos+e+Conteúdos&utm_source=adwords&utm_medium=ppc&hsa_acc=7964138385&hsa_cam=11384329873&hsa_grp=111087461203&hsa_ad=681624904699&hsa_src=g&hsa_tgt=aud-539280195004:dsa-843358956400&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=CjwKCAiAjfyqBhAsEiwA-UdzJBH_V5bbtVGh-O2civnvFBRts4ev2him1dZds7v5bjmDmBSzT-u6lxoCEHIQAvD_BwE','adfndn','769f2b8a75180c1e8c9b37ccbcf9e049',1,'blabla',NULL,0);
+insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1),(2,1,'Bruno','Bruno','Rodrigues','bruno.rodrigues@fatec.sp.gov.br','75412465389',NULL,'2002-12-04',1,NULL,NULL,'581cde1cd6176cb9cde694bc3363c505',1,'blabla','img/imgUsers/img62ad40fbb379f6.58844781.jpg',1),(3,1,'Pedro','Pedro','Domingos','pedro.domingos@fatec.sp.gov.br','54632110144',NULL,'2002-12-04',1,NULL,NULL,'c6cc8094c2dc07b700ffcc36d64e2138',1,'blabla','img/imgUsers/img62ad40fbb379f6.58844781.jpg',1),(4,2,'marcelo','marcelo','Rodrigues','marcelo@marcelo.com','468.013.488',NULL,'2002-12-04',1,'https://site.alura.com.br/artigos/como-colocar-projeto-no-ar-com-github-pages?utm_term=&utm_campaign=%5BSearch%5D+%5BPerformance%5D+-+Dynamic+Search+Ads+-+Artigos+e+Conteúdos&utm_source=adwords&utm_medium=ppc&hsa_acc=7964138385&hsa_cam=11384329873&hsa_grp=111087461203&hsa_ad=681624904699&hsa_src=g&hsa_tgt=aud-539280195004:dsa-843358956400&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=CjwKCAiAjfyqBhAsEiwA-UdzJBH_V5bbtVGh-O2civnvFBRts4ev2him1dZds7v5bjmDmBSzT-u6lxoCEHIQAvD_BwE','adfndn','769f2b8a75180c1e8c9b37ccbcf9e049',1,'blabla',NULL,0);
 
 /* Procedure structure for procedure `buscarRecursosNaoPostados` */
 
@@ -507,6 +482,19 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `proc_ativar_recurso_adm` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_ativar_recurso_adm` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_ativar_recurso_adm`(IN codigo INT)
+BEGIN
+	UPDATE recursos SET STATUS = 1
+	WHERE codigo = id_recurso;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `proc_BuscarNumeroRedeSociasUsuario` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `proc_BuscarNumeroRedeSociasUsuario` */;
@@ -553,6 +541,21 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `proc_buscarRecursosNaoPostados` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_buscarRecursosNaoPostados` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_buscarRecursosNaoPostados`()
+BEGIN
+	SELECT r.id_recurso "codigo", r.descricao, r.titulo, DATE_FORMAT(r.datacadastro, "%d/%m/%Y") "cadastro", u.nome "usuario"
+	FROM recursos r INNER JOIN users u
+	ON (r.id_usuario = u.id_usuario)
+	WHERE r.status = 0; 
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `proc_BuscarRedeSocial` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `proc_BuscarRedeSocial` */;
@@ -588,6 +591,24 @@ BEGIN
 	WHERE r.status <> 0	
 	GROUP BY r.id_recurso
 	ORDER BY AVG(ar.nota) DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_buscar_recurso` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_buscar_recurso` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_buscar_recurso`(IN codigo INT)
+BEGIN
+	IF(EXISTS(SELECT id_recurso FROM recursos WHERE codigo = id_recurso)) THEN
+		SELECT id_recurso "codigo", titulo, descricao, datacadastro "data", video_path "video"
+		FROM recursos
+		WHERE id_recurso = codigo;
+	ELSE
+		SELECT "O código mencionado não possui recursos" AS alerta;
+	END IF;
 END */$$
 DELIMITER ;
 
@@ -630,6 +651,19 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `proc_CadastroRecursoVideo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_CadastroRecursoVideo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_CadastroRecursoVideo`(in xtitulo VARCHAR(100), xdescricao VARCHAR(255), xvideo_path TEXT, xid_usuario int, img_recurso_path text, id_tiporecurso int)
+begin
+	insert into recursos (titulo, descricao, datacadastro, video_path, id_usuario, img_recurso_path, id_tiporecurso, status)
+	values	(xtitulo, xdescricao, current_date, xvideo_path, xid_usuario, img_recurso_path, id_tiporecurso, 0);
+end */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `proc_InativarRecurso` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `proc_InativarRecurso` */;
@@ -657,6 +691,19 @@ BEGIN
 	SELECT id_redesocial, descritivo
 	FROM redesocial
 	WHERE id_redesocial NOT IN (SELECT id_redesocial FROM user_redesocial WHERE id_usuario = xid_usuario);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_reprovar_recurso_adm` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_reprovar_recurso_adm` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_reprovar_recurso_adm`(IN codigo INT)
+BEGIN
+	DELETE FROM recursos
+	WHERE id_recurso = codigo;
 END */$$
 DELIMITER ;
 
@@ -716,5 +763,3 @@ DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
