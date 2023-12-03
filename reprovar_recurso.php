@@ -4,7 +4,7 @@
 
     if($_GET) {
         $recurso = new Recursos();
-        $recurso->deletar($_GET["id_recurso"]);
+        $recurso->reprovar($_GET["id_recurso"]);
 
         header("location: adm.php");
         die();

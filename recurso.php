@@ -1,5 +1,10 @@
 <?php
     if(!isset($_SESSION)) session_start();
+
+    if (!$_GET) {
+        header('location:index.php');
+        die();
+    }
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -42,11 +47,13 @@
         }
     ?>
     <div class="container">
-        <video class="mt-5 mb-3" src="<?php echo $retorno[0]->video ?>"></video>
+        <video class="mt-5 mb-3"controls>
+            <source src="<?php echo $retorno[0]->video ?>">
+        </video>
         <section id="avaliacao" class="mb-3 d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img src="" alt="foto do usuário" id="fotoUsuario" class="rounded-circle border border-2">
-                <a href="" class="h3 mx-3">Usuario</a>
+                <img src="<?php echo $retorno[0]->imgu ?>" alt="foto do usuário" id="fotoUsuario" class="rounded-circle border border-2">
+                <a href="" class="h3 mx-3"><?php echo $retorno[0]->usuario ?></a>
             </div>
             <section id="nota" class="d-flex align-items-center">
                 <div class="mx-3">
@@ -62,9 +69,9 @@
                     echo "</div>";
                     if($retorno[0]->favorito == 0) {
                         echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
-                      } else {
+                    } else {
                         echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
-                      }
+                    }
                 ?>
             </section>
         </section>

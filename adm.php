@@ -1,4 +1,7 @@
 <?php
+    require_once("Back-end/class/recursosRequire.php");
+    require_once("Back-end/class/usersRequire.php");
+
     if(!isset($_SESSION)) session_start();
 
     if($_SESSION["categoria"] != 3) {
@@ -66,7 +69,7 @@
                     <ul class="text-light nav nav-tabs fw-bold">
 
                         <li class="nav-item">
-                            <a class="nav-link active tab-link" data-bs-toggle="tab" data-bs-target="#ted" role="tab">TED</a>
+                            <a class="nav-link active tab-link" data-bs-toggle="tab" data-bs-target="#ted" role="tab">Recurso</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#pa" role="tab">PA</a>
@@ -91,8 +94,6 @@
 
         <div class="tab-pane fade show active " id="ted">
             <?php
-                require_once("Back-end/class/conexao/Conexao.class.php");
-                require_once("Back-end/class/recursos/Recursos.class.php");
 
                 $recursos = new Recursos();
                 $dados = $recursos->buscarRecursosNaoPostados();
@@ -110,9 +111,9 @@
                                         <h4 class='fw-bold h6'>Descrição:</h4>
                                         {$dado->descricao}
                                     </p>
-                                    <a href='' class='btn btn-primary'>Visualizar</a>
+                                    <a href='recurso.php?id_recurso={$dado->codigo}' class='btn btn-primary'>Visualizar</a>
                                     <a href='aprovar_recurso.php?id_recurso={$dado->codigo}' class='btn btn-success'>Aprovar</a>
-                                    <a href='' class='btn btn-danger'>Reprovar</a>
+                                    <a href='reprovar_recurso.php?id_recurso={$dado->codigo}' class='btn btn-danger'>Reprovar</a>
                                 </div>
                                 <div class='card-footer'>
                                     Postado em: {$dado->cadastro}
@@ -168,78 +169,47 @@
         <!-- Banir Usuario -->
 
         <div class="row">
-            <div class="col-lg-6">
-                <div class="card m-4">
-                    <!-- Usuario -->
-                    <div class="card-header text-light  d-flex" style=" background-color: #131267;">
-                        <i class="bi bi-person-circle" style="font-size: 50px;"></i>
-                        <p class=" mt-4 ms-3 fw-bold ">
-                            Pedro Henrique
-                        </p>
-
-                    </div>
-                    <div>
-                        <ul class="list-group fw-bold">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Comentarios Banidos
-                                <span class="badge bg-primary rounded-pill">14</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                TEDS Banidas
-                                <span class="badge bg-primary rounded-pill">2</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                PAS Banidas
-                                <span class="badge bg-primary rounded-pill">1</span>
-                            </li>
-                        </ul>
-                        <div class=" d-flex justify-content-end">
-                            <button class="btn btn-success m-2 ">Não Banir</button>
-
-                            <button class="btn btn-danger m-2">Banir</button>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-transparent ">
-                        Postado em 20/04/2023
-                    </div>
-                </div><!-- Fim Do Usuario -->
-            </div>
-            <div class="col-lg-6">
-                <!-- Usuario -->
-                <div class="card m-4">
-                    <div class="card-header text-light  d-flex" style=" background-color: #131267;">
-                        <i class="bi bi-person-circle" style="font-size: 50px;"></i> <!-- Img de Perfil -->
-                        <p class=" mt-4 ms-3 fw-bold ">
-                            Pedro Henrique
-                        </p>
-
-                    </div>
-                    <div>
-                        <ul class="list-group fw-bold">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Comentarios Banidos
-                                <span class="badge bg-primary rounded-pill">14</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                TEDS Banidas
-                                <span class="badge bg-primary rounded-pill">2</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                PAS Banidas
-                                <span class="badge bg-primary rounded-pill">1</span>
-                            </li>
-                        </ul>
-                        <div class=" d-flex justify-content-end">
-                            <button class="btn btn-success m-2 ">Não Banir</button>
-
-                            <button class="btn btn-danger m-2">Banir</button>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-transparent ">
-                        Postado em 20/04/2023
-                    </div>
-                </div>
-            </div><!-- Fim Do Usuario -->
+            <?php
+                $users = new Usuario();
+                $inativos = $users->usuariosInativos();
+                
+                if (is_array($inativos)) {
+                    foreach ($inativos as $dados) {
+                        echo 
+                        "<div class='col-lg-6'>
+                            <div class='card m-4'>
+                                <div class='card-header text-light  d-flex' style='background-color: #131267;'>
+                                    <i  class='bi bi-person-circle' style='font-size: 50px;'></i>
+                                    <p class='mt-4 ms-3 fw-bold'>{$dados->usuario}</p>
+                                </div>
+                                <div>
+                                    <ul class='list-group fw-bold'>
+                                        <li class='list-group-item d-flex justify-content-between align-items-center'>
+                                            Nome: {$dados->nome}
+                                        </li>
+                                        <li class='list-group-item d-flex justify-content-between align-items-center'>
+                                            Sobrenome: {$dados->sobrenome}
+                                        </li>
+                                        <li class='list-group-item d-flex justify-content-between align-items-center'>
+                                            email: {$dados->email}
+                                        </li>
+                                        <li class='list-group-item d-flex justify-content-between align-items-center'>
+                                            Instituicao: {$dados->instituicao}
+                                        </li>
+                                    </ul>   
+                                    <div class='d-flex justify-content-end'>
+                                        <a href='aprovar_usuario.php?id_usuario={$dados->codigo}' class='btn btn-success m-2'>Aprovar</a>
+                                        <a href='banir_usuario.php?id_usuario={$dados->codigo}' class='btn btn-danger m-2'>Banir</a>
+                                    </div>  
+                                    <div class='card-footer bg-transparent'>
+                                        Cadastrado em {$dados->cadastro}
+                                    </div>                           
+                                </div>
+                            </div>
+                        </div>";
+                    }
+                }
+            ?>       
         </div>
     </div>
     <!-- Fim da Aba de Banir Usuario -->

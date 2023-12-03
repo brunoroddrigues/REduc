@@ -14,7 +14,7 @@
 
     if (!empty($_POST)) {
         if ($_POST['tipo'] == 1) {
-            $rotaArquivo = "/Recursos/videos/";
+            $rotaArquivo = "Recursos/videos/";
             $nomeCampo = "arquivo";
             $nomeArquivo = explode(".", $_FILES[$nomeCampo]["name"]);
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -36,7 +36,7 @@
                 $caminhoDoArquivo =  $rotaArquivo . $nome;  
 
                 $erro = false;
-                // move_uploaded_file($tmpName, dirname(__FILE__) . $caminhoDoArquivo);
+                
             }
 
             if (!empty($_FILES['imagem_recurso']['name'])) {
@@ -44,8 +44,8 @@
                 $nomeCampo = "imagem_recurso";
                 $nomeArquivo = explode(".", $_FILES[$nomeCampo]["name"]);
                 $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                $tmpNameVideo = $_FILES[$nomeCampo]["tmp_name"];
-                $mimeType = finfo_file($finfo, $tmpNameVideo);
+                $tmpNameImagem = $_FILES[$nomeCampo]["tmp_name"];
+                $mimeType = finfo_file($finfo, $tmpNameImagem);
                 $extensao = end($nomeArquivo);
                 
                 $extensoesPermitidas = array("jpeg", "png", "svg", 'jpg');
@@ -61,14 +61,22 @@
                     $caminhoDaImagem = $rotaArquivo . $nome;  
     
                     $erro = false;
-                    // move_uploaded_file($tmpNameVideo, $caminhoDaImagem);
+                    $upload = true;
+                    
                 }
                       
             } else {
                 $caminhoDaImagem = 'img/imgRecursos/img_recursos_padrao.jpg';
+                $upload = false;
             }
 
             if (!$erro) {
+                if ($_POST['ferramenta'] != "Selecione a ferramenta") {
+                    $ferramenta = new Ferramenta(id_ferramenta: $_POST['ferramenta']);
+                } else {
+                    $ferramenta = new Ferramenta(id_ferramenta: 0);
+                }
+
                 $titulo = $_POST['titulo'];
                 $descricao = $_POST['descritivo'];
                 $tipo = $_POST['tipo'];
@@ -77,10 +85,39 @@
                 $id_usuario = $_SESSION['id_usuario'];
                 $categoria = new CategoriaRecurso(id_categoria: $tipo);
 
-                $recurso = new Recursos(titulo: $titulo, descricao: $descricao, categoria: $categoria, link_video: $link_video, link_img: $link_img);
+                $recurso = new Recursos(titulo: $titulo, descricao: $descricao, categoria: $categoria, link_video: $link_video, link_img: $link_img, ferramenta: $ferramenta);
 
                 $id_recurso = $recurso->cadastrarRecursoVideo($id_usuario);
+                
+                if($_POST['disciplina'] != "Selecione a disciplina") {
+                    $disciplina = $_POST['disciplina'];
+                    $sql = "INSERT INTO recurso_disciplina (id_recurso, id_disciplina) VALUES (?, ?)";
+                    $insersao = $cnx->prepare($sql);
+                    $insersao->bindValue(1, $id_recurso);
+                    $insersao->bindValue(2, $disciplina);
+                    $insersao->execute();
+                }
 
+                if ($_POST['curso'] != "Selecione o curso") {
+                    $curso = $_POST['curso'];
+                    $sql = "INSERT INTO recurso_curso (id_recurso, id_curso) VALUES (?, ?)";
+                    $insersao = $cnx->prepare($sql);
+                    $insersao->bindValue(1, $id_recurso);
+                    $insersao->bindValue(2, $curso);
+                    $insersao->execute();
+                }
+
+                // Upload do vídeo
+                move_uploaded_file($tmpName, dirname(__FILE__) . "/" . $caminhoDoArquivo);
+                // Upload da imagem
+                if ($upload) {
+                    move_uploaded_file($tmpNameImagem, dirname(__FILE__) . '/' . $caminhoDaImagem);
+                }
+                unset($_POST);
+        
+                // Redirecione para o index
+                header('Location: index.php');
+                exit();                
             }
 
         }
@@ -139,7 +176,7 @@
                     <div class="col-md-3">
                         <label class="form-label">Disciplina:</label>
                         <select class="form-select" name="disciplina">
-                            <option selected>Selecione a disciplia</option>
+                            <option selected>Selecione a disciplina</option>
                             <?php
                                 $sql = "SELECT * FROM disciplinas";
                                 $consulta = $cnx->prepare($sql);
@@ -170,7 +207,7 @@
                         
                         <label class="form-label">Ferramenta:</label>
                         <select class="form-select" name="ferramenta">
-                            <option selected>Selecione a Ferramenta</option>
+                            <option selected>Selecione a ferramenta</option>
                             <?php
                                 $sql = "SELECT * FROM ferramentas";
                                 $consulta = $cnx->prepare($sql);
