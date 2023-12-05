@@ -47,7 +47,7 @@
               echo "
                 <div class='col-lg-3'>
                   <div class='p-1'>
-                    <a href='' class='card link-reset shadow' data-codigo='{$dado->codigo}'>
+                    <a href='recurso.php?id_recurso={$dado->codigo}' class='card link-reset shadow' data-codigo='{$dado->codigo}'>
                       <img src='{$dado->img}' class='card-img-top' alt='Imagem do recurso'>
                       <div class='card-body'>
                         <h4 class='card-title'>{$dado->titulo}</h4>
@@ -121,7 +121,7 @@
   <script type="module" src="assets/js/componentes.js"></script>
   <script src="assets/js/func.js"></script>
   <script src="assets/js/card.js"></script>
-  <!-- <script src="assets/js/criarCard.js"></script> -->
+  <script src="assets/js/criarCard.js"></script>
 </body>
 
 </html>

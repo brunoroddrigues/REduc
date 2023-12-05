@@ -3,6 +3,7 @@
 video {
     background-color: #000;
     width: 100%;
+    aspect-ratio: 2/1;
 }
 
 .bi-star {
