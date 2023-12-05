@@ -121,6 +121,25 @@
             }
 
         }
+
+        if ($_POST['tipo'] == 2) {
+            $rotaArquivo = "Recursos/arquivos/";
+            $nomeCampo = "arquivo";
+            $nomeArquivo = explode(".", $_FILES[$nomeCampo]["name"]);
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $tmpName = $_FILES[$nomeCampo]["tmp_name"];
+            $mimeType = finfo_file($finfo, $tmpName);
+            $extensao = end($nomeArquivo);
+
+            $extensoesPermitidas = array("pdf");
+            $tiposMidiaPermitida = array("application/pdf");
+            
+            if (!in_array(strtolower($mimeType), $tiposMidiaPermitida) || !in_array(strtolower($extensao), $extensoesPermitidas)) {
+                $msgErro[1] = "Arquivo incompatível!";
+                $erro = true;
+            }
+            
+        }
                  
     }
 
@@ -130,7 +149,7 @@
 <html lang="pt-br">
 
 <head>
-    <title>REduc - Explorar</title>
+    <title>REduc - Postar</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

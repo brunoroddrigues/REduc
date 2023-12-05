@@ -121,8 +121,7 @@
 
                 <div id='explorar' class="row g-1" data-container="">
                 <?php
-                    require_once("Back-end/class/conexao/Conexao.class.php");
-                    require_once("Back-end/class/recursos/Recursos.class.php");
+                    require_once("Back-end/class/recursosRequire.php");
 
                     $recurso = new Recursos();
                     $codigo = isset($_SESSION["id_usuario"]) ? $_SESSION["id_usuario"] : 0;
@@ -133,7 +132,7 @@
                         echo "
                             <div class='col-lg-3'>
                             <div class='p-1'>
-                                <a href='' class='card link-reset shadow' data-codigo='{$dado->codigo}'>
+                                <a href='recurso.php?id_recurso={$dado->codigo}' class='card link-reset shadow' data-codigo='{$dado->codigo}'>
                                 <img src='{$dado->img}' class='card-img-top' alt='Imagem do recurso'>
                                 <div class='card-body'>
                                     <h4 class='card-title'>{$dado->titulo}</h4>
