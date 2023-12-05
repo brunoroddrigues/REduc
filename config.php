@@ -146,22 +146,33 @@
       unset($_POST['resposta']);
     }
 
-    if (!empty($_FILES['name'])) {
-      $img_usuario = $_FILES['file'];
-      $img_nova = explode('.', $img_usuario['name']);
+    if (!empty($_FILES['img_usuario']['name'])) {
+      $rotaArquivo = "img/imgUsers/";
+      $nomeCampo = "img_usuario";
+      $nomeArquivo = explode(".", $_FILES[$nomeCampo]["name"]);
+      $finfo = finfo_open(FILEINFO_MIME_TYPE);
+      $tmpNameImagem = $_FILES[$nomeCampo]["tmp_name"];
+      $mimeType = finfo_file($finfo, $tmpNameImagem);
+      $extensao = end($nomeArquivo);
+                
+      $extensoesPermitidas = array("jpeg", "png", "svg", 'jpg');
+      $tiposMidiaPermitida = array("image/png", "image/svg+xml", "image/jpeg", "image/jpg");
 
-      if ($img_nova[sizeof($img_nova)-1] != 'jpg') {
-        $msg[0] = 'Não é possivel salvar esse arquivo, apenas imagens jpg!';
+      if (!in_array(strtolower($mimeType), $tiposMidiaPermitida) || !in_array(strtolower($extensao), $extensoesPermitidas)) {
+        $msg[0] = "Arquivo incompatível!";
       } else {
         $img_antiga = $usuario->BuscarPerfilUsuario();
-        unlink($img_antiga[0]->img_path);
+        if ($img_antiga[0]->img_path != "img/imgUsers/img_padrao_user.jpg") {
+          unlink($img_antiga[0]->img_path);
+        }
+        // Gerando nome aleatório.
+        $nome = sha1(microtime()) . "." . $extensao;
+        // Gerando o caminho do arquivo
+        $caminhoDaImagem = $rotaArquivo . $nome;  
+        move_uploaded_file($tmpNameImagem, dirname(__FILE__) . '/' . $caminhoDaImagem);
 
-        move_uploaded_file($img_usuario['tmp_name'], 'img/imgUsers/'. $img_usuario['name']);
-        $new_path = 'img/imgUsers/'. $img_usuario['name'];
+        $usuario->TrocarImg($caminhoDaImagem);
 
-        $usuario->TrocarImg($new_path);
-
-        // Apague os dados do $_POST
         unset($_POST);
         
         // Redirecione para a mesma página
@@ -258,7 +269,7 @@
                     id="perfil-img" class="border border-4 border-primary rounded-circle">
                     <span id="alterar-img">Alterar<br>Imagem</span> 
                 </label>
-                <input id="input-img" type="file" class="form-control" name='file'>
+                <input id="input-img" type="file" class="form-control" name='img_usuario'>
                 <br>
                 <span class="text-danger"><?php echo $msg[0] ?></span>
             </div>

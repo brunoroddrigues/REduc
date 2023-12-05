@@ -35,6 +35,7 @@ CREATE TABLE users
 	cpf CHAR(11) NOT NULL UNIQUE,
 	descricao VARCHAR(255) ,
 	datanascimento DATE NOT NULL,
+	datacadastro DATE NOT NULL,
 	id_instituicao INT NOT NULL,
 	link_lattes TEXT,
 	area_atuacao VARCHAR(25),
@@ -652,7 +653,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS proc_buscarRecursosNaoPostados $$
 CREATE PROCEDURE proc_buscarRecursosNaoPostados ()
 BEGIN
-	SELECT r.id_recurso "codigo", r.descricao, r.titulo, DATE_FORMAT(r.datacadastro, "%d/%m/%Y") "cadastro", u.nome "usuario"
+	SELECT r.id_recurso "codigo", r.descricao, r.titulo, DATE_FORMAT(r.datacadastro, "%d/%m/%Y") "cadastro", u.nomeUsuario "usuario"
 	FROM recursos r INNER JOIN users u
 	ON (r.id_usuario = u.id_usuario)
 	WHERE r.status = 0; 
@@ -668,6 +669,8 @@ BEGIN
 END $$
 DELIMITER ;
 
+# Procedure para o adm reprovar o recurso, mas como o recurso tem chaves estrangeiras em outras tabelas é necessário criar uma trigger para tirar elas tbm
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS proc_reprovar_recurso_adm $$
 CREATE PROCEDURE proc_reprovar_recurso_adm (IN codigo INT)
@@ -677,38 +680,172 @@ BEGIN
 END $$
 DELIMITER ;
 
-DELIMITER $$
-DROP PROCEDURE IF EXISTS proc_buscar_recurso $$
-CREATE PROCEDURE proc_buscar_recurso (IN codigor INT, codigou INT)
+CALL proc_reprovar_recurso_adm(2)
+
+DELIMITER//
+DROP TRIGGER IF EXISTS tr_apagarRecurso //
+CREATE TRIGGER tr_apagarRecurso
+BEFORE DELETE ON recursos
+FOR EACH ROW
 BEGIN
-	IF(EXISTS(SELECT id_recurso FROM recursos WHERE codigor = id_recurso)) THEN
-		IF(codigou = 0) THEN
-			SELECT r.id_recurso "codigo", r.titulo, r.descricao, r.datacadastro "data", r.video_path "video", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota", # Dados do recurso
-			       u.nomeUsuario "usuario", img_path "imgu", #dados do usuario 
-			       IFNULL((
-						SELECT rs.id_fav
-						FROM recursos_salvos rs
-						WHERE rs.id_recurso = r.id_recurso AND codigou = rs.id_usuario
-			       ), 0) "favorito"
+	IF(EXISTS(SELECT * FROM recurso_disciplina WHERE id_recurso = old.id_recurso)) THEN
+		DELETE FROM recurso_disciplina WHERE id_recurso = old.id_recurso;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM recurso_curso WHERE id_recurso = old.id_recurso)) THEN
+		DELETE FROM recurso_curso WHERE id_recurso = old.id_recurso;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM recursos_salvos WHERE id_recurso = old.id_recurso)) THEN
+		DELETE FROM recursos_salvos WHERE id_recurso = old.id_recurso;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM comentarios_recursos WHERE id_recurso = old.id_recurso)) THEN
+		DELETE FROM comentarios_recursos WHERE id_recurso = old.id_recurso;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM avaliacao_recurso WHERE id_recurso = old.id_recurso)) THEN
+		DELETE FROM avaliacao_recurso WHERE id_recurso = old.id_recurso;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM recurso_capes WHERE id_recurso = old.id_recurso)) THEN
+		DELETE FROM recurso_capes WHERE id_recurso = old.id_recurso;
+	END IF;
+END//
+DELIMITER;
+
+# Procedure para apresentar o recurso
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_apresentacaoRecurso //
+CREATE PROCEDURE proc_apresentacaoRecurso (IN codRecurso INT, codUsuario INT)
+BEGIN
+	IF(EXISTS(SELECT * FROM recursos WHERE recursos.id_recurso = codRecurso)) THEN
+		IF(codUsuario <> 0) THEN
+			SELECT r.id_recurso "codigo", r.titulo, r.descricao, DATE_FORMAT(r.datacadastro, '%d/%m/%Y') "data",
+			r.video_path "video", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota",
+			u.nomeUsuario "usuario", img_path "imgu", (SELECT COUNT(id_usuario) FROM recursos_salvos WHERE id_recurso = codRecurso AND id_usuario = codUsuario ) "favorito"
 			FROM recursos r INNER JOIN users u
-			ON (r.id_usuario = u.id_usuario) INNER JOIN avaliacao_recurso ar
-			ON (r.id_recurso = ar.id_recurso)
-			WHERE r.id_recurso = codigor;
+			ON(r.id_usuario = u.id_usuario) LEFT JOIN avaliacao_recurso ar
+			ON(u.id_usuario = ar.id_usuario)
+			WHERE r.id_recurso = codRecurso;
 		ELSE
-			SELECT r.id_recurso "codigo", r.titulo, r.descricao, r.datacadastro "data", r.video_path "video", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota", # Dados do recurso
-			       u.nomeUsuario "usuario", img_path "imgu", #dados do usuario  
-			       IFNULL((
-						SELECT rs.id_fav
-						FROM recursos_salvos rs
-						WHERE rs.id_recurso = r.id_recurso AND codigou = rs.id_usuario
-			       ), 0) "favorito"
+			SELECT r.id_recurso "codigo", r.titulo, r.descricao, DATE_FORMAT(r.datacadastro, '%d/%m/%Y') "data",
+			r.video_path "video", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota",
+			u.nomeUsuario "usuario", img_path "imgu", 0 "favorito"
 			FROM recursos r INNER JOIN users u
-			ON (r.id_usuario = u.id_usuario) INNER JOIN avaliacao_recurso ar
-			ON (r.id_recurso = ar.id_recurso)
-			WHERE r.id_recurso = codigor;
+			ON(r.id_usuario = u.id_usuario) LEFT JOIN avaliacao_recurso ar
+			ON(u.id_usuario = ar.id_usuario)
+			WHERE r.id_recurso = codRecurso;
 		END IF;
 	ELSE
-		SELECT "O recurso não existe!" AS alerta;
+		SELECT "Erro" AS msgErro;
 	END IF;
-END $$
+END//
 DELIMITER ;
+
+CALL proc_apresentacaoRecurso(6,1)
+
+# Procedure para cadastrar um recurso do tipo video
+
+
+DELIMITER $$
+
+USE `reduc`$$
+
+DROP PROCEDURE IF EXISTS `proc_CadastroRecursoVideo`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_CadastroRecursoVideo`(IN xtitulo VARCHAR(100), xdescricao VARCHAR(255), xvideo_path TEXT, xid_usuario INT, img_recurso_path TEXT, id_tiporecurso INT, id_ferramenta INT, OUT p_id_inserido INT)
+BEGIN
+	IF(id_ferramenta = 0)THEN
+		SET id_ferramenta = NULL;
+	END IF;
+	INSERT INTO recursos (titulo, descricao, datacadastro, video_path, id_usuario, img_recurso_path, id_tiporecurso, id_ferramenta, STATUS)
+	VALUES	(xtitulo, xdescricao, CURRENT_DATE, xvideo_path, xid_usuario, img_recurso_path, id_tiporecurso, id_ferramenta, 0);
+	
+	SET p_id_inserido = LAST_INSERT_ID();
+END$$
+
+DELIMITER ;
+
+# Criando uma Procedure para buscar usuarios inativos no sistema
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_usuariosInativos//
+CREATE PROCEDURE proc_usuariosInativos()
+BEGIN
+	SELECT id_usuario "codigo", nome, sobrenome, nomeUsuario "usuario", link_lattes "lattes", id_categoriaUsuario "categoria", email, DATE_FORMAT(datacadastro, '%d/%m/%Y') "cadastro", img_path "img", i.descritivo "instituicao"
+	FROM users u INNER JOIN instituicao i
+	ON(u.id_instituicao = i.id_instituicao)
+	WHERE STATUS = 0;
+END//
+DELIMITER;
+
+CALL proc_usuariosInativos();
+
+# Criando procedure para aprovar usuario
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_aprovarUsuario//
+CREATE PROCEDURE proc_aprovarUsuario(IN codUsuario INT)
+BEGIN
+	UPDATE users SET STATUS = 1
+	WHERE id_usuario = codUsuario;
+END//
+DELIMITER;
+
+# Criando procedure para banir usuario
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS proc_banirUsuario//
+CREATE PROCEDURE proc_banirUsuario(IN codUsuario INT)
+BEGIN
+	DELETE FROM users
+	WHERE id_usuario = codUsuario;
+END//
+DELIMITER;
+
+# Criando trigger para apagar os registros do usuario banido
+
+DELIMITER//
+DROP TRIGGER IF EXISTS tr_banirUsuario //
+CREATE TRIGGER tr_banirUsuario
+BEFORE DELETE ON users
+FOR EACH ROW
+BEGIN
+	IF(EXISTS(SELECT * FROM recursos WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM recursos WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM user_redesocial WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM user_redesocial WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM seguir WHERE id_userseguido = old.id_usuario)) THEN
+		DELETE FROM seguir WHERE id_userseguido = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM seguir WHERE id_userseguindo = old.id_usuario)) THEN
+		DELETE FROM seguir WHERE id_userseguindo = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM recursos_salvos WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM recursos_salvos WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM comentarios_recursos WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM comentarios_recursos WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM comentarios_pa WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM comentarios_pa WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM avaliacao_recurso WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM avaliacao_recurso WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM avaliacao_pa WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM avaliacao_pa WHERE id_usuario = old.id_usuario;
+	END IF;
+END//
+DELIMITER;

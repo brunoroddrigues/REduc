@@ -62,9 +62,11 @@ CREATE TABLE `avaliacao_recurso` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `avaliacao_recurso_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `avaliacao_recurso_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `avaliacao_recurso` */
+
+insert  into `avaliacao_recurso`(`id_avaliacao`,`id_usuario`,`id_recurso`,`nota`) values (3,1,3,5);
 
 /*Table structure for table `categoriausuario` */
 
@@ -115,9 +117,11 @@ CREATE TABLE `comentarios_recursos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `comentarios_recursos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `comentarios_recursos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `comentarios_recursos` */
+
+insert  into `comentarios_recursos`(`id_comentario`,`id_usuario`,`id_recurso`,`descritivo`,`datacomentario`) values (3,1,3,'teste','2023-12-02');
 
 /*Table structure for table `cursos` */
 
@@ -247,9 +251,11 @@ CREATE TABLE `recurso_curso` (
   KEY `id_curso` (`id_curso`),
   CONSTRAINT `recurso_curso_ibfk_1` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`),
   CONSTRAINT `recurso_curso_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recurso_curso` */
+
+insert  into `recurso_curso`(`id_rec_curs`,`id_recurso`,`id_curso`) values (3,3,1),(6,6,1);
 
 /*Table structure for table `recurso_disciplina` */
 
@@ -264,9 +270,11 @@ CREATE TABLE `recurso_disciplina` (
   KEY `id_disciplina` (`id_disciplina`),
   CONSTRAINT `recurso_disciplina_ibfk_1` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`),
   CONSTRAINT `recurso_disciplina_ibfk_2` FOREIGN KEY (`id_disciplina`) REFERENCES `disciplinas` (`id_disciplina`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recurso_disciplina` */
+
+insert  into `recurso_disciplina`(`id_rec_disci`,`id_recurso`,`id_disciplina`) values (3,3,1);
 
 /*Table structure for table `recursos` */
 
@@ -291,9 +299,11 @@ CREATE TABLE `recursos` (
   CONSTRAINT `recursos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `recursos_ibfk_2` FOREIGN KEY (`id_ferramenta`) REFERENCES `ferramentas` (`id_ferramenta`),
   CONSTRAINT `recursos_ibfk_3` FOREIGN KEY (`id_tiporecurso`) REFERENCES `tiporecurso` (`id_tiporecurso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recursos` */
+
+insert  into `recursos`(`id_recurso`,`titulo`,`descricao`,`datacadastro`,`video_path`,`artigo_path`,`img_recurso_path`,`id_usuario`,`id_ferramenta`,`id_tiporecurso`,`status`) values (3,'Cristiano Ronaldo','O BRABO','2023-12-02','Recursos/videos/1ea91e079cecb5700487ea0273bc6f745d7da094.mp4',NULL,'img/imgRecursos/1533f83ba90d0782d84c2c12a6f433e3.jpg',1,NULL,1,1),(6,'Meu primeiro recurso','Cadastrando um recurso pela primeira vez','2023-12-03','Recursos/videos/3e173f3893cab9eac2a6d961795966ed0b1068b2.mp4',NULL,'img/imgRecursos/dd5084db8a929bfb8d979cfd2f1ba0b1019fa580.jpg',6,NULL,1,1),(7,'teste pedro','testando','2023-12-03','Recursos/videos/981cb05a9387bbc528f8a769a02b0943738facf3.mp4',NULL,'img/imgRecursos/img_recursos_padrao.jpg',3,NULL,1,1);
 
 /*Table structure for table `recursos_salvos` */
 
@@ -308,7 +318,7 @@ CREATE TABLE `recursos_salvos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `recursos_salvos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `recursos_salvos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recursos_salvos` */
 
@@ -411,6 +421,7 @@ CREATE TABLE `users` (
   `resposta_seguranca` varchar(30) NOT NULL,
   `img_path` varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL,
+  `datacadastro` date NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `nomeUsuario` (`nomeUsuario`),
   UNIQUE KEY `email` (`email`),
@@ -421,11 +432,93 @@ CREATE TABLE `users` (
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_categoriaUsuario`) REFERENCES `categoriausuario` (`id_categoriaUsuario`),
   CONSTRAINT `users_ibfk_2` FOREIGN KEY (`id_pergunta`) REFERENCES `perguntaseguranca` (`id_pergunta`),
   CONSTRAINT `users_ibfk_3` FOREIGN KEY (`id_instituicao`) REFERENCES `instituicao` (`id_instituicao`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1),(2,1,'Bruno','Bruno','Rodrigues','bruno.rodrigues@fatec.sp.gov.br','75412465389',NULL,'2002-12-04',1,NULL,NULL,'581cde1cd6176cb9cde694bc3363c505',1,'blabla','img/imgUsers/img62ad40fbb379f6.58844781.jpg',1),(3,1,'Pedro','Pedro','Domingos','pedro.domingos@fatec.sp.gov.br','54632110144',NULL,'2002-12-04',1,NULL,NULL,'c6cc8094c2dc07b700ffcc36d64e2138',1,'blabla','img/imgUsers/img62ad40fbb379f6.58844781.jpg',1),(4,2,'marcelo','marcelo','Rodrigues','marcelo@marcelo.com','468.013.488',NULL,'2002-12-04',1,'https://site.alura.com.br/artigos/como-colocar-projeto-no-ar-com-github-pages?utm_term=&utm_campaign=%5BSearch%5D+%5BPerformance%5D+-+Dynamic+Search+Ads+-+Artigos+e+Conteúdos&utm_source=adwords&utm_medium=ppc&hsa_acc=7964138385&hsa_cam=11384329873&hsa_grp=111087461203&hsa_ad=681624904699&hsa_src=g&hsa_tgt=aud-539280195004:dsa-843358956400&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=CjwKCAiAjfyqBhAsEiwA-UdzJBH_V5bbtVGh-O2civnvFBRts4ev2him1dZds7v5bjmDmBSzT-u6lxoCEHIQAvD_BwE','adfndn','769f2b8a75180c1e8c9b37ccbcf9e049',1,'blabla',NULL,0);
+insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`,`datacadastro`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1,'0000-00-00'),(2,1,'Bruno','Bruno','Rodrigues','bruno.rodrigues@fatec.sp.gov.br','75412465389',NULL,'2002-12-04',1,NULL,NULL,'581cde1cd6176cb9cde694bc3363c505',1,'blabla','img/imgUsers/img62ad40fbb379f6.58844781.jpg',1,'0000-00-00'),(3,1,'Pedro','Pedro','Domingos','pedro.domingos@fatec.sp.gov.br','54632110144',NULL,'2002-12-04',1,NULL,NULL,'c6cc8094c2dc07b700ffcc36d64e2138',1,'blabla','img/imgUsers/img62ad40fbb379f6.58844781.jpg',1,'2023-12-02'),(5,1,'LuizOtavio','Luiz','Otavio','luiz@luiz.com','42184215574','Salve, sou o Luiz','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'Tobi','img/imgUsers/10494f74461cdc08429587e237e081fb1a710ba5.jpg',1,'2023-12-03'),(6,1,'joao','joao','joao','joao@joao.com','46801348876',NULL,'2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'tobi','img/imgUsers/6d7f57a490b8a5d310ca69777479b816fe60972a.jpg',1,'2023-12-03');
+
+/* Trigger structure for table `recursos` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_apagarRecurso` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_apagarRecurso` BEFORE DELETE ON `recursos` FOR EACH ROW begin
+	if(exists(select * from recurso_disciplina where id_recurso = old.id_recurso)) then
+		delete from recurso_disciplina where id_recurso = old.id_recurso;
+	end if;
+	
+	if(exists(select * from recurso_curso where id_recurso = old.id_recurso)) then
+		DELETE FROM recurso_curso WHERE id_recurso = old.id_recurso;
+	end if;
+	
+	IF(EXISTS(SELECT * FROM recursos_salvos WHERE id_recurso = old.id_recurso)) THEN
+		DELETE FROM recursos_salvos WHERE id_recurso = old.id_recurso;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM comentarios_recursos WHERE id_recurso = old.id_recurso)) THEN
+		DELETE FROM comentarios_recursos WHERE id_recurso = old.id_recurso;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM avaliacao_recurso WHERE id_recurso = old.id_recurso)) THEN
+		DELETE FROM avaliacao_recurso WHERE id_recurso = old.id_recurso;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM recurso_capes WHERE id_recurso = old.id_recurso)) THEN
+		DELETE FROM recurso_capes WHERE id_recurso = old.id_recurso;
+	END IF;
+end */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `users` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_banirUsuario` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_banirUsuario` BEFORE DELETE ON `users` FOR EACH ROW BEGIN
+	IF(EXISTS(SELECT * FROM recursos WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM recursos WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM user_redesocial WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM user_redesocial WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM seguir WHERE id_userseguido = old.id_usuario)) THEN
+		DELETE FROM seguir WHERE id_userseguido = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM seguir WHERE id_userseguindo = old.id_usuario)) THEN
+		DELETE FROM seguir WHERE id_userseguindo = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM recursos_salvos WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM recursos_salvos WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM comentarios_recursos WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM comentarios_recursos WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM comentarios_pa WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM comentarios_pa WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM avaliacao_recurso WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM avaliacao_recurso WHERE id_usuario = old.id_usuario;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM avaliacao_pa WHERE id_usuario = old.id_usuario)) THEN
+		DELETE FROM avaliacao_pa WHERE id_usuario = old.id_usuario;
+	END IF;
+END */$$
+
+
+DELIMITER ;
 
 /* Procedure structure for procedure `buscarRecursosNaoPostados` */
 
@@ -452,6 +545,51 @@ DELIMITER $$
 BEGIN
 	INSERT INTO user_redesocial (id_redesocial, id_usuario, link_rede)
 	VALUES (xid_redesocial, xid_usuario, link_redesocial);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_apresentacaoRecurso` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_apresentacaoRecurso` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_apresentacaoRecurso`(in codRecurso int, codUsuario int)
+begin
+	if(exists(select * from recursos where recursos.id_recurso = codRecurso)) then
+		if(codUsuario <> 0) then
+			select r.id_recurso "codigo", r.titulo, r.descricao, DATE_FORMAT(r.datacadastro, '%d/%m/%Y') "data",
+			r.video_path "video", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota",
+			u.nomeUsuario "usuario", img_path "imgu", (select count(id_usuario) from recursos_salvos where id_recurso = codRecurso and id_usuario = codUsuario ) "favorito"
+			from recursos r inner join users u
+			on(r.id_usuario = u.id_usuario) left join avaliacao_recurso ar
+			on(u.id_usuario = ar.id_usuario)
+			where r.id_recurso = codRecurso;
+		else
+			SELECT r.id_recurso "codigo", r.titulo, r.descricao, DATE_FORMAT(r.datacadastro, '%d/%m/%Y') "data",
+			r.video_path "video", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota",
+			u.nomeUsuario "usuario", img_path "imgu", 0 "favorito"
+			FROM recursos r INNER JOIN users u
+			ON(r.id_usuario = u.id_usuario) left JOIN avaliacao_recurso ar
+			ON(u.id_usuario = ar.id_usuario)
+			WHERE r.id_recurso = codRecurso;
+		end if;
+	else
+		select "Erro" as msgErro;
+	end if;
+end */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_aprovarUsuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_aprovarUsuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_aprovarUsuario`(in codUsuario int)
+BEGIN
+	update users set status = 1
+	where id_usuario = codUsuario;
 END */$$
 DELIMITER ;
 
@@ -495,6 +633,19 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `proc_banirUsuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_banirUsuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_banirUsuario`(IN codUsuario INT)
+BEGIN
+	delete from users
+	where id_usuario = codUsuario;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `proc_BuscarNumeroRedeSociasUsuario` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `proc_BuscarNumeroRedeSociasUsuario` */;
@@ -529,15 +680,29 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarQuatroRecursos`()
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarQuatroRecursos`(IN codigo INT)
 BEGIN
-	SELECT r.titulo, r.img_recurso_path, IFNULL(AVG(ar.nota), 0) "nota"
-	FROM recursos r LEFT JOIN avaliacao_recurso ar
-	ON(r.id_recurso = ar.id_recurso)	
-	WHERE r.status <> 0	
-	GROUP BY r.id_recurso
-	ORDER BY AVG(ar.nota) DESC
-	LIMIT 4;
+	IF(codigo = 0) THEN
+		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", 0 "favorito"
+		FROM recursos r LEFT JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso)
+		WHERE r.status <> 0	
+		GROUP BY r.id_recurso
+		ORDER BY AVG(ar.nota) DESC
+		LIMIT 4;
+	ELSE
+		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", IFNULL((
+			SELECT rs.id_fav 
+			FROM recursos_salvos rs
+			WHERE r.id_recurso = rs.id_recurso AND codigo = rs.id_usuario
+		), 0) "favorito"
+		FROM recursos r LEFT JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso)
+		WHERE r.status <> 0	
+		GROUP BY r.id_recurso
+		ORDER BY AVG(ar.nota) DESC
+		LIMIT 4;
+	END IF;
 END */$$
 DELIMITER ;
 
@@ -549,7 +714,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_buscarRecursosNaoPostados`()
 BEGIN
-	SELECT r.id_recurso "codigo", r.descricao, r.titulo, DATE_FORMAT(r.datacadastro, "%d/%m/%Y") "cadastro", u.nome "usuario"
+	SELECT r.id_recurso "codigo", r.descricao, r.titulo, DATE_FORMAT(r.datacadastro, "%d/%m/%Y") "cadastro", u.nomeUsuario "usuario"
 	FROM recursos r INNER JOIN users u
 	ON (r.id_usuario = u.id_usuario)
 	WHERE r.status = 0; 
@@ -594,24 +759,6 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `proc_buscar_recurso` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `proc_buscar_recurso` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_buscar_recurso`(IN codigo INT)
-BEGIN
-	IF(EXISTS(SELECT id_recurso FROM recursos WHERE codigo = id_recurso)) THEN
-		SELECT id_recurso "codigo", titulo, descricao, datacadastro "data", video_path "video"
-		FROM recursos
-		WHERE id_recurso = codigo;
-	ELSE
-		SELECT "O código mencionado não possui recursos" AS alerta;
-	END IF;
-END */$$
-DELIMITER ;
-
 /* Procedure structure for procedure `proc_CadastroAluno` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `proc_CadastroAluno` */;
@@ -632,8 +779,8 @@ BEGIN
 		SIGNAL SQLSTATE '45000'
 		SET MESSAGE_TEXT = 'ERRO: Nome de usuário, email ou CPF já cadastrados';
 	ELSE
-		INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario, STATUS)
-		VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU, statusU);
+		INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario, datacadastro, STATUS, img_path)
+		VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU, current_date, statusU, 'img/imgUsers/img_padrao_user.jpg');
 	END IF;
 END */$$
 DELIMITER ;
@@ -646,8 +793,8 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_CadastroProfessor`(IN nomeU VARCHAR(25), sobrenomeU VARCHAR(25), nomeUsuarioU VARCHAR(35), cpfU CHAR(11), datanascimentoU DATE, emailU VARCHAR(300), senhaU VARCHAR(255), link_lattesU TEXT, area_atuacaoU VARCHAR(25), id_perguntaU INT, resposta_segurancaU VARCHAR(30), id_instituicaoU INT, id_categoriaUsuarioU INT, statusU BOOLEAN)
 BEGIN
-	INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, link_lattes, area_atuacao, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario, STATUS)
-	VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, link_lattesU, area_atuacaoU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU, statusU);
+	INSERT INTO users (nome, sobrenome, nomeUsuario, cpf, datanascimento, email, senha, link_lattes, area_atuacao, id_pergunta, resposta_seguranca, id_instituicao, id_categoriaUsuario, datacadastro, STATUS, img_path)
+	VALUES	(nomeU, sobrenomeU, nomeUsuarioU, cpfU, datanascimentoU, emailU, senhaU, link_lattesU, area_atuacaoU, id_perguntaU, resposta_segurancaU, id_instituicaoU, id_categoriaUsuarioU, current_date, statusU, 'img/imgUsers/img_padrao_user.jpg');
 END */$$
 DELIMITER ;
 
@@ -657,11 +804,16 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_CadastroRecursoVideo`(in xtitulo VARCHAR(100), xdescricao VARCHAR(255), xvideo_path TEXT, xid_usuario int, img_recurso_path text, id_tiporecurso int)
-begin
-	insert into recursos (titulo, descricao, datacadastro, video_path, id_usuario, img_recurso_path, id_tiporecurso, status)
-	values	(xtitulo, xdescricao, current_date, xvideo_path, xid_usuario, img_recurso_path, id_tiporecurso, 0);
-end */$$
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_CadastroRecursoVideo`(IN xtitulo VARCHAR(100), xdescricao VARCHAR(255), xvideo_path TEXT, xid_usuario INT, img_recurso_path TEXT, id_tiporecurso INT, id_ferramenta INT, OUT p_id_inserido INT)
+BEGIN
+	IF(id_ferramenta = 0)THEN
+		SET id_ferramenta = NULL;
+	END IF;
+	INSERT INTO recursos (titulo, descricao, datacadastro, video_path, id_usuario, img_recurso_path, id_tiporecurso, id_ferramenta, STATUS)
+	VALUES	(xtitulo, xdescricao, CURRENT_DATE, xvideo_path, xid_usuario, img_recurso_path, id_tiporecurso, id_ferramenta, 0);
+	
+	SET p_id_inserido = LAST_INSERT_ID();
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `proc_InativarRecurso` */
@@ -744,6 +896,21 @@ BEGIN
 		SELECT "Usuario não possui recursos cadastrados..." AS msg;
 	END IF;
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_usuariosInativos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_usuariosInativos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_usuariosInativos`()
+begin
+	select id_usuario "codigo", nome, sobrenome, nomeUsuario "usuario", link_lattes "lattes", id_categoriaUsuario "categoria", email, DATE_FORMAT(datacadastro, '%d/%m/%Y') "cadastro", img_path "img", i.descritivo "instituicao"
+	from users u inner join instituicao i
+	on(u.id_instituicao = i.id_instituicao)
+	where status = 0;
+end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `proc_VerificarUsuario` */

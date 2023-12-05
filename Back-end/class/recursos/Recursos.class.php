@@ -122,7 +122,7 @@ class Recursos extends Conexao{
     }
 
     public function cadastrarRecursoVideo($id_usuario) {
-        $sql = "CALL proc_CadastroRecursoVideo(?, ?, ?, ?, ?, ?)";
+        $sql = "CALL proc_CadastroRecursoVideo(?, ?, ?, ?, ?, ?, ?, @id_inserido)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $this->titulo);
         $stm->bindValue(2, $this->descricao);
@@ -130,14 +130,15 @@ class Recursos extends Conexao{
         $stm->bindValue(4, $id_usuario);
         $stm->bindValue(5, $this->link_img);
         $stm->bindValue(6, $this->categoria->getIdCategoria());
+        $stm->bindValue(7, $this->ferramenta->getIdFerramenta());
         $stm->execute();
+        $id = $this->db->query("SELECT @id_inserido")->fetchColumn();
 
-        // Obter o ID do último registro inserido
-        return $this->id_recurso = $stm->lastInsertId();
+        return $id;
     }
 
     public function buscarRecurso($codigo) {
-        $sql = "CALL proc_buscar_recurso(?, ?)";
+        $sql = "CALL proc_apresentacaoRecurso(?, ?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $this->id_recurso);
         $stm->bindValue(2, $codigo);

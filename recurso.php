@@ -1,5 +1,10 @@
 <?php
     if(!isset($_SESSION)) session_start();
+
+    if (!$_GET) {
+        header('location:index.php');
+        die();
+    }
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -42,11 +47,13 @@
         }
     ?>
     <div class="container">
-        <video class="mt-5 mb-3" src="<?php echo $retorno[0]->video ?>"></video>
+        <video class="mt-5 mb-3"controls>
+            <source src="<?php echo $retorno[0]->video ?>">
+        </video>
         <section id="avaliacao" class="mb-3 d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img src="" alt="foto do usuário" id="fotoUsuario" class="rounded-circle border border-2">
-                <a href="" class="h3 mx-3">Usuario</a>
+                <img src="<?php echo $retorno[0]->imgu ?>" alt="foto do usuário" id="fotoUsuario" class="rounded-circle border border-2 fotoUsuario">
+                <a href="" class="h3 mx-3"><?php echo $retorno[0]->usuario ?></a>
             </div>
             <section id="nota" class="d-flex align-items-center">
                 <div class="mx-3">
@@ -62,9 +69,9 @@
                     echo "</div>";
                     if($retorno[0]->favorito == 0) {
                         echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
-                      } else {
+                    } else {
                         echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
-                      }
+                    }
                 ?>
             </section>
         </section>
@@ -75,6 +82,44 @@
                 <?php echo $retorno[0]->descricao ?>
             </article>
         </section>
+
+        <section id="comentarios">
+            <h2 class="text-primary">Comentários<small class='float-end text-body-secondary h6'>1 comentário(s)</small></h2>
+            <!-- Comentário -->
+            <div class="comentario bg-light px-2 py-4 rounded shadow my-5 d-flex">
+                <a href="">
+                    <img src="img/imgUsers/img_padrao_user.jpg" alt="Foto do usuário" class="mx-1 border border-2 rounded-circle fotoUsuario">
+                </a>
+                <article class="mx-2 ps-3">
+                    <a href="" class="h4">Usuário</a><span class="float-end">05/12/2023<button class="btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#denuncia">Denunciar</button></span>
+                    <p class="mt-3">
+                        Aqui vai o comentário do usuario. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum architecto quae vel quod alias temporibus nemo iste numquam! Adipisci ipsam quidem illum, rem aperiam quasi atque fugit reiciendis temporibus possimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem quisquam asperiores harum velit cupiditate recusandae error fugit at voluptates nostrum porro, dolorum impedit obcaecati illum aliquid facilis ullam nesciunt temporibus?
+                    </p>
+                </article>
+            </div>
+            <!-- Fim do comentario -->
+        </section>
+
+        <!-- Modal de denúncia -->
+        <div class="modal fade" id="denuncia" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                <form action="#" method="post" class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">Denúncia</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div action="#" method="post" class="modal-body">
+                        <label class="form-label">Digite o motivo da denúncia:</label>
+                        <textarea class="form-control"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Fim do modal -->
     </div>
   </main>
 

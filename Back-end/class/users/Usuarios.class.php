@@ -285,4 +285,25 @@ class Usuario extends Conexao{
         $stm->bindValue(2, $this->id_usuario);
         $stm->execute();
     }
+
+    public function usuariosInativos() {
+        $sql = "CALL proc_usuariosInativos()";
+        $stm = $this->db->prepare($sql);
+		$stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function aprovarUsuario() {
+        $sql = "CALL proc_aprovarUsuario(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+    } 
+
+    public function banirUsuario() {
+        $sql = "CALL proc_banirUsuario(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+    } 
 }
