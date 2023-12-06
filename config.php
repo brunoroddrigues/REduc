@@ -188,7 +188,7 @@
 <html lang="pt-br">
 
 <head>
-  <title>REduc - configurações</title>
+  <title>REduc - Configurações</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -206,7 +206,7 @@
   <header id="reduc-header"></header>
   <main>
     <form action="#" method="post" id="config-form" class="container shadow rounded bg-light my-5 p-5" enctype="multipart/form-data">
-        <h2 id="titulo" class="h2 txt-roxo d-flex justify-content-between">Alterar configurações de conta<a href="meuPerfil.html" id="voltar"><i class="bi bi-arrow-left"></i>Voltar</a></h2>
+        <h2 id="titulo" class="h2 txt-roxo d-flex justify-content-between">Alterar configurações de conta<a href="meuPerfil.php" id="voltar"><i class="bi bi-arrow-left"></i>Voltar</a></h2>
         <hr class="mb-5">
         <div id="campos" class="mb-5">
             <div id="config-dados">

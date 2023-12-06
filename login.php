@@ -26,13 +26,17 @@
       $usuario = new Usuario(email: $_POST['email'], senha: md5($_POST['senha']));
       $retorno = $usuario->verificarUsuario();
       if (is_array($retorno) && count($retorno) > 0) {
-        if (!isset($_SESSION)) session_start(); 
-        $_SESSION["id_usuario"] = $retorno[0]->id_usuario;
-        $_SESSION["username"] = $retorno[0]->nomeUsuario;
-        $_SESSION['categoria'] = $retorno[0]->id_categoriaUsuario;
-        $_SESSION['perfil'] = $retorno[0]->img_path;
-        header("location: index.php");
-        die();
+        if ($retorno[0]->status != 0) {
+          if (!isset($_SESSION)) session_start(); 
+          $_SESSION["id_usuario"] = $retorno[0]->id_usuario;
+          $_SESSION["username"] = $retorno[0]->nomeUsuario;
+          $_SESSION['categoria'] = $retorno[0]->id_categoriaUsuario;
+          $_SESSION['perfil'] = $retorno[0]->img_path;
+          header("location: index.php");
+          die();
+        } else {
+          $msg[3] = "USUARIO INATIVO!";
+        }
       } else {
         $msg[3] = "E-mail ou senha não conferem!";
       }

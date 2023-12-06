@@ -75,7 +75,7 @@
           }
         ?>
       </div>
-      <a href='explorar.html' class='btn btn-primary mt-4 align-self-center shadow'>Ir para explorar &#10095;</a>
+      <a href='explorar.php' class='btn btn-primary mt-4 align-self-center shadow'>Ir para explorar &#10095;</a>
     </section>
 
     <!-- Sobre a REduc -->

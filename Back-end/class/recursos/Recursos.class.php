@@ -184,5 +184,14 @@ class Recursos extends Conexao{
         $stm->execute();
         $this->db = null;
     }
+
+    public function PuxarComentarios() {
+        $sql = "CALL proc_PuxarComentarios(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_recurso);
+        $stm->execute();
+
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
 }
 

@@ -8,6 +8,12 @@
     die();
   }
 
+  $msgErro = "";
+
+  if (isset($_GET['erro'])) {
+    $msgErro = "NOME DE USUÁRIO, EMAIL OU CPF JÁ CADASTRADOS";
+  }
+
   if ($_POST) {
     $nome = $_POST['nome'];
     $sobrenome = $_POST['sobrenome'];
@@ -38,7 +44,7 @@
         $usuario->CadastrarAluno();
         header("location:login.php");
       } catch (PDOException $e) {
-        header("location:cadastro.php");
+        header("location:cadastro.php?erro=1");
       }
     } 
   }  
@@ -72,6 +78,7 @@
     <div class='container rounded shadow p-5 my-5 cadastrar'>
       <div class='row'>
         <form method='POST' action='#' id='form-cadastro' class='col-lg-6 d-flex flex-column justify-content-between'>
+          <span class="text-danger"><?php echo $msgErro ?></span> 
           <h2 class='h2'>Cadastrar usuário</h2>
 
           <!-- 1. Categoria do usuário -->
