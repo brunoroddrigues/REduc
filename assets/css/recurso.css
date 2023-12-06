@@ -29,3 +29,25 @@ video {
     width: 2px;
     height: 100%;
 }
+
+.submit {
+    font-size: 1.2rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit:hover {
+    transform: scale(1.1);
+    background-color: var(--roxo-principal-escuro) !important;
+    box-shadow: 0 0 4px var();
+}
+
+#input-comentario {
+    resize: none;
+    overflow-y: hidden;
+}
+

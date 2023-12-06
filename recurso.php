@@ -85,6 +85,13 @@
 
         <section id="comentarios">
             <h2 class="text-primary">Comentários<small class='float-end text-body-secondary h6'>1 comentário(s)</small></h2>
+            <!-- Digite o comentário -->
+            <form action="#" method="post" class="bg-light p-3 my-5 rounded d-flex align-items-center shadow">
+                <textarea id="input-comentario" class="form-control" name="comentario" placeholder="Digite seu comentário..."></textarea>
+                <button type="submit" class="submit ms-2 rounded-circle bg-primary p-2"><i class="bi bi-send text-light"></i></button>
+            </form>
+            <!-- Fim do input -->
+
             <!-- Comentário -->
             <div class="comentario bg-light px-2 py-4 rounded shadow my-5 d-flex">
                 <a href="">
