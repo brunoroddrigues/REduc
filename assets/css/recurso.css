@@ -10,8 +10,22 @@ video {
     font-size: 2rem;
 }
 
-#fotoUsuario {
+.fotoUsuario {
     width: 4.6875rem;
     height: 4.6875rem;
     object-fit: cover;
+}
+
+#comentarios > .comentario > article {
+    position: relative;
+}
+
+#comentarios > .comentario > article::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #ccc;
+    width: 2px;
+    height: 100%;
 }

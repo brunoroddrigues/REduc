@@ -121,7 +121,7 @@
   <script type="module" src="assets/js/componentes.js"></script>
   <script src="assets/js/func.js"></script>
   <script src="assets/js/card.js"></script>
-  <!-- <script src="assets/js/criarCard.js"></script> -->
+  <script src="assets/js/criarCard.js"></script>
 </body>
 
 </html>

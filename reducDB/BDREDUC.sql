@@ -115,9 +115,11 @@ CREATE TABLE `comentarios_recursos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `comentarios_recursos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `comentarios_recursos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `comentarios_recursos` */
+
+insert  into `comentarios_recursos`(`id_comentario`,`id_usuario`,`id_recurso`,`descritivo`,`datacomentario`) values (4,1,16,'Recurso realmente bem explicativo, adorei. E que professor gato hein, ta de parabéns','2023-12-05'),(5,10,16,'Aula boa, mas poderia ser melhor se fosse o Messi...','2023-12-05');
 
 /*Table structure for table `cursos` */
 
@@ -133,6 +135,23 @@ CREATE TABLE `cursos` (
 /*Data for the table `cursos` */
 
 insert  into `cursos`(`id_curso`,`descritivo`) values (3,'Construção Naval'),(4,'Recursos Hídricos'),(2,'Sistemas Navais'),(1,'Sistemas para Internet');
+
+/*Table structure for table `denuncia_comentario` */
+
+DROP TABLE IF EXISTS `denuncia_comentario`;
+
+CREATE TABLE `denuncia_comentario` (
+  `id_denuncia` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_comentario` int(11) NOT NULL,
+  PRIMARY KEY (`id_denuncia`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `id_comentario` (`id_comentario`),
+  CONSTRAINT `denuncia_comentario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
+  CONSTRAINT `denuncia_comentario_ibfk_2` FOREIGN KEY (`id_comentario`) REFERENCES `comentarios_recursos` (`id_comentario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `denuncia_comentario` */
 
 /*Table structure for table `disciplinas` */
 
@@ -247,9 +266,11 @@ CREATE TABLE `recurso_curso` (
   KEY `id_curso` (`id_curso`),
   CONSTRAINT `recurso_curso_ibfk_1` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`),
   CONSTRAINT `recurso_curso_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recurso_curso` */
+
+insert  into `recurso_curso`(`id_rec_curs`,`id_recurso`,`id_curso`) values (9,16,4);
 
 /*Table structure for table `recurso_disciplina` */
 
@@ -291,9 +312,11 @@ CREATE TABLE `recursos` (
   CONSTRAINT `recursos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `recursos_ibfk_2` FOREIGN KEY (`id_ferramenta`) REFERENCES `ferramentas` (`id_ferramenta`),
   CONSTRAINT `recursos_ibfk_3` FOREIGN KEY (`id_tiporecurso`) REFERENCES `tiporecurso` (`id_tiporecurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recursos` */
+
+insert  into `recursos`(`id_recurso`,`titulo`,`descricao`,`datacadastro`,`video_path`,`artigo_path`,`img_recurso_path`,`id_usuario`,`id_ferramenta`,`id_tiporecurso`,`status`) values (16,'Aula de como tomar vinho','CR7 ensinando a tomar vinho','2023-12-04','Recursos/videos/f99268123e81044e5af916e6f80c5b6fe0128522.mp4',NULL,'img/imgRecursos/490513ee9e5c035203f8ef77fe990a1b9146ea79.jpeg',11,NULL,1,1);
 
 /*Table structure for table `recursos_salvos` */
 
@@ -387,9 +410,11 @@ CREATE TABLE `user_redesocial` (
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `user_redesocial_ibfk_1` FOREIGN KEY (`id_redesocial`) REFERENCES `redesocial` (`id_redesocial`),
   CONSTRAINT `user_redesocial_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `user_redesocial` */
+
+insert  into `user_redesocial`(`id_userrede`,`link_rede`,`id_redesocial`,`id_usuario`) values (1,'https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwidspWo3_WCAxWepZUCHVjWBgEQFnoECBIQAQ&url=https%3A%2F%2Fwww.facebook.com%2FCristiano%2F%3Flocale%3Dpt_BR&usg=AOvVaw0UQSlf1kyQf8GyHiWp0T0v&opi=89978449',4,1),(2,'https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwi1xKur7PWCAxU_rJUCHbMjCuwQFnoECA4QAQ&url=https%3A%2F%2Fwww.instagram.com%2Fneymarjr%2F&usg=AOvVaw3kx_9Frkp1OyqIPLCtoGsJ&opi=89978449',2,1);
 
 /*Table structure for table `users` */
 
@@ -424,11 +449,11 @@ CREATE TABLE `users` (
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_categoriaUsuario`) REFERENCES `categoriausuario` (`id_categoriaUsuario`),
   CONSTRAINT `users_ibfk_2` FOREIGN KEY (`id_pergunta`) REFERENCES `perguntaseguranca` (`id_pergunta`),
   CONSTRAINT `users_ibfk_3` FOREIGN KEY (`id_instituicao`) REFERENCES `instituicao` (`id_instituicao`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`,`datacadastro`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1,'0000-00-00');
+insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`,`datacadastro`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1,'0000-00-00'),(10,1,'Brunão','Bruno','Rodrigues','brunaospfc@email.com','46801348876',NULL,'2002-12-04',1,NULL,NULL,'112cb04f8ddf9c7e695f7b896e33b22f',1,'Rodrigo Nestor','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(11,2,'ProfGirafales','Professor','Girafales','girafales@email.com','43941428810',NULL,'2004-03-05',1,'isdfaksjdhf.com','exatas','202cb962ac59075b964b07152d234b70',2,'pederneiras','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(12,1,'Bruno ','Bruno','Rodrigues','bruno.rodrigues@email.com','45377870824',NULL,'1997-05-14',1,NULL,NULL,'202cb962ac59075b964b07152d234b70',2,'jau','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04');
 
 /* Trigger structure for table `recursos` */
 
@@ -822,6 +847,22 @@ BEGIN
 		SELECT "Impossível..." AS msg;
 	END IF;
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_PuxarComentarios` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_PuxarComentarios` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_PuxarComentarios`(in codRecurso int)
+begin
+	SELECT id_comentario "codigo", cr.id_usuario "id_usuario", u.nomeUsuario, img_path "img", descritivo "comentario", DATE_FORMAT(datacomentario, "%d/%m/%Y") "data",
+	(select count(id_comentario) from comentarios_recursos where id_recurso = codRecurso) "nmrComentarios"
+	from comentarios_recursos cr inner join users u
+	on(cr.id_usuario = u.id_usuario)
+	where cr.id_recurso = codRecurso;
+end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `proc_RedeSocialParaCadastrar` */
