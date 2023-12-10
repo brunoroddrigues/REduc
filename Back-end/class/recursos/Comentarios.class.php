@@ -26,5 +26,12 @@ class Comentario extends Conexao {
     $this->recurso = $recurso;
   }
 
-  
+  public function adicionarComentario() {
+    $sql = "CALL proc_adicionarComentario(?, ?, ?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindValue(1, $this->recurso->getId());
+    $stm->bindValue(2, $this->usuario->getIdUsuario());
+    $stm->bindValue(3, $this->comentario);
+    $stm->execute();
+  } 
 }

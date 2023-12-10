@@ -6,5 +6,6 @@
     require_once ("recursos/Cursos.class.php");
     require_once ("recursos/CategoriaRecurso.class.php");
     require_once ("recursos/AreaConhecimento.class.php");
+    require_once ("recursos/Comentarios.class.php");
 
 ?>

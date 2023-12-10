@@ -6,12 +6,17 @@
         die();
     } else {
         require_once("Back-end/class/recursosRequire.php");
+        require_once("Back-end/class/usersRequire.php");
         $recurso = new Recursos(id_recurso: $_GET["id_recurso"]);
         $codigo = isset($_SESSION["id_usuario"]) ? $_SESSION["id_usuario"] : 0;
         $retorno = $recurso->buscarRecurso($codigo);
-        $comentarios = $recurso->PuxarComentarios();
 
-        if(!empty($_POST)) var_dump($_POST);
+        if(!empty($_POST)) {
+            $novoComentario = $_POST['comentario'];
+            $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
+            $newComentario = new Comentario(recurso: $recurso, usuario: $usuario, comentario: $novoComentario);
+            $newComentario->adicionarComentario();
+        }
     }
 ?>
 <!doctype html>
@@ -71,8 +76,14 @@
             </article>
         </section>
         <section id="comentarios">
-<<<<<<< HEAD
-            <h2 class="text-primary">Comentários<small class='float-end text-body-secondary h6'>1 comentário(s)</small></h2>
+            <?php $comentarios = $recurso->PuxarComentarios(); ?>
+            <h2 class="text-primary">Comentários<small class='float-end text-body-secondary h6'>
+                <?php if(!empty($comentarios)) {
+                    echo $comentarios[0]->nmrComentarios . " comentario(s)";
+                } else {
+                   echo "0 comentarios"; 
+                }  ?>
+            </small></h2>
             <!-- Digite o comentário -->
             <form action="#" method="post" class="bg-light p-3 my-5 rounded d-flex align-items-center shadow">
                 <textarea id="input-comentario" class="form-control" name="comentario" placeholder="Digite seu comentário..."></textarea>
@@ -80,10 +91,6 @@
             </form>
             <!-- Fim do input -->
 
-=======
-            <h2 class="text-primary">Comentários<small class='float-end text-body-secondary h6'><?php echo $comentarios[0]->nmrComentarios . " comentario(s)" ?></small></h2>
->>>>>>> 55ecf48809082ecb53c349cf818eb0bddb2d1a20
-            <!-- Comentário -->
             <?php
                 if(is_array($comentarios)) {
                     foreach ($comentarios as $comentario) {
