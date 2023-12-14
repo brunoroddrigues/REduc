@@ -306,4 +306,13 @@ class Usuario extends Conexao{
         $stm->bindValue(1, $this->id_usuario);
         $stm->execute();
     } 
+
+    public function VisitaUsuario ($visitante) {
+        $sql = "CALL proc_perfilVisita(?, ?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->bindValue(2, $visitante);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
 }

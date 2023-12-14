@@ -115,11 +115,11 @@ CREATE TABLE `comentarios_recursos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `comentarios_recursos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `comentarios_recursos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `comentarios_recursos` */
 
-insert  into `comentarios_recursos`(`id_comentario`,`id_usuario`,`id_recurso`,`descritivo`,`datacomentario`) values (4,1,16,'Recurso realmente bem explicativo, adorei. E que professor gato hein, ta de parabéns','2023-12-05'),(5,10,16,'Aula boa, mas poderia ser melhor se fosse o Messi...','2023-12-05'),(8,12,17,'TESTANDO','2023-12-10'),(9,12,17,'Mai 1 teste apenas para garantir\r\n','2023-12-10');
+insert  into `comentarios_recursos`(`id_comentario`,`id_usuario`,`id_recurso`,`descritivo`,`datacomentario`) values (4,1,16,'Recurso realmente bem explicativo, adorei. E que professor gato hein, ta de parabéns','2023-12-05'),(5,10,16,'Aula boa, mas poderia ser melhor se fosse o Messi...','2023-12-05'),(8,12,17,'TESTANDO','2023-12-10'),(9,12,17,'Mai 1 teste apenas para garantir\r\n','2023-12-10'),(10,1,17,'test','2023-12-11');
 
 /*Table structure for table `cursos` */
 
@@ -312,11 +312,11 @@ CREATE TABLE `recursos` (
   CONSTRAINT `recursos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `recursos_ibfk_2` FOREIGN KEY (`id_ferramenta`) REFERENCES `ferramentas` (`id_ferramenta`),
   CONSTRAINT `recursos_ibfk_3` FOREIGN KEY (`id_tiporecurso`) REFERENCES `tiporecurso` (`id_tiporecurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recursos` */
 
-insert  into `recursos`(`id_recurso`,`titulo`,`descricao`,`datacadastro`,`video_path`,`artigo_path`,`img_recurso_path`,`id_usuario`,`id_ferramenta`,`id_tiporecurso`,`status`) values (16,'Aula de como tomar vinho','CR7 ensinando a tomar vinho','2023-12-04','Recursos/videos/f99268123e81044e5af916e6f80c5b6fe0128522.mp4',NULL,'img/imgRecursos/490513ee9e5c035203f8ef77fe990a1b9146ea79.jpeg',11,NULL,1,1),(17,'Teste 1 Cida','Teste de upload de recurso','2023-12-06','Recursos/videos/10758388f58d09c3a61a418004ff23407ef92c06.mp4',NULL,'img/imgRecursos/img_recursos_padrao.jpg',13,NULL,1,1);
+insert  into `recursos`(`id_recurso`,`titulo`,`descricao`,`datacadastro`,`video_path`,`artigo_path`,`img_recurso_path`,`id_usuario`,`id_ferramenta`,`id_tiporecurso`,`status`) values (16,'Aula de como tomar vinho','CR7 ensinando a tomar vinho','2023-12-04','Recursos/videos/f99268123e81044e5af916e6f80c5b6fe0128522.mp4',NULL,'img/imgRecursos/490513ee9e5c035203f8ef77fe990a1b9146ea79.jpeg',11,NULL,1,1),(17,'Teste 1 Cida','Teste de upload de recurso','2023-12-06','Recursos/videos/10758388f58d09c3a61a418004ff23407ef92c06.mp4',NULL,'img/imgRecursos/img_recursos_padrao.jpg',13,NULL,1,1),(23,'teste pdf','teste','2023-12-11',NULL,'Recursos/arquivos/bd80c30bd84cb07420cc44411901b4e135774ce5.pdf','img/imgRecursos/img_recursos_padrao.jpg',1,NULL,2,1);
 
 /*Table structure for table `recursos_salvos` */
 
@@ -453,7 +453,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`,`datacadastro`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1,'0000-00-00'),(10,1,'Brunão','Bruno','Rodrigues','brunaospfc@email.com','46801348876',NULL,'2002-12-04',1,NULL,NULL,'112cb04f8ddf9c7e695f7b896e33b22f',1,'Rodrigo Nestor','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(11,2,'ProfGirafales','Professor','Girafales','girafales@email.com','43941428810',NULL,'2004-03-05',1,'isdfaksjdhf.com','exatas','202cb962ac59075b964b07152d234b70',2,'pederneiras','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(12,1,'Bruno ','Bruno','Rodrigues','bruno.rodrigues@email.com','45377870824',NULL,'1997-05-14',1,NULL,NULL,'202cb962ac59075b964b07152d234b70',2,'jau','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(13,2,'cidazem','Aparecida Maria','Zem Lopes','cida.zem@gmail.com','10301050813',NULL,'1964-10-26',1,'http://lattes.cnpq.br/6123540746643830','Educação e Tecnologias','e10adc3949ba59abbe56e057f20f883e',2,'Jaú','img/imgUsers/img_padrao_user.jpg',1,'2023-12-06');
+insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`,`datacadastro`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1,'2023-10-04'),(10,1,'Brunão','Bruno','Rodrigues','brunaospfc@email.com','46801348876',NULL,'2002-12-04',1,NULL,NULL,'112cb04f8ddf9c7e695f7b896e33b22f',1,'Rodrigo Nestor','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(11,2,'ProfGirafales','Professor','Girafales','girafales@email.com','43941428810',NULL,'2004-03-05',1,'isdfaksjdhf.com','exatas','202cb962ac59075b964b07152d234b70',2,'pederneiras','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(12,1,'Bruno ','Bruno','Rodrigues','bruno.rodrigues@email.com','45377870824',NULL,'1997-05-14',1,NULL,NULL,'202cb962ac59075b964b07152d234b70',2,'jau','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(13,2,'cidazem','Aparecida Maria','Zem Lopes','cida.zem@gmail.com','10301050813',NULL,'1964-10-26',1,'http://lattes.cnpq.br/6123540746643830','Educação e Tecnologias','e10adc3949ba59abbe56e057f20f883e',2,'Jaú','img/imgUsers/img_padrao_user.jpg',1,'2023-12-06');
 
 /* Trigger structure for table `recursos` */
 
@@ -589,16 +589,16 @@ begin
 	if(exists(select * from recursos where recursos.id_recurso = codRecurso)) then
 		if(codUsuario <> 0) then
 			select r.id_recurso "codigo", r.titulo, r.descricao, DATE_FORMAT(r.datacadastro, '%d/%m/%Y') "data",
-			r.video_path "video", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota",
-			u.nomeUsuario "usuario", img_path "imgu", (select count(id_usuario) from recursos_salvos where id_recurso = codRecurso and id_usuario = codUsuario ) "favorito"
+			r.video_path "video", artigo_path "arquivo", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota",
+			u.nomeUsuario "usuario", r.id_usuario "id_usuario",  img_path "imgu", (select count(id_usuario) from recursos_salvos where id_recurso = codRecurso and id_usuario = codUsuario ) "favorito"
 			from recursos r inner join users u
 			on(r.id_usuario = u.id_usuario) left join avaliacao_recurso ar
 			on(u.id_usuario = ar.id_usuario)
 			where r.id_recurso = codRecurso;
 		else
 			SELECT r.id_recurso "codigo", r.titulo, r.descricao, DATE_FORMAT(r.datacadastro, '%d/%m/%Y') "data",
-			r.video_path "video", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota",
-			u.nomeUsuario "usuario", img_path "imgu", 0 "favorito"
+			r.video_path "video", artigo_path "arquivo", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota",
+			u.nomeUsuario "usuario", r.id_usuario "id_usuario", img_path "imgu", 0 "favorito"
 			FROM recursos r INNER JOIN users u
 			ON(r.id_usuario = u.id_usuario) left JOIN avaliacao_recurso ar
 			ON(u.id_usuario = ar.id_usuario)
@@ -828,6 +828,24 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `proc_CadastroRecursoArtigo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_CadastroRecursoArtigo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_CadastroRecursoArtigo`(IN xtitulo VARCHAR(100), xdescricao VARCHAR(255), xartigo_path TEXT, xid_usuario INT, img_recurso_path TEXT, id_tiporecurso INT, id_ferramenta INT, OUT p_id_inserido INT)
+begin
+	IF(id_ferramenta = 0)THEN
+		SET id_ferramenta = NULL;
+	END IF;
+	INSERT INTO recursos (titulo, descricao, datacadastro, artigo_path, id_usuario, img_recurso_path, id_tiporecurso, id_ferramenta, STATUS)
+	VALUES	(xtitulo, xdescricao, CURRENT_DATE, xartigo_path, xid_usuario, img_recurso_path, id_tiporecurso, id_ferramenta, 0);
+	
+	SET p_id_inserido = LAST_INSERT_ID();
+end */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `proc_CadastroRecursoVideo` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `proc_CadastroRecursoVideo` */;
@@ -860,6 +878,44 @@ BEGIN
 		SELECT "Impossível..." AS msg;
 	END IF;
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_perfilVisita` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_perfilVisita` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_perfilVisita`(IN xid_usuario INT, xid_usuarioVisitante int)
+BEGIN
+	IF(EXISTS(SELECT * FROM users WHERE id_usuario = xid_usuario)) THEN
+		SELECT nomeUsuario, img_path, c.descritivo "categoria", descricao, IFNULL((select count(id_usuario) from seguir where id_userseguindo = xid_usuarioVisitante), 0) "segue"
+		FROM users u inner join categoriausuario c
+		on(u.id_categoriaUsuario = c.id_categoriaUsuario)
+		WHERE id_usuario = xid_usuario;
+	END IF;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_pesquisaRecursos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_pesquisaRecursos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_pesquisaRecursos`(IN codigo INT, pesquisa text)
+begin
+	SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", IFNULL((
+		SELECT rs.id_fav 
+		FROM recursos_salvos rs
+		WHERE r.id_recurso = rs.id_recurso AND codigo = rs.id_usuario
+	), 0) "favorito"
+	FROM recursos r LEFT JOIN avaliacao_recurso ar
+	ON(r.id_recurso = ar.id_recurso)
+	WHERE r.status <> 0 and titulo like CONCAT('%', pesquisa, '%')	
+	GROUP BY r.id_recurso
+	ORDER BY AVG(ar.nota) DESC;
+end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `proc_PuxarComentarios` */

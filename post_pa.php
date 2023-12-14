@@ -135,95 +135,10 @@
             $tiposMidiaPermitida = array("application/pdf");
             
             if (!in_array(strtolower($mimeType), $tiposMidiaPermitida) || !in_array(strtolower($extensao), $extensoesPermitidas)) {
-                $msgErro[0] = "Arquivo incompatível, apenas PDF!";
+                $msgErro[1] = "Arquivo incompatível!";
                 $erro = true;
-            } else {
-                // Gerando nome aleatório.
-                $nome = sha1(microtime()) . "." . $extensao;
-                // Gerando o caminho do arquivo
-                $caminhoDoArquivo =  $rotaArquivo . $nome;  
-
-                $erro = false;
             }
-            if (!empty($_FILES['imagem_recurso']['name'])) {
-                $rotaArquivo = "img/imgRecursos/";
-                $nomeCampo = "imagem_recurso";
-                $nomeArquivo = explode(".", $_FILES[$nomeCampo]["name"]);
-                $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                $tmpNameImagem = $_FILES[$nomeCampo]["tmp_name"];
-                $mimeType = finfo_file($finfo, $tmpNameImagem);
-                $extensao = end($nomeArquivo);
-                
-                $extensoesPermitidas = array("jpeg", "png", "svg", 'jpg');
-                $tiposMidiaPermitida = array("image/png", "image/svg+xml", "image/jpeg", "image/jpg");
-
-                if (!in_array(strtolower($mimeType), $tiposMidiaPermitida) || !in_array(strtolower($extensao), $extensoesPermitidas)) {
-                    $msgErro[1] = "Imagem incompatível!";
-                    $erro = true;
-                } else {
-                    // Gerando nome aleatório.
-                    $nome = sha1(microtime()) . "." . $extensao;
-                    // Gerando o caminho do arquivo
-                    $caminhoDaImagem = $rotaArquivo . $nome;  
-    
-                    $erro = false;
-                    $upload = true;
-                    
-                }
-                      
-            } else {
-                $caminhoDaImagem = 'img/imgRecursos/img_recursos_padrao.jpg';
-                $upload = false;
-            }
-            if (!$erro) {
-                if ($_POST['ferramenta'] != "Selecione a ferramenta") {
-                    $ferramenta = new Ferramenta(id_ferramenta: $_POST['ferramenta']);
-                } else {
-                    $ferramenta = new Ferramenta(id_ferramenta: 0);
-                }
-
-                $titulo = $_POST['titulo'];
-                $descricao = $_POST['descritivo'];
-                $tipo = $_POST['tipo'];
-                $link_artigo = $caminhoDoArquivo;
-                $link_img = $caminhoDaImagem;
-                $id_usuario = $_SESSION['id_usuario'];
-                $categoria = new CategoriaRecurso(id_categoria: $tipo);
-
-                $recurso = new Recursos(titulo: $titulo, descricao: $descricao, categoria: $categoria, link_artigo: $link_artigo, link_img: $link_img, ferramenta: $ferramenta);
-
-                $id_recurso = $recurso->cadastrarRecursoArtigo($id_usuario);
-                
-                if($_POST['disciplina'] != "Selecione a disciplina") {
-                    $disciplina = $_POST['disciplina'];
-                    $sql = "INSERT INTO recurso_disciplina (id_recurso, id_disciplina) VALUES (?, ?)";
-                    $insersao = $cnx->prepare($sql);
-                    $insersao->bindValue(1, $id_recurso);
-                    $insersao->bindValue(2, $disciplina);
-                    $insersao->execute();
-                }
-
-                if ($_POST['curso'] != "Selecione o curso") {
-                    $curso = $_POST['curso'];
-                    $sql = "INSERT INTO recurso_curso (id_recurso, id_curso) VALUES (?, ?)";
-                    $insersao = $cnx->prepare($sql);
-                    $insersao->bindValue(1, $id_recurso);
-                    $insersao->bindValue(2, $curso);
-                    $insersao->execute();
-                }
-
-                // Upload do vídeo
-                move_uploaded_file($tmpName, dirname(__FILE__) . "/" . $caminhoDoArquivo);
-                // Upload da imagem
-                if ($upload) {
-                    move_uploaded_file($tmpNameImagem, dirname(__FILE__) . '/' . $caminhoDaImagem);
-                }
-                unset($_POST);
-        
-                // Redirecione para o index
-                header('Location: index.php');
-                exit();                
-            }
+            
         }
                  
     }
@@ -256,7 +171,7 @@
     <header id='reduc-header'></header>
 
     <main class="container py-5">
-        <h2 class="h2 text-primary">Publicar um recurso</h2>
+        <h2 class="h2 text-primary">Publicar pratica avaliativa</h2>
         <form id="form" action="#" method="post" enctype=multipart/form-data>
             <div class="row">
                 <div class="col-md-6">
@@ -275,69 +190,21 @@
                     <input type="file" name="imagem_recurso" class="form-control" onchange="mostrar(this)">
                     <span class="text-danger erro"><?php echo $msgErro[1]; ?></span>
                 </div>
-
-                <div class="row m-0 my-5">
-                    <div class="col-md-3">
-                        <label class="form-label">Disciplina:</label>
-                        <select class="form-select" name="disciplina">
-                            <option selected>Selecione a disciplina</option>
-                            <?php
-                                $sql = "SELECT * FROM disciplinas";
-                                $consulta = $cnx->prepare($sql);
-                                $consulta->execute();
-                                $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
-                                foreach ($resultado as $disciplina) {
-                                    echo "<option value='{$disciplina->id_disciplina}'>{$disciplina->descritivo}</option>";
-                                }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label">Curso:</label>
-                        <select class="form-select" name="curso">
-                            <option selected>Selecione o curso</option>
-                            <?php
-                                $sql = "SELECT * FROM cursos";
-                                $consulta = $cnx->prepare($sql);
-                                $consulta->execute();
-                                $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
-                                foreach ($resultado as $curso) {
-                                    echo "<option value='{$curso->id_curso}'>{$curso->descritivo}</option>";
-                                }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        
-                        <label class="form-label">Ferramenta:</label>
-                        <select class="form-select" name="ferramenta">
-                            <option selected>Selecione a ferramenta</option>
-                            <?php
-                                $sql = "SELECT * FROM ferramentas";
-                                $consulta = $cnx->prepare($sql);
-                                $consulta->execute();
-                                $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
-                                foreach ($resultado as $ferramenta) {
-                                    echo "<option value='{$ferramenta->id_ferramenta}'>{$ferramenta->descritivo}</option>";
-                                }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label">Tipo:</label>
-                        <select class="form-select" name="tipo">
-                            <option selected>Selecione o Tipo</option>
-                            <?php
-                                $sql = "SELECT * FROM tiporecurso";
-                                $consulta = $cnx->prepare($sql);
-                                $consulta->execute();
-                                $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
-                                foreach ($resultado as $tipo) {
-                                    echo "<option value='{$tipo->id_tiporecurso}'>{$tipo->descritivo}</option>";
-                                }
-                            ?>
-                        </select>
-                        <span class="text-danger erro"></span>
+                <div class="col-md-3">
+                  <label class="form-label">Tipo:</label>
+                  <select class="form-select" name="tipo">
+                    <option selected>Selecione o Tipo</option>
+                    <?php
+                      $sql = "SELECT * FROM tiporecurso";
+                      $consulta = $cnx->prepare($sql);
+                      $consulta->execute();
+                      $resultado = $consulta->fetchAll(PDO::FETCH_OBJ);
+                      foreach ($resultado as $tipo) {
+                        echo "<option value='{$tipo->id_tiporecurso}'>{$tipo->descritivo}</option>";
+                      }
+                    ?>
+                    </select>
+                    <span class="text-danger erro"></span>
                     </div>
                     <label class="form-label mt-5">Selecione seu Arquivo:</label>
                     <input id="file_recurso" type="file" name="arquivo" class="form-control ">

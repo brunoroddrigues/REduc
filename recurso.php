@@ -6,10 +6,22 @@
         die();
     } else {
         require_once("Back-end/class/recursosRequire.php");
+        require_once ("Back-end/functions/func_conexao.php");
         require_once("Back-end/class/usersRequire.php");
+        // Buscando o tipo do recurso
+        $id_recurso = $_GET["id_recurso"];
+        $sql = "SELECT id_tiporecurso FROM recursos WHERE id_recurso = ?";
+        $stm = $cnx->prepare($sql);
+        $stm->bindValue(1, $id_recurso);
+        $stm->execute();
+        $tiporecurso = $stm->fetchAll(PDO::FETCH_OBJ);
+        if ($tiporecurso[0]->id_tiporecurso == 2) {
+            // header('location:recursoPA.php?id_recurso=' . $id_recurso);
+        }
         $recurso = new Recursos(id_recurso: $_GET["id_recurso"]);
         $codigo = isset($_SESSION["id_usuario"]) ? $_SESSION["id_usuario"] : 0;
         $retorno = $recurso->buscarRecurso($codigo);
+
 
         if(!empty($_POST)) {
             $novoComentario = $_POST['comentario'];
@@ -40,13 +52,30 @@
 
   <main>
     <div class="container">
-        <video class="mt-5 mb-3"controls>
-            <source src="<?php echo $retorno[0]->video ?>">
-        </video>
+        <?php
+            if ($tiporecurso[0]->id_tiporecurso == 1) {
+                echo 
+                "<video class='mt-5 mb-3'controls>
+                <source src='{$retorno[0]->video}'>
+                </video>";
+            } else {
+                echo 
+                "<div class='arquivo bg-light px-1 py-4 rounded shadow my-4 d-flex'>
+                    <article class='mx-2 ps-3'>
+                        <a href='download_arquivo.php?arqpath={$retorno[0]->arquivo}' class='h4'><span class='float-end'><button class='bi bi-file-earmark-pdf-fill btn btn-primary ms-3' data-bs-toggle='modal'></button></span></a>
+                    </article>
+                    <p>"
+                      . ($codigo != 0 ? "Fazer download do arquivo" : "Você precisa entrar na sua conta para fazer download do arquivo" )
+                        .  
+                    "</p>
+                </div>";
+            }
+        ?>
+        
         <section id="avaliacao" class="mb-3 d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
                 <img src="<?php echo $retorno[0]->imgu ?>" alt="foto do usuário" id="fotoUsuario" class="rounded-circle border border-2 fotoUsuario">
-                <a href="" class="h3 mx-3"><?php echo $retorno[0]->usuario ?></a>
+                <a href='perfil.php?user=<?php echo $retorno[0]->id_usuario ?>' class="h3 mx-3"><?php echo $retorno[0]->usuario ?></a>
             </div>
             <section id="nota" class="d-flex align-items-center">
                 <div class="mx-3">
@@ -84,12 +113,17 @@
                    echo "0 comentarios"; 
                 }  ?>
             </small></h2>
-            <!-- Digite o comentário -->
-            <form action="#" method="post" class="bg-light p-3 my-5 rounded d-flex align-items-center shadow">
-                <textarea id="input-comentario" class="form-control" name="comentario" placeholder="Digite seu comentário..."></textarea>
-                <button type="submit" class="submit ms-2 rounded-circle bg-primary p-2"><i class="bi bi-send text-light"></i></button>
-            </form>
-            <!-- Fim do input -->
+            <?php
+                if ($codigo != 0) {
+                    echo
+                    "<!-- Digite o comentário -->
+                    <form action='#' method='post' class='bg-light p-3 my-5 rounded d-flex align-items-center shadow'>
+                        <textarea id='input-comentario' class='form-control' name='comentario' placeholder='Digite seu comentário...'></textarea>
+                        <button type='submit' class='submit ms-2 rounded-circle bg-primary p-2'><i class='bi bi-send text-light'></i></button>
+                    </form>
+                    <!-- Fim do input -->";
+                }
+            ?>
 
             <?php
                 if(is_array($comentarios)) {

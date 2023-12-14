@@ -42,8 +42,8 @@ export function criarHeader(login, perfil, categoria) {
 
   let hform = document.createElement("form");
   // Lembrar de adicionar os action no formulario
-  hform.setAttribute("action", "#");
-  hform.setAttribute("method", "post");
+  hform.setAttribute("action", "explorar.php");
+  hform.setAttribute("method", "get");
   hform.setAttribute("class", "container d-flex");
   hform.setAttribute("id", "header-form");
 
@@ -51,6 +51,7 @@ export function criarHeader(login, perfil, categoria) {
   input.setAttribute("type", "text");
   input.setAttribute("placeholder", "Digite o que procura...");
   input.setAttribute("class", "form-control");
+  input.setAttribute("name", "search");
 
   let sbutton = document.createElement("button");
   sbutton.setAttribute("type", "submit");
@@ -92,7 +93,7 @@ export function criarHeader(login, perfil, categoria) {
     a1.setAttribute("href", "post_recurso.php");
     a1.setAttribute("class", "nav-link btn btn-outline-light txt-branco");
     a1.setAttribute("id", "publicar");
-    a1.appendChild(document.createTextNode("+Publicar"));
+    a1.appendChild(document.createTextNode("+Recurso"));
     li[3].setAttribute("id", "header-perfil");
     li[3].setAttribute("onclick", "mostrarMenu()")
     let perfilImg = document.createElement("img");

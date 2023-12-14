@@ -137,6 +137,22 @@ class Recursos extends Conexao{
         return $id;
     }
 
+    public function cadastrarRecursoArtigo($id_usuario) {
+        $sql = "CALL proc_CadastroRecursoArtigo(?, ?, ?, ?, ?, ?, ?, @id_inserido)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->titulo);
+        $stm->bindValue(2, $this->descricao);
+        $stm->bindValue(3, $this->link_artigo);
+        $stm->bindValue(4, $id_usuario);
+        $stm->bindValue(5, $this->link_img);
+        $stm->bindValue(6, $this->categoria->getIdCategoria());
+        $stm->bindValue(7, $this->ferramenta->getIdFerramenta());
+        $stm->execute();
+        $id = $this->db->query("SELECT @id_inserido")->fetchColumn();
+
+        return $id;
+    }
+
     public function buscarRecurso($codigo) {
         $sql = "CALL proc_apresentacaoRecurso(?, ?)";
         $stm = $this->db->prepare($sql);
@@ -191,6 +207,16 @@ class Recursos extends Conexao{
         $stm->bindValue(1, $this->id_recurso);
         $stm->execute();
 
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function PesquisarRecurso($id_usuario, $pesquisa) {
+        $sql = "CALL proc_pesquisaRecursos(?, ?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $id_usuario);
+        $stm->bindValue(2, $pesquisa);
+        $stm->execute();
+		
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 }

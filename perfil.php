@@ -1,3 +1,15 @@
+<?php
+  if(!isset($_SESSION)) session_start();
+
+  require_once "Back-end/class/recursosRequire.php";
+  require_once "Back-end/class/usersRequire.php";
+
+  $usuario = new Usuario(id_usuario: $_GET["user"]);
+  $visitante = isset($_SESSION["id_usuario"]) ? $_SESSION["id_usuario"] : 0;
+  $retorno = $usuario->VisitaUsuario($visitante);
+
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -22,13 +34,13 @@
   <main class='container'>
     <section id="perfil" class="rounded shadow my-5 p-4">
       <figure id="perfil-foto">
-        <img src="img/adicionar_imagem.png" alt="foto de perfil" class='shadow'>
+        <img src="<?php echo $retorno[0]->img_path ?>" alt="foto de perfil" class='shadow'>
       </figure>
       <article id="perfil-dados">
-        <h2 class='h2 text-light'>Nicolas Rissi</h2>
-        <h3 class='h3 text-light'>Administrador</h3>
+        <h2 class='h2 text-light'><?php echo $retorno[0]->nomeUsuario ?></h2>
+        <h3 class='h3 text-light'><?php echo $retorno[0]->categoria ?></h3>
         <p class="text-light">
-          Uma mini-bio Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil rerum facilis accusamus consequatur dolore dolores officiis magnam sit quibusdam, quod explicabo repellat, vitaeamet ea animi temporibus nulla!
+          <?php echo $retorno[0]->descricao ?>
         </p>
       </article>
       <div id='perfil-links'>
