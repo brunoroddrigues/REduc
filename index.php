@@ -61,10 +61,12 @@
                 echo "<i class='bi bi-star'></i>";
               }
               echo     "</span>";
-              if($dado->favorito == 0) {
-                echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
-              } else {
-                echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
+              if ($codigo != 0) {
+                if($dado->favorito == 0) {
+                  echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
+                } else {
+                  echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
+                }
               }
               echo   "</div>
                     </a>

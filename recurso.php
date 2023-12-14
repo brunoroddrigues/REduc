@@ -1,7 +1,7 @@
 <?php
     if(!isset($_SESSION)) session_start();
 
-    if (!$_GET) {
+    if (!$_GET["id_recurso"]) {
         header('location:index.php');
         die();
     } else {
@@ -80,19 +80,31 @@
             <section id="nota" class="d-flex align-items-center">
                 <div class="mx-3">
                 <?php
-                    $nota1 = 5 - $retorno[0]->nota;
-                    $nota2 = 5 - $nota1;
-                    for($i = 0; $i < $nota2; $i++) {
-                        echo "<button class='btn bi bi-star-fill p-0'></button>";
+                    
+                    // for($i = 0; $i < $nota2; $i++) {
+                    //     echo "<button class='btn bi bi-star-fill p-0'></button>";
+                    // }
+                    $AvaliacaoUsuario = ($retorno[0]->nota != 0) ? $retorno[0]->nota : false;
+                    if ($AvaliacaoUsuario) {
+                        for($i = 0; $i < 5; $i++) {
+                            if ($i <= ($AvaliacaoUsuario - 1)) {
+                                echo "<a href='avaliar_recurso.php?ava=" . $i+1 . "&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn bi bi-star-fill p-1'></a>";
+                            } else {
+                                echo "<a href='avaliar_recurso.php?ava=" . $i+1 . "&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn bi bi-star p-0'></a>";
+                            }
+                            
+                        }
+                    } else {
+                        for($i = 0; $i < 5; $i++) {
+                            echo "<a href='avaliar_recurso.php?ava=" . $i+1 . "&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn bi bi-star p-0'></a>";
+                        }
                     }
-                    for($i = 0; $i < $nota1; $i++) {
-                        echo "<button class='btn bi bi-star p-0'></button>";
-                    }
+                    
                     echo "</div>";
                     if($retorno[0]->favorito == 0) {
-                        echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
+                        echo "<a href='favoritar.php?fav=true&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn p-0 card-flag bi-bookmark'></a>";
                     } else {
-                        echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
+                        echo "<a href='favoritar.php?fav=false&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn p-0 card-flag bi-bookmark-fill'></a>";
                     }
                 ?>
             </section>
@@ -134,7 +146,7 @@
                                 <img src='{$comentario->img}' alt='Foto do usuário' class='mx-1 border border-2 rounded-circle fotoUsuario'>
                             </a>
                             <article class='mx-2 ps-3'>
-                                <a href='perfil.php?userKey={$comentario->id_usuario}' class='h4'>{$comentario->nomeUsuario}</a><span class='float-end'>{$comentario->data}<button class='btn btn-primary ms-3' data-bs-toggle='modal' data-bs-target='#denuncia'>Denunciar</button></span>
+                                <a href='perfil.php?user={$comentario->id_usuario}' class='h4'>{$comentario->nomeUsuario}</a><span class='float-end'>{$comentario->data}<button class='btn btn-primary ms-3' data-bs-toggle='modal' data-bs-target='#denuncia'>Denunciar</button></span>
                                 <p class='mt-3'>
                                     {$comentario->comentario}
                                 </p>

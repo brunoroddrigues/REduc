@@ -168,150 +168,86 @@
     <section id='meus-recursos' class='container bg-light rounded shadow mb-5 mt-5 p-5 d-flex flex-column'>
       <h2 class='txt-roxo mb-4'>Recursos postados</h2>
       <div class='row g-2'>
-        <div class="col-lg-3">
-          <!-- Começo do card -->
+        <?php
+          $codigo = isset($_SESSION["id_usuario"]) ? $_SESSION["id_usuario"] : 0;
+          $recursos = $usuario->BuscarMeusRecursos();
 
-          <div class="p-1">
-
-            <a href='#' class="card link-reset shadow">
-              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
-              <div class="card-body">
-                <h4 class="card-title">Titulo do recurso</h4>
-                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                <button class='btn p-0 card-flag'>&#9873;</button>
-              </div>
-            </a>
-
-          </div>
-
-        </div> <!-- Fim do card -->
-        <div class="col-lg-3">
-          <!-- Começo do card -->
-
-          <div class="p-1">
-
-            <a href='#' class="card link-reset shadow">
-              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
-              <div class="card-body">
-                <h4 class="card-title">Titulo do recurso</h4>
-                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                <button class='btn p-0 card-flag'>&#9873;</button>
-              </div>
-            </a>
-
-          </div>
-
-        </div> <!-- Fim do card -->
-        <div class="col-lg-3">
-          <!-- Começo do card -->
-
-          <div class="p-1">
-
-            <a href='#' class="card link-reset shadow">
-              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
-              <div class="card-body">
-                <h4 class="card-title">Titulo do recurso</h4>
-                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                <button class='btn p-0 card-flag'>&#9873;</button>
-              </div>
-            </a>
-
-          </div>
-
-        </div> <!-- Fim do card -->
-        <div class="col-lg-3">
-          <!-- Começo do card -->
-
-          <div class="p-1">
-
-            <a href='#' class="card link-reset shadow">
-              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
-              <div class="card-body">
-                <h4 class="card-title">Titulo do recurso</h4>
-                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                <button class='btn p-0 card-flag'>&#9873;</button>
-              </div>
-            </a>
-
-          </div>
-
-        </div> <!-- Fim do card -->
+          if(is_array($recursos)) {
+            foreach($recursos as $dado) {
+              echo "
+                <div class='col-lg-3'>
+                  <div class='p-1'>
+                    <a href='recurso.php?id_recurso={$dado->codigo}' class='card link-reset shadow'>
+                      <img src='{$dado->img}' class='card-img-top' alt='Imagem do recurso'>
+                      <div class='card-body'>
+                        <h4 class='card-title'>{$dado->titulo}</h4>
+                        <span class='card-star'>";
+              $nota1 = 5 - $dado->nota;
+              $nota2 = 5 - $nota1;
+              for($i = 0; $i < $nota2; $i++) {
+                echo "<i class='bi bi-star-fill'></i>";
+              }
+              for($i = 0; $i < $nota1; $i++) {
+                echo "<i class='bi bi-star'></i>";
+              }
+              echo     "</span>";
+              if($dado->favorito == 0) {
+                echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
+              } else {
+                echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
+              }
+              echo   "</div>
+                    </a>
+                  </div>
+                </div>
+              ";
+            }
+          }
+        ?>
       </div>
-      <a href='explorar.html' class='btn btn-primary mt-4 align-self-center shadow'>Ver mais &#10095;</a>
+      <a href='explorar.php' class='btn btn-primary mt-4 align-self-center shadow'>Ver mais &#10095;</a>
     </section>
     <section id='recursos-salvos' class='container bg-light rounded shadow mb-5 mt-5 p-5 d-flex flex-column'>
       <h2 class='txt-roxo mb-4'>Recursos salvos</h2>
       <div class='row g-2'>
-        <div class="col-lg-3">
-          <!-- Começo do card -->
+        <?php
+          $codigo = isset($_SESSION["id_usuario"]) ? $_SESSION["id_usuario"] : 0;
+          $recursos = $usuario->BuscarRecursosSalvos();
 
-          <div class="p-1">
-
-            <a href='#' class="card link-reset shadow">
-              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
-              <div class="card-body">
-                <h4 class="card-title">Titulo do recurso</h4>
-                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                <button class='btn p-0 card-flag'>&#9873;</button>
-              </div>
-            </a>
-
-          </div>
-
-        </div> <!-- Fim do card -->
-        <div class="col-lg-3">
-          <!-- Começo do card -->
-
-          <div class="p-1">
-
-            <a href='#' class="card link-reset shadow">
-              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
-              <div class="card-body">
-                <h4 class="card-title">Titulo do recurso</h4>
-                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                <button class='btn p-0 card-flag'>&#9873;</button>
-              </div>
-            </a>
-
-          </div>
-
-        </div> <!-- Fim do card -->
-        <div class="col-lg-3">
-          <!-- Começo do card -->
-
-          <div class="p-1">
-
-            <a href='#' class="card link-reset shadow">
-              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
-              <div class="card-body">
-                <h4 class="card-title">Titulo do recurso</h4>
-                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                <button class='btn p-0 card-flag'>&#9873;</button>
-              </div>
-            </a>
-
-          </div>
-
-        </div> <!-- Fim do card -->
-        <div class="col-lg-3">
-          <!-- Começo do card -->
-
-          <div class="p-1">
-
-            <a href='#' class="card link-reset shadow">
-              <img class="card-img-top" src="img/img-padrão-reduc.jpg" alt="Title">
-              <div class="card-body">
-                <h4 class="card-title">Titulo do recurso</h4>
-                <span class="card-star">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                <button class='btn p-0 card-flag'>&#9873;</button>
-              </div>
-            </a>
-
-          </div>
-
-        </div> <!-- Fim do card -->
+          if(is_array($recursos)) {
+            foreach($recursos as $dado) {
+              echo "
+                <div class='col-lg-3'>
+                  <div class='p-1'>
+                    <a href='recurso.php?id_recurso={$dado->codigo}' class='card link-reset shadow'>
+                      <img src='{$dado->img}' class='card-img-top' alt='Imagem do recurso'>
+                      <div class='card-body'>
+                        <h4 class='card-title'>{$dado->titulo}</h4>
+                        <span class='card-star'>";
+              $nota1 = 5 - $dado->nota;
+              $nota2 = 5 - $nota1;
+              for($i = 0; $i < $nota2; $i++) {
+                echo "<i class='bi bi-star-fill'></i>";
+              }
+              for($i = 0; $i < $nota1; $i++) {
+                echo "<i class='bi bi-star'></i>";
+              }
+              echo     "</span>";
+              if($dado->favorito == 0) {
+                echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
+              } else {
+                echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
+              }
+              echo   "</div>
+                    </a>
+                  </div>
+                </div>
+              ";
+            }
+          }
+        ?>
       </div>
-      <a href='explorar.html' class='btn btn-primary mt-4 align-self-center shadow'>Ver mais &#10095;</a>
+      <a href='explorar.php' class='btn btn-primary mt-4 align-self-center shadow'>Ver mais &#10095;</a>
     </section>
 
   </main>

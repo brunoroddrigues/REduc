@@ -315,4 +315,43 @@ class Usuario extends Conexao{
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function BuscarRecursosUsuarioVisita($visitante) {
+        $sql = "CALL proc_BuscarRecursosUsuarioVisita(?, ?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->bindValue(2, $visitante);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function BuscarMeusRecursos() {
+        $sql = "CALL proc_BuscarMeusRecursos(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function BuscarRecursosSalvos() {
+        $sql = "CALL proc_BuscarRecursosSalvos(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function SeguirUsuario($usuarioSeguido) {
+        $sql = "INSERT INTO seguir (id_userseguido, id_userseguindo) VALUES (?, ?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $usuarioSeguido);
+        $stm->bindValue(2, $this->id_usuario);
+        $stm->execute();
+    }
+    public function UnfollowUsuario($usuarioSeguido) {
+        $sql = "DELETE FROM seguir WHERE id_userseguido = ? AND id_userseguindo = ?";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $usuarioSeguido);
+        $stm->bindValue(2, $this->id_usuario);
+        $stm->execute();
+    }
 }

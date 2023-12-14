@@ -62,9 +62,11 @@ CREATE TABLE `avaliacao_recurso` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `avaliacao_recurso_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `avaliacao_recurso_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `avaliacao_recurso` */
+
+insert  into `avaliacao_recurso`(`id_avaliacao`,`id_usuario`,`id_recurso`,`nota`) values (5,1,16,1),(6,1,17,2);
 
 /*Table structure for table `categoriausuario` */
 
@@ -331,9 +333,11 @@ CREATE TABLE `recursos_salvos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `recursos_salvos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `recursos_salvos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recursos_salvos` */
+
+insert  into `recursos_salvos`(`id_fav`,`id_recurso`,`id_usuario`) values (12,17,1);
 
 /*Table structure for table `redesocial` */
 
@@ -363,9 +367,11 @@ CREATE TABLE `seguir` (
   KEY `id_userseguindo` (`id_userseguindo`),
   CONSTRAINT `seguir_ibfk_1` FOREIGN KEY (`id_userseguido`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `seguir_ibfk_2` FOREIGN KEY (`id_userseguindo`) REFERENCES `users` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `seguir` */
+
+insert  into `seguir`(`id_seguir`,`id_userseguido`,`id_userseguindo`) values (1,13,1),(5,11,1);
 
 /*Table structure for table `tiporecurso` */
 
@@ -453,7 +459,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`,`datacadastro`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1,'2023-10-04'),(10,1,'Brunão','Bruno','Rodrigues','brunaospfc@email.com','46801348876',NULL,'2002-12-04',1,NULL,NULL,'112cb04f8ddf9c7e695f7b896e33b22f',1,'Rodrigo Nestor','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(11,2,'ProfGirafales','Professor','Girafales','girafales@email.com','43941428810',NULL,'2004-03-05',1,'isdfaksjdhf.com','exatas','202cb962ac59075b964b07152d234b70',2,'pederneiras','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(12,1,'Bruno ','Bruno','Rodrigues','bruno.rodrigues@email.com','45377870824',NULL,'1997-05-14',1,NULL,NULL,'202cb962ac59075b964b07152d234b70',2,'jau','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(13,2,'cidazem','Aparecida Maria','Zem Lopes','cida.zem@gmail.com','10301050813',NULL,'1964-10-26',1,'http://lattes.cnpq.br/6123540746643830','Educação e Tecnologias','e10adc3949ba59abbe56e057f20f883e',2,'Jaú','img/imgUsers/img_padrao_user.jpg',1,'2023-12-06');
+insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`,`datacadastro`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1,'2023-10-04'),(10,1,'Brunão','Bruno','Rodrigues','brunaospfc@email.com','46801348876',NULL,'2002-12-04',1,NULL,NULL,'112cb04f8ddf9c7e695f7b896e33b22f',1,'Rodrigo Nestor','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(11,2,'ProfGirafales','Professor','Girafales','girafales@email.com','43941428810',NULL,'2004-03-05',1,'isdfaksjdhf.com','exatas','1b0b539f722fa757130aba4217927784',2,'pederneiras','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(12,1,'Bruno ','Bruno','Rodrigues','bruno.rodrigues@email.com','45377870824',NULL,'1997-05-14',1,NULL,NULL,'202cb962ac59075b964b07152d234b70',2,'jau','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(13,2,'cidazem','Aparecida Maria','Zem Lopes','cida.zem@gmail.com','10301050813',NULL,'1964-10-26',1,'http://lattes.cnpq.br/6123540746643830','Educação e Tecnologias','e10adc3949ba59abbe56e057f20f883e',2,'Jaú','img/imgUsers/img_padrao_user.jpg',1,'2023-12-06');
 
 /* Trigger structure for table `recursos` */
 
@@ -589,7 +595,7 @@ begin
 	if(exists(select * from recursos where recursos.id_recurso = codRecurso)) then
 		if(codUsuario <> 0) then
 			select r.id_recurso "codigo", r.titulo, r.descricao, DATE_FORMAT(r.datacadastro, '%d/%m/%Y') "data",
-			r.video_path "video", artigo_path "arquivo", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota",
+			r.video_path "video", artigo_path "arquivo", r.img_recurso_path "imgr", IFNULL((select nota from avaliacao_recurso where id_usuario = codUsuario AND id_recurso = codRecurso ), 0) "nota",
 			u.nomeUsuario "usuario", r.id_usuario "id_usuario",  img_path "imgu", (select count(id_usuario) from recursos_salvos where id_recurso = codRecurso and id_usuario = codUsuario ) "favorito"
 			from recursos r inner join users u
 			on(r.id_usuario = u.id_usuario) left join avaliacao_recurso ar
@@ -597,7 +603,7 @@ begin
 			where r.id_recurso = codRecurso;
 		else
 			SELECT r.id_recurso "codigo", r.titulo, r.descricao, DATE_FORMAT(r.datacadastro, '%d/%m/%Y') "data",
-			r.video_path "video", artigo_path "arquivo", r.img_recurso_path "imgr", IFNULL(AVG(ar.nota), 0) "nota",
+			r.video_path "video", artigo_path "arquivo", r.img_recurso_path "imgr",  0 "nota",
 			u.nomeUsuario "usuario", r.id_usuario "id_usuario", img_path "imgu", 0 "favorito"
 			FROM recursos r INNER JOIN users u
 			ON(r.id_usuario = u.id_usuario) left JOIN avaliacao_recurso ar
@@ -676,6 +682,25 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `proc_BuscarMeusRecursos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_BuscarMeusRecursos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarMeusRecursos`(in xid_usuario int)
+begin
+		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", 0 "favorito"
+		FROM recursos r LEFT JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso)
+		WHERE r.id_usuario = xid_usuario and r.status <> 0	
+		GROUP BY r.id_recurso
+		ORDER BY AVG(ar.nota) DESC
+		LIMIT 4;
+	
+end */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `proc_BuscarNumeroRedeSociasUsuario` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `proc_BuscarNumeroRedeSociasUsuario` */;
@@ -749,6 +774,58 @@ BEGIN
 	ON (r.id_usuario = u.id_usuario)
 	WHERE r.status = 0; 
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_BuscarRecursosSalvos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_BuscarRecursosSalvos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarRecursosSalvos`(in xid_usuario INT)
+BEGIN
+		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", 1 "favorito"
+		FROM recursos r LEFT JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso) inner join recursos_salvos rs
+		on(r.id_recurso = rs.id_recurso)
+		WHERE rs.id_usuario = xid_usuario AND r.status <> 0	
+		GROUP BY r.id_recurso
+		ORDER BY AVG(ar.nota) DESC
+		LIMIT 4;
+	
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_BuscarRecursosUsuarioVisita` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_BuscarRecursosUsuarioVisita` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarRecursosUsuarioVisita`(in xid_usuario int, codigo int)
+begin
+	IF(codigo = 0) THEN
+		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", 0 "favorito"
+		FROM recursos r LEFT JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso)
+		WHERE r.status <> 0	
+		GROUP BY r.id_recurso
+		ORDER BY AVG(ar.nota) DESC
+		LIMIT 4;
+	ELSE
+		SELECT r.id_recurso "codigo", r.titulo, r.img_recurso_path "img", IFNULL(AVG(ar.nota), 0) "nota", IFNULL((
+			SELECT rs.id_fav 
+			FROM recursos_salvos rs
+			WHERE r.id_recurso = rs.id_recurso AND codigo = rs.id_usuario
+		), 0) "favorito"
+		FROM recursos r LEFT JOIN avaliacao_recurso ar
+		ON(r.id_recurso = ar.id_recurso)
+		WHERE r.id_usuario = xid_usuario and r.status <> 0	
+		GROUP BY r.id_recurso
+		ORDER BY AVG(ar.nota) DESC
+		LIMIT 4;
+	END IF;
+end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `proc_BuscarRedeSocial` */
@@ -889,7 +966,7 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_perfilVisita`(IN xid_usuario INT, xid_usuarioVisitante int)
 BEGIN
 	IF(EXISTS(SELECT * FROM users WHERE id_usuario = xid_usuario)) THEN
-		SELECT nomeUsuario, img_path, c.descritivo "categoria", descricao, IFNULL((select count(id_usuario) from seguir where id_userseguindo = xid_usuarioVisitante), 0) "segue"
+		SELECT nomeUsuario, img_path, c.descritivo "categoria", descricao, IFNULL((select count(id_usuario) from seguir where id_userseguindo = xid_usuarioVisitante and id_userseguido = xid_usuario), 0) "segue"
 		FROM users u inner join categoriausuario c
 		on(u.id_categoriaUsuario = c.id_categoriaUsuario)
 		WHERE id_usuario = xid_usuario;
