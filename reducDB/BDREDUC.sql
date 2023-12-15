@@ -62,11 +62,11 @@ CREATE TABLE `avaliacao_recurso` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `avaliacao_recurso_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `avaliacao_recurso_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `avaliacao_recurso` */
 
-insert  into `avaliacao_recurso`(`id_avaliacao`,`id_usuario`,`id_recurso`,`nota`) values (5,1,16,1),(6,1,17,2);
+insert  into `avaliacao_recurso`(`id_avaliacao`,`id_usuario`,`id_recurso`,`nota`) values (5,1,16,5),(6,1,17,2),(8,1,23,3);
 
 /*Table structure for table `categoriausuario` */
 
@@ -117,11 +117,11 @@ CREATE TABLE `comentarios_recursos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `comentarios_recursos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `comentarios_recursos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `comentarios_recursos` */
 
-insert  into `comentarios_recursos`(`id_comentario`,`id_usuario`,`id_recurso`,`descritivo`,`datacomentario`) values (4,1,16,'Recurso realmente bem explicativo, adorei. E que professor gato hein, ta de parabéns','2023-12-05'),(5,10,16,'Aula boa, mas poderia ser melhor se fosse o Messi...','2023-12-05'),(8,12,17,'TESTANDO','2023-12-10'),(9,12,17,'Mai 1 teste apenas para garantir\r\n','2023-12-10'),(10,1,17,'test','2023-12-11');
+insert  into `comentarios_recursos`(`id_comentario`,`id_usuario`,`id_recurso`,`descritivo`,`datacomentario`) values (4,1,16,'Recurso realmente bem explicativo, adorei. E que professor gato hein, ta de parabéns','2023-12-05'),(5,10,16,'Aula boa, mas poderia ser melhor se fosse o Messi...','2023-12-05'),(8,12,17,'TESTANDO','2023-12-10'),(9,12,17,'Mai 1 teste apenas para garantir\r\n','2023-12-10'),(10,1,17,'test','2023-12-11'),(12,1,16,'Gostei do vídeo','2023-12-15');
 
 /*Table structure for table `cursos` */
 
@@ -151,9 +151,11 @@ CREATE TABLE `denuncia_comentario` (
   KEY `id_comentario` (`id_comentario`),
   CONSTRAINT `denuncia_comentario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `denuncia_comentario_ibfk_2` FOREIGN KEY (`id_comentario`) REFERENCES `comentarios_recursos` (`id_comentario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `denuncia_comentario` */
+
+insert  into `denuncia_comentario`(`id_denuncia`,`id_usuario`,`id_comentario`) values (1,1,4),(2,1,5);
 
 /*Table structure for table `disciplinas` */
 
@@ -333,11 +335,11 @@ CREATE TABLE `recursos_salvos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `recursos_salvos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `recursos_salvos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recursos_salvos` */
 
-insert  into `recursos_salvos`(`id_fav`,`id_recurso`,`id_usuario`) values (12,17,1);
+insert  into `recursos_salvos`(`id_fav`,`id_recurso`,`id_usuario`) values (12,17,1),(13,16,1);
 
 /*Table structure for table `redesocial` */
 

@@ -34,4 +34,11 @@ class Comentario extends Conexao {
     $stm->bindValue(3, $this->comentario);
     $stm->execute();
   } 
+  public function DenunciarComentario() {
+    $sql = "INSERT INTO denuncia_comentario (id_usuario, id_comentario) VALUES (?, ?)";
+    $stm = $this->db->prepare($sql);
+    $stm->bindValue(1, $this->usuario->getIdUsuario());
+    $stm->bindValue(2, $this->id_comentario);
+    $stm->execute();
+  }
 }

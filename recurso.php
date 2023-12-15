@@ -23,7 +23,7 @@
         $retorno = $recurso->buscarRecurso($codigo);
 
 
-        if(!empty($_POST)) {
+        if(!empty($_POST['comentario'])) {
             $novoComentario = $_POST['comentario'];
             $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
             $newComentario = new Comentario(recurso: $recurso, usuario: $usuario, comentario: $novoComentario);
@@ -80,31 +80,29 @@
             <section id="nota" class="d-flex align-items-center">
                 <div class="mx-3">
                 <?php
-                    
-                    // for($i = 0; $i < $nota2; $i++) {
-                    //     echo "<button class='btn bi bi-star-fill p-0'></button>";
-                    // }
-                    $AvaliacaoUsuario = ($retorno[0]->nota != 0) ? $retorno[0]->nota : false;
-                    if ($AvaliacaoUsuario) {
-                        for($i = 0; $i < 5; $i++) {
-                            if ($i <= ($AvaliacaoUsuario - 1)) {
-                                echo "<a href='avaliar_recurso.php?ava=" . $i+1 . "&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn bi bi-star-fill p-1'></a>";
-                            } else {
+                    if ($codigo != 0) {
+                        $AvaliacaoUsuario = ($retorno[0]->nota != 0) ? $retorno[0]->nota : false;
+                        if ($AvaliacaoUsuario) {
+                            for($i = 0; $i < 5; $i++) {
+                                if ($i <= ($AvaliacaoUsuario - 1)) {
+                                    echo "<a href='avaliar_recurso.php?ava=" . $i+1 . "&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn bi bi-star-fill p-1'></a>";
+                                } else {
+                                    echo "<a href='avaliar_recurso.php?ava=" . $i+1 . "&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn bi bi-star p-0'></a>";
+                                }
+                                
+                            }
+                        } else {
+                            for($i = 0; $i < 5; $i++) {
                                 echo "<a href='avaliar_recurso.php?ava=" . $i+1 . "&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn bi bi-star p-0'></a>";
                             }
-                            
                         }
-                    } else {
-                        for($i = 0; $i < 5; $i++) {
-                            echo "<a href='avaliar_recurso.php?ava=" . $i+1 . "&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn bi bi-star p-0'></a>";
+                        
+                        echo "</div>";
+                        if($retorno[0]->favorito == 0) {
+                            echo "<a href='favoritar.php?fav=true&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn p-0 card-flag bi-bookmark'></a>";
+                        } else {
+                            echo "<a href='favoritar.php?fav=false&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn p-0 card-flag bi-bookmark-fill'></a>";
                         }
-                    }
-                    
-                    echo "</div>";
-                    if($retorno[0]->favorito == 0) {
-                        echo "<a href='favoritar.php?fav=true&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn p-0 card-flag bi-bookmark'></a>";
-                    } else {
-                        echo "<a href='favoritar.php?fav=false&id_recurso=" . $recurso->getId() . "&id_usuario=" . $codigo . "'class='btn p-0 card-flag bi-bookmark-fill'></a>";
                     }
                 ?>
             </section>
@@ -139,45 +137,42 @@
 
             <?php
                 if(is_array($comentarios)) {
-                    foreach ($comentarios as $comentario) {
-                        echo 
-                        "<div class='comentario bg-light px-2 py-4 rounded shadow my-5 d-flex'>
-                            <a>
-                                <img src='{$comentario->img}' alt='Foto do usuário' class='mx-1 border border-2 rounded-circle fotoUsuario'>
-                            </a>
-                            <article class='mx-2 ps-3'>
-                                <a href='perfil.php?user={$comentario->id_usuario}' class='h4'>{$comentario->nomeUsuario}</a><span class='float-end'>{$comentario->data}<button class='btn btn-primary ms-3' data-bs-toggle='modal' data-bs-target='#denuncia'>Denunciar</button></span>
-                                <p class='mt-3'>
-                                    {$comentario->comentario}
-                                </p>
-                            </article>
-                        </div>";
-                        // Fim do comentario 
+                    if ($codigo != 0) {
+                        foreach ($comentarios as $comentario) {
+                            echo 
+                            "<div class='comentario bg-light px-2 py-4 rounded shadow my-5 d-flex'>
+                                <a>
+                                    <img src='{$comentario->img}' alt='Foto do usuário' class='mx-1 border border-2 rounded-circle fotoUsuario'>
+                                </a>
+                                <article class='mx-2 ps-3'>
+                                    <a href='perfil.php?user={$comentario->id_usuario}' class='h4'>{$comentario->nomeUsuario}</a><span class='float-end'>{$comentario->data}<a href='denunciar_comentario.php?id_comentario={$comentario->codigo}&id_usuario={$codigo}&id_recurso={$_GET['id_recurso']}' class='btn btn-primary ms-3'>Denunciar</a></span>
+                                    <p class='mt-3'>
+                                        {$comentario->comentario}
+                                    </p>
+                                </article>
+                            </div>";
+                            // Fim do comentario 
+                        }
+                    } else {
+                        foreach ($comentarios as $comentario) {
+                            echo 
+                            "<div class='comentario bg-light px-2 py-4 rounded shadow my-5 d-flex'>
+                                <a>
+                                    <img src='{$comentario->img}' alt='Foto do usuário' class='mx-1 border border-2 rounded-circle fotoUsuario'>
+                                </a>
+                                <article class='mx-2 ps-3'>
+                                    <a href='perfil.php?user={$comentario->id_usuario}' class='h4'>{$comentario->nomeUsuario}</a>
+                                    <p class='mt-3'>
+                                        {$comentario->comentario}
+                                    </p>
+                                </article>
+                            </div>";
+                            // Fim do comentario 
+                        }
                     }
                 }
             ?>
         </section>
-
-        <!-- Modal de denúncia -->
-        <div class='modal fade' id='denuncia' tabindex='-1' data-bs-backdrop='static' data-bs-keyboard='false' role='dialog' aria-labelledby='modalTitleId' aria-hidden='true'>
-            <div class='modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm' role='document'>
-                <form action='denunc_coment.php' method='GET' class='modal-content'>
-                    <div class='modal-header'>
-                        <h5 class='modal-title' id='modalTitleId'>Denúncia</h5>
-                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-                    </div>
-                    <div class='modal-body'>
-                        <label class='form-label'>Digite o motivo da denúncia:</label>
-                        <textarea class='form-control' name='motivo'></textarea>
-                    </div>
-                    <div class='modal-footer'>
-                        <button type='button' class='btn btn-danger' data-bs-dismiss='modal'>Cancelar</button>
-                        <button type='submit' class='btn btn-success'>Enviar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- Fim do modal -->
     </div>
     
   </main>
