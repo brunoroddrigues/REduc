@@ -94,6 +94,17 @@ export function criarHeader(login, perfil, categoria) {
     a1.setAttribute("class", "nav-link btn btn-outline-light txt-branco");
     a1.setAttribute("id", "publicar");
     a1.appendChild(document.createTextNode("+Recurso"));
+
+    if(categoria == 2 || categoria == 3) {
+      var li_pa = document.createElement("li")
+      var pa = document.createElement("a")
+      pa.setAttribute("class", "nav-link btn btn-outline-light txt-branco")
+      pa.setAttribute("id", "pa")
+      pa.setAttribute("href", "#") // !Muda aqui
+      pa.appendChild(document.createTextNode("+PA"))
+      li_pa.appendChild(pa)
+    }
+
     li[3].setAttribute("id", "header-perfil");
     li[3].setAttribute("onclick", "mostrarMenu()")
     let perfilImg = document.createElement("img");
@@ -176,8 +187,15 @@ export function criarHeader(login, perfil, categoria) {
   li[1].appendChild(aExplorar);
   li[2].appendChild(a1);
 
-  for (let i = 0; i < 4; i++) {
-    ul.appendChild(li[i]);
+  ul.appendChild(li[0])
+  ul.appendChild(li[1])
+  ul.appendChild(li[2])
+
+  if(categoria == 2 || categoria == 3) {
+    ul.appendChild(li_pa)
+    ul.appendChild(li[3])
+  } else {
+    ul.appendChild(li[3])
   }
 
   hform.appendChild(input);
