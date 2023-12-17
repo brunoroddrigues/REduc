@@ -5,7 +5,11 @@ if(!isset($_SESSION)) session_start();
     header('location:index.php');
   } else {
     if (!isset($_SESSION["id_usuario"])) {
-      header('location:recurso.php?id_recurso=23');
+      if ($_GET['id_recurso']) {
+        header('location:recurso.php?id_recurso=' . $_GET['id_recurso']);
+      } else {
+        header('location:recurso.php?id_recurso=' . $_GET['id_pa']);
+      }
     } else {
       $arquivo = $_GET['arqpath'];
     }

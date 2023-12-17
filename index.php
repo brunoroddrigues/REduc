@@ -24,8 +24,8 @@
     <!-- Seção de pesquisa -->
     <section id='pesquisa'>
 
-      <form action="#" method="post" class="container d-flex">
-        <input type="text" placeholder="Digite o que procura..." class="form-control">
+      <form action="explorar.php" method="get" class="container d-flex">
+        <input name="search" type="text" placeholder="Digite o que procura..." class="form-control">
         <button type="submit" class="btn btn-search"><i class="bi bi-search"></i></button>
       </form>
 
@@ -52,13 +52,12 @@
                       <div class='card-body'>
                         <h4 class='card-title'>{$dado->titulo}</h4>
                         <span class='card-star'>";
-              $nota1 = 5 - $dado->nota;
-              $nota2 = 5 - $nota1;
-              for($i = 0; $i < $nota2; $i++) {
-                echo "<i class='bi bi-star-fill'></i>";
-              }
-              for($i = 0; $i < $nota1; $i++) {
-                echo "<i class='bi bi-star'></i>";
+              for($i = 0; $i < 5; $i++) {
+                if ($i <= ($dado->nota - 1)) {
+                    echo "<i class='bi bi-star-fill'></i>";
+                } else {
+                    echo "<i class='bi bi-star'></i>";
+                }
               }
               echo     "</span>";
               if ($codigo != 0) {

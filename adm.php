@@ -143,7 +143,7 @@
                                         <h4 class='fw-bold h6'>Descrição:</h4>
                                         {$dado->descricao}
                                     </p>
-                                    <a href='recurso.php?id_pa={$dado->id_pa}' class='btn btn-primary'>Visualizar</a>
+                                    <a href='PA.php?id_pa={$dado->id_pa}' class='btn btn-primary'>Visualizar</a>
                                     <a href='aprovar_pa.php?id_pa={$dado->id_pa}' class='btn btn-success'>Aprovar</a>
                                     <a href='reprovar_pa.php?id_pa={$dado->id_pa}' class='btn btn-danger'>Reprovar</a>
                                 </div>
@@ -179,9 +179,9 @@
                                 {$dado->descritivo}
                             </p>
                             <div class=' d-flex justify-content-end'>
-                                <button class='btn btn-success m-2 '>Aprovado</button>
+                                <a href='aprov_reprov_coment.php?id_comentario={$dado->id_comentario}&action=aprov' class='btn btn-success m-2 '>Aprovado</a>
         
-                                <button class='btn btn-danger m-2'>Reprovado</button>
+                                <a href='aprov_reprov_coment.php?id_comentario={$dado->id_comentario}&action=reprov' class='btn btn-danger m-2'>Reprovado</a>
                             </div>
                         </div>
                         <div class='card-footer bg-transparent '>
@@ -191,34 +191,6 @@
                     }
                 }
             ?>
-
-            <div class=" card m-4">
-                <div class="card-header text-light  d-flex" style=" background-color: #131267;">
-                    <i class="bi bi-person-circle" style="font-size: 50px;"></i>
-                    <p class=" mt-4 ms-3 fw-bold ">
-                        Pedro Henrique
-                    </p>
-
-                </div>
-                <div>
-                    <p class="m-3">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem similique cumque dolores debitis
-                        quidem ratione illo! Officia cum quam rerum, esse qui nostrum id natus? Soluta officia labore enim
-                        optio?
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates inventore blanditiis est ad
-                        consequatur tenetur pariatur nisi. Sunt, consequatur itaque, eaque, dolorem error iusto praesentium
-                        quas magnam maiores optio perferendis.
-                    </p>
-                    <div class=" d-flex justify-content-end">
-                        <button class="btn btn-success m-2 ">Aprovado</button>
-
-                        <button class="btn btn-danger m-2">Reprovado</button>
-                    </div>
-                </div>
-                <div class="card-footer bg-transparent ">
-                    Postado em 20/04/2023
-                </div>
-            </div>
         </div>
 
         <!-- Fim Dos Comentario -->

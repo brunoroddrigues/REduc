@@ -48,7 +48,7 @@ CREATE TABLE `avaliacao_pa` (
 
 /*Data for the table `avaliacao_pa` */
 
-insert  into `avaliacao_pa`(`id_avaliacao`,`id_usuario`,`id_pa`,`nota`) values (1,1,4,5);
+insert  into `avaliacao_pa`(`id_avaliacao`,`id_usuario`,`id_pa`,`nota`) values (1,1,4,3);
 
 /*Table structure for table `avaliacao_recurso` */
 
@@ -68,7 +68,7 @@ CREATE TABLE `avaliacao_recurso` (
 
 /*Data for the table `avaliacao_recurso` */
 
-insert  into `avaliacao_recurso`(`id_avaliacao`,`id_usuario`,`id_recurso`,`nota`) values (5,1,16,5),(8,1,23,3),(9,12,23,2),(10,12,16,1);
+insert  into `avaliacao_recurso`(`id_avaliacao`,`id_usuario`,`id_recurso`,`nota`) values (5,1,16,5),(8,1,23,5);
 
 /*Table structure for table `categoriausuario` */
 
@@ -100,11 +100,11 @@ CREATE TABLE `comentarios_recursos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `comentarios_recursos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `comentarios_recursos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `comentarios_recursos` */
 
-insert  into `comentarios_recursos`(`id_comentario`,`id_usuario`,`id_recurso`,`descritivo`,`datacomentario`) values (4,1,16,'Recurso realmente bem explicativo, adorei. E que professor gato hein, ta de parabéns','2023-12-05'),(5,10,16,'Aula boa, mas poderia ser melhor se fosse o Messi...','2023-12-05'),(12,1,16,'Gostei do vídeo','2023-12-15');
+insert  into `comentarios_recursos`(`id_comentario`,`id_usuario`,`id_recurso`,`descritivo`,`datacomentario`) values (4,1,16,'Recurso realmente bem explicativo, adorei. ','2023-12-05'),(12,1,16,'Gostei do vídeo','2023-12-15');
 
 /*Table structure for table `cursos` */
 
@@ -134,11 +134,9 @@ CREATE TABLE `denuncia_comentario` (
   KEY `id_comentario` (`id_comentario`),
   CONSTRAINT `denuncia_comentario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `denuncia_comentario_ibfk_2` FOREIGN KEY (`id_comentario`) REFERENCES `comentarios_recursos` (`id_comentario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `denuncia_comentario` */
-
-insert  into `denuncia_comentario`(`id_denuncia`,`id_usuario`,`id_comentario`) values (1,1,4),(2,1,5);
 
 /*Table structure for table `disciplinas` */
 
@@ -208,7 +206,7 @@ CREATE TABLE `pa` (
 
 /*Data for the table `pa` */
 
-insert  into `pa`(`id_pa`,`titulo`,`descricao`,`datacadastro`,`arquivo_path`,`img_pa_path`,`id_usuario`,`id_tipo`,`status`) values (4,'apenas um teste novo','testando','2023-12-16','PA/arquivos/9a2f82d001bf8b94a4364951fed7df8c08e9737d.pdf','img/imgPA/405ab0fa06bf77eb71d69c1f77a0365819d109f3.jpeg',1,1,1);
+insert  into `pa`(`id_pa`,`titulo`,`descricao`,`datacadastro`,`arquivo_path`,`img_pa_path`,`id_usuario`,`id_tipo`,`status`) values (4,'apenas um teste novo','testando','2023-12-16','PA/arquivos/9a2f82d001bf8b94a4364951fed7df8c08e9737d.pdf','img/imgPA/img_pa_padrao.jpg',1,1,1);
 
 /*Table structure for table `perguntaseguranca` */
 
@@ -1048,6 +1046,24 @@ begin
 end */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `proc_pesquisarPa` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_pesquisarPa` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_pesquisarPa`(pesquisa TEXT)
+begin
+	SELECT p.id_pa "codigo", p.titulo, p.img_pa_path "img", IFNULL(AVG(ap.nota), 0) "nota", ta.descritivo "tipo"
+	FROM pa p LEFT JOIN avaliacao_pa ap
+	ON(p.id_pa = ap.id_pa)INNER JOIN tipos_pa ta
+	ON(p.id_tipo = ta.id_tipo)
+	WHERE p.status <> 0 AND titulo LIKE CONCAT('%', pesquisa, '%')	
+	GROUP BY p.id_pa
+	ORDER BY AVG(ap.nota) DESC;
+end */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `proc_PuxarComentarios` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `proc_PuxarComentarios` */;
@@ -1136,6 +1152,24 @@ BEGIN
 		SELECT "Este usuario não possui seguidores" AS msg;
 	END IF;
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_TodasPa` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_TodasPa` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_TodasPa`()
+begin
+	SELECT p.id_pa "codigo", p.titulo, p.img_pa_path "img", IFNULL(AVG(ap.nota), 0) "nota", ta.descritivo "tipo"
+	FROM pa p LEFT JOIN avaliacao_pa ap
+	ON(p.id_pa = ap.id_pa) inner join tipos_pa ta
+	on(p.id_tipo = ta.id_tipo)
+	WHERE p.status <> 0 
+	GROUP BY p.id_pa
+	ORDER BY AVG(ap.nota) DESC;
+end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `proc_TodosRecursos` */

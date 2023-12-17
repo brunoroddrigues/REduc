@@ -121,4 +121,19 @@ class PA extends Conexao{
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
     } 
+
+    public function PesquisarPA() {
+        $sql = "CALL proc_pesquisarPa(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->titulo);
+        $stm->execute();
+		
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+    public function PaTodos() {
+        $sql = "CALL proc_TodasPa()";
+        $stm = $this->db->prepare($sql);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
 }

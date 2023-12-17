@@ -62,7 +62,7 @@
                 echo 
                 "<div class='arquivo bg-light px-1 py-4 rounded shadow my-4 d-flex'>
                     <article class='mx-2 ps-3'>
-                        <a href='download_arquivo.php?arqpath={$retorno[0]->arquivo}' class='h4'><span class='float-end'><button class='bi bi-file-earmark-pdf-fill btn btn-primary ms-3' data-bs-toggle='modal'></button></span></a>
+                        <a href='download_arquivo.php?arqpath={$retorno[0]->arquivo}&id_recurso={$_GET['id_recurso']}' class='h4'><span class='float-end'><button class='bi bi-file-earmark-pdf-fill btn btn-primary ms-3' data-bs-toggle='modal'></button></span></a>
                     </article>
                     <p>"
                       . ($codigo != 0 ? "Fazer download do arquivo" : "Você precisa entrar na sua conta para fazer download do arquivo" )
