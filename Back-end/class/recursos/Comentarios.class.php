@@ -41,4 +41,10 @@ class Comentario extends Conexao {
     $stm->bindValue(2, $this->id_comentario);
     $stm->execute();
   }
+  public function PuxarComentariosDenunciados() {
+    $sql = "CALL proc_PuxarComentariosDenunciados()";
+    $stm = $this->db->prepare($sql);
+    $stm->execute();
+    return $stm->fetchAll(PDO::FETCH_OBJ);
+  }
 }

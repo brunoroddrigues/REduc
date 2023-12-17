@@ -1,10 +1,12 @@
 <?php
-class TipoPA{
+class TipoPA extends Conexao{
     public function __construct(
         private int $id_tipo = 0,
         private string $descritivo = "",
         private array $pa = array()
-    ){}
+    ){
+        parent:: __construct();
+    }
     
     public function setIdTipo($id){
         $this->id_tipo = $id;

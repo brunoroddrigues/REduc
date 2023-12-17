@@ -1,7 +1,7 @@
 <?php
 require_once 'TiposPA.class.php';
 
-class PA{
+class PA extends Conexao{
     public function __construct(
         private int $id_pa = 0,
         private string $titulo = "",
@@ -12,7 +12,9 @@ class PA{
         private int $nota = 0,
         private $tipoPA = null,
         private $usuario = null
-    ){}
+    ){
+        parent:: __construct();
+    }
 
     public function setIdPA($id){
         $this->id_pa = $id;
@@ -76,4 +78,47 @@ class PA{
     public function getNota(){
         return $this->nota;
     }
+
+    public function PostarPA() {
+        $sql = 
+        "INSERT INTO pa (titulo, descricao, datacadastro, arquivo_path, img_pa_path, id_usuario, id_tipo, status)
+        VALUES	(?, ?, CURRENT_DATE, ?, ?, ?, ?, 0)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->titulo);
+        $stm->bindValue(2, $this->descricao);
+        $stm->bindValue(3, $this->link_arquivo);
+        $stm->bindValue(4, $this->link_img);
+        $stm->bindValue(5, $this->usuario->getIdUsuario());
+        $stm->bindValue(6, $this->tipoPA->getIdTipo());
+        $stm->execute();
+    }
+
+    public function PaNãoPostadas() {
+        $sql = "CALL proc_buscarPaNaoPostados()";
+        $stm = $this->db->prepare($sql);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function AprovarPA() {
+        $sql = "UPDATE pa SET status = 1 WHERE id_pa = ?";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_pa);
+        $stm->execute();
+    }
+    public function ReprovarPA() {
+        $sql = "CALL proc_reprovar_pa_adm(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_pa);
+        $stm->execute();
+    }
+
+    public function buscarPA($codigo){
+        $sql = "CALL proc_apresentacaoPa(?,?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_pa);
+        $stm->bindValue(2, $codigo);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    } 
 }

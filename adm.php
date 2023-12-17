@@ -1,5 +1,6 @@
 <?php
     require_once("Back-end/class/recursosRequire.php");
+    require_once("Back-end/class/paRequire.php");
     require_once("Back-end/class/usersRequire.php");
 
     if(!isset($_SESSION)) session_start();
@@ -51,7 +52,7 @@
         cursor: auto;
     }
 </style>
-<title>Document</title>
+<title>ADM</title>
 </head>
 
 <body>
@@ -126,39 +127,98 @@
 
         </div>
         <div class="tab-pane fade" id="pa">
-                Em densevolvimento
+            <?php
+                $pa = new PA();
+                $dados = $pa->PaNãoPostadas();
+                if(is_array(($dados))) {
+                    foreach($dados as $dado) {
+                        echo "
+                            <div class='card m-4'>
+                                <div class='card-header text-light d-flex' style='background-color: #131267;'>
+                                    <h3 class='h5'>{$dado->titulo}</h3>
+                                </div>
+                                <div class='card-body'>
+                                    <h4 class='card-subtitle mb-2 fw-bold'>{$dado->usuario}</h4>
+                                    <p class='m-3 card-text'>
+                                        <h4 class='fw-bold h6'>Descrição:</h4>
+                                        {$dado->descricao}
+                                    </p>
+                                    <a href='recurso.php?id_pa={$dado->id_pa}' class='btn btn-primary'>Visualizar</a>
+                                    <a href='aprovar_pa.php?id_pa={$dado->id_pa}' class='btn btn-success'>Aprovar</a>
+                                    <a href='reprovar_pa.php?id_pa={$dado->id_pa}' class='btn btn-danger'>Reprovar</a>
+                                </div>
+                                <div class='card-footer'>
+                                    Postado em: {$dado->cadastro}
+                                </div>
+                            </div>
+                        ";
+                    }
+                }
+            ?>
         </div>
-        <div class=" tab-pane fade " id=" comen">
+        <div class=" tab-pane fade " id="comen">
             
             <!-- Denuncia De Comentario -->
+            <?php
+                $comentarios = new Comentario();
+                $ComentariosDenunc = $comentarios->PuxarComentariosDenunciados();
+
+                if (is_array($ComentariosDenunc)) {
+                    foreach ($ComentariosDenunc as $dado) {
+                        echo
+                        "<div class=' card m-4'>
+                        <div class='card-header text-light  d-flex' style=' background-color: #131267;'>
+                            <i class='bi bi-person-circle' style='font-size: 50px;'></i>
+                            <p class=' mt-4 ms-3 fw-bold '>
+                                {$dado->nomeUsuario}
+                            </p>
+        
+                        </div>
+                        <div>
+                            <p class='m-3'>
+                                {$dado->descritivo}
+                            </p>
+                            <div class=' d-flex justify-content-end'>
+                                <button class='btn btn-success m-2 '>Aprovado</button>
+        
+                                <button class='btn btn-danger m-2'>Reprovado</button>
+                            </div>
+                        </div>
+                        <div class='card-footer bg-transparent '>
+                            {$dado->datacomentario}
+                        </div>
+                    </div>";
+                    }
+                }
+            ?>
 
             <div class=" card m-4">
-            <div class="card-header text-light  d-flex" style=" background-color: #131267;">
-                <i class="bi bi-person-circle" style="font-size: 50px;"></i>
-                <p class=" mt-4 ms-3 fw-bold ">
-                    Pedro Henrique
-                </p>
+                <div class="card-header text-light  d-flex" style=" background-color: #131267;">
+                    <i class="bi bi-person-circle" style="font-size: 50px;"></i>
+                    <p class=" mt-4 ms-3 fw-bold ">
+                        Pedro Henrique
+                    </p>
 
-            </div>
-            <div>
-                <p class="m-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem similique cumque dolores debitis
-                    quidem ratione illo! Officia cum quam rerum, esse qui nostrum id natus? Soluta officia labore enim
-                    optio?
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates inventore blanditiis est ad
-                    consequatur tenetur pariatur nisi. Sunt, consequatur itaque, eaque, dolorem error iusto praesentium
-                    quas magnam maiores optio perferendis.
-                </p>
-                <div class=" d-flex justify-content-end">
-                    <button class="btn btn-success m-2 ">Aprovado</button>
+                </div>
+                <div>
+                    <p class="m-3">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem similique cumque dolores debitis
+                        quidem ratione illo! Officia cum quam rerum, esse qui nostrum id natus? Soluta officia labore enim
+                        optio?
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates inventore blanditiis est ad
+                        consequatur tenetur pariatur nisi. Sunt, consequatur itaque, eaque, dolorem error iusto praesentium
+                        quas magnam maiores optio perferendis.
+                    </p>
+                    <div class=" d-flex justify-content-end">
+                        <button class="btn btn-success m-2 ">Aprovado</button>
 
-                    <button class="btn btn-danger m-2">Reprovado</button>
+                        <button class="btn btn-danger m-2">Reprovado</button>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent ">
+                    Postado em 20/04/2023
                 </div>
             </div>
-            <div class="card-footer bg-transparent ">
-                Postado em 20/04/2023
-            </div>
-
         </div>
 
         <!-- Fim Dos Comentario -->

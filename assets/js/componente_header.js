@@ -99,8 +99,8 @@ export function criarHeader(login, perfil, categoria) {
       var li_pa = document.createElement("li")
       var pa = document.createElement("a")
       pa.setAttribute("class", "nav-link btn btn-outline-light txt-branco")
-      pa.setAttribute("id", "pa")
-      pa.setAttribute("href", "#") // !Muda aqui
+      pa.setAttribute("id", "Ppa")
+      pa.setAttribute("href", "post_pa.php") // !Muda aqui
       pa.appendChild(document.createTextNode("+PA"))
       li_pa.appendChild(pa)
     }

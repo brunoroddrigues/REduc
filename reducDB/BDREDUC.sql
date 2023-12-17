@@ -44,9 +44,11 @@ CREATE TABLE `avaliacao_pa` (
   KEY `id_pa` (`id_pa`),
   CONSTRAINT `avaliacao_pa_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `avaliacao_pa_ibfk_2` FOREIGN KEY (`id_pa`) REFERENCES `pa` (`id_pa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `avaliacao_pa` */
+
+insert  into `avaliacao_pa`(`id_avaliacao`,`id_usuario`,`id_pa`,`nota`) values (1,1,4,5);
 
 /*Table structure for table `avaliacao_recurso` */
 
@@ -62,11 +64,11 @@ CREATE TABLE `avaliacao_recurso` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `avaliacao_recurso_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `avaliacao_recurso_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `avaliacao_recurso` */
 
-insert  into `avaliacao_recurso`(`id_avaliacao`,`id_usuario`,`id_recurso`,`nota`) values (5,1,16,5),(6,1,17,2),(8,1,23,3);
+insert  into `avaliacao_recurso`(`id_avaliacao`,`id_usuario`,`id_recurso`,`nota`) values (5,1,16,5),(8,1,23,3),(9,12,23,2),(10,12,16,1);
 
 /*Table structure for table `categoriausuario` */
 
@@ -82,25 +84,6 @@ CREATE TABLE `categoriausuario` (
 /*Data for the table `categoriausuario` */
 
 insert  into `categoriausuario`(`id_categoriaUsuario`,`descritivo`) values (3,'Administrador'),(1,'Aluno'),(2,'Professor');
-
-/*Table structure for table `comentarios_pa` */
-
-DROP TABLE IF EXISTS `comentarios_pa`;
-
-CREATE TABLE `comentarios_pa` (
-  `id_comentario` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) NOT NULL,
-  `id_pa` int(11) NOT NULL,
-  `descritivo` varchar(480) NOT NULL,
-  `datacomentario` date NOT NULL,
-  PRIMARY KEY (`id_comentario`),
-  KEY `id_usuario` (`id_usuario`),
-  KEY `id_pa` (`id_pa`),
-  CONSTRAINT `comentarios_pa_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
-  CONSTRAINT `comentarios_pa_ibfk_2` FOREIGN KEY (`id_pa`) REFERENCES `pa` (`id_pa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `comentarios_pa` */
 
 /*Table structure for table `comentarios_recursos` */
 
@@ -121,7 +104,7 @@ CREATE TABLE `comentarios_recursos` (
 
 /*Data for the table `comentarios_recursos` */
 
-insert  into `comentarios_recursos`(`id_comentario`,`id_usuario`,`id_recurso`,`descritivo`,`datacomentario`) values (4,1,16,'Recurso realmente bem explicativo, adorei. E que professor gato hein, ta de parabéns','2023-12-05'),(5,10,16,'Aula boa, mas poderia ser melhor se fosse o Messi...','2023-12-05'),(8,12,17,'TESTANDO','2023-12-10'),(9,12,17,'Mai 1 teste apenas para garantir\r\n','2023-12-10'),(10,1,17,'test','2023-12-11'),(12,1,16,'Gostei do vídeo','2023-12-15');
+insert  into `comentarios_recursos`(`id_comentario`,`id_usuario`,`id_recurso`,`descritivo`,`datacomentario`) values (4,1,16,'Recurso realmente bem explicativo, adorei. E que professor gato hein, ta de parabéns','2023-12-05'),(5,10,16,'Aula boa, mas poderia ser melhor se fosse o Messi...','2023-12-05'),(12,1,16,'Gostei do vídeo','2023-12-15');
 
 /*Table structure for table `cursos` */
 
@@ -221,9 +204,11 @@ CREATE TABLE `pa` (
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `pa_ibfk_1` FOREIGN KEY (`id_tipo`) REFERENCES `tipos_pa` (`id_tipo`),
   CONSTRAINT `pa_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `pa` */
+
+insert  into `pa`(`id_pa`,`titulo`,`descricao`,`datacadastro`,`arquivo_path`,`img_pa_path`,`id_usuario`,`id_tipo`,`status`) values (4,'apenas um teste novo','testando','2023-12-16','PA/arquivos/9a2f82d001bf8b94a4364951fed7df8c08e9737d.pdf','img/imgPA/405ab0fa06bf77eb71d69c1f77a0365819d109f3.jpeg',1,1,1);
 
 /*Table structure for table `perguntaseguranca` */
 
@@ -320,7 +305,7 @@ CREATE TABLE `recursos` (
 
 /*Data for the table `recursos` */
 
-insert  into `recursos`(`id_recurso`,`titulo`,`descricao`,`datacadastro`,`video_path`,`artigo_path`,`img_recurso_path`,`id_usuario`,`id_ferramenta`,`id_tiporecurso`,`status`) values (16,'Aula de como tomar vinho','CR7 ensinando a tomar vinho','2023-12-04','Recursos/videos/f99268123e81044e5af916e6f80c5b6fe0128522.mp4',NULL,'img/imgRecursos/490513ee9e5c035203f8ef77fe990a1b9146ea79.jpeg',11,NULL,1,1),(17,'Teste 1 Cida','Teste de upload de recurso','2023-12-06','Recursos/videos/10758388f58d09c3a61a418004ff23407ef92c06.mp4',NULL,'img/imgRecursos/img_recursos_padrao.jpg',13,NULL,1,1),(23,'teste pdf','teste','2023-12-11',NULL,'Recursos/arquivos/bd80c30bd84cb07420cc44411901b4e135774ce5.pdf','img/imgRecursos/img_recursos_padrao.jpg',1,NULL,2,1);
+insert  into `recursos`(`id_recurso`,`titulo`,`descricao`,`datacadastro`,`video_path`,`artigo_path`,`img_recurso_path`,`id_usuario`,`id_ferramenta`,`id_tiporecurso`,`status`) values (16,'Aula de como tomar vinho','CR7 ensinando a tomar vinho','2023-12-04','Recursos/videos/f99268123e81044e5af916e6f80c5b6fe0128522.mp4',NULL,'img/imgRecursos/490513ee9e5c035203f8ef77fe990a1b9146ea79.jpeg',11,NULL,1,1),(23,'teste pdf','teste','2023-12-11',NULL,'Recursos/arquivos/bd80c30bd84cb07420cc44411901b4e135774ce5.pdf','img/imgRecursos/img_recursos_padrao.jpg',1,NULL,2,1);
 
 /*Table structure for table `recursos_salvos` */
 
@@ -335,11 +320,11 @@ CREATE TABLE `recursos_salvos` (
   KEY `id_recurso` (`id_recurso`),
   CONSTRAINT `recursos_salvos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `recursos_salvos_ibfk_2` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id_recurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `recursos_salvos` */
 
-insert  into `recursos_salvos`(`id_fav`,`id_recurso`,`id_usuario`) values (12,17,1),(13,16,1);
+insert  into `recursos_salvos`(`id_fav`,`id_recurso`,`id_usuario`) values (13,16,1);
 
 /*Table structure for table `redesocial` */
 
@@ -369,11 +354,11 @@ CREATE TABLE `seguir` (
   KEY `id_userseguindo` (`id_userseguindo`),
   CONSTRAINT `seguir_ibfk_1` FOREIGN KEY (`id_userseguido`) REFERENCES `users` (`id_usuario`),
   CONSTRAINT `seguir_ibfk_2` FOREIGN KEY (`id_userseguindo`) REFERENCES `users` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `seguir` */
 
-insert  into `seguir`(`id_seguir`,`id_userseguido`,`id_userseguindo`) values (1,13,1),(5,11,1);
+insert  into `seguir`(`id_seguir`,`id_userseguido`,`id_userseguindo`) values (1,13,1),(5,11,1),(6,11,12);
 
 /*Table structure for table `tiporecurso` */
 
@@ -399,9 +384,11 @@ CREATE TABLE `tipos_pa` (
   `descritivo` varchar(25) NOT NULL,
   PRIMARY KEY (`id_tipo`),
   UNIQUE KEY `descritivo` (`descritivo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tipos_pa` */
+
+insert  into `tipos_pa`(`id_tipo`,`descritivo`) values (1,'Rubrica');
 
 /*Table structure for table `user_redesocial` */
 
@@ -461,7 +448,26 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`,`datacadastro`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1,'2023-10-04'),(10,1,'Brunão','Bruno','Rodrigues','brunaospfc@email.com','46801348876',NULL,'2002-12-04',1,NULL,NULL,'112cb04f8ddf9c7e695f7b896e33b22f',1,'Rodrigo Nestor','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(11,2,'ProfGirafales','Professor','Girafales','girafales@email.com','43941428810',NULL,'2004-03-05',1,'isdfaksjdhf.com','exatas','1b0b539f722fa757130aba4217927784',2,'pederneiras','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(12,1,'Bruno ','Bruno','Rodrigues','bruno.rodrigues@email.com','45377870824',NULL,'1997-05-14',1,NULL,NULL,'202cb962ac59075b964b07152d234b70',2,'jau','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(13,2,'cidazem','Aparecida Maria','Zem Lopes','cida.zem@gmail.com','10301050813',NULL,'1964-10-26',1,'http://lattes.cnpq.br/6123540746643830','Educação e Tecnologias','e10adc3949ba59abbe56e057f20f883e',2,'Jaú','img/imgUsers/img_padrao_user.jpg',1,'2023-12-06');
+insert  into `users`(`id_usuario`,`id_categoriaUsuario`,`nomeUsuario`,`nome`,`sobrenome`,`email`,`cpf`,`descricao`,`datanascimento`,`id_instituicao`,`link_lattes`,`area_atuacao`,`senha`,`id_pergunta`,`resposta_seguranca`,`img_path`,`status`,`datacadastro`) values (1,3,'Derek Nunes','Dérek','Nunes','derek.nunes@fatec.sp.gov.br','77777777777','Apenas o administrador','2002-12-04',1,NULL,NULL,'769f2b8a75180c1e8c9b37ccbcf9e049',1,'maumau','img/imgUsers/4f26ebf05cc79b940138269c19305970.jpg',1,'2023-10-04'),(10,1,'Brunão','Bruno','Rodrigues','brunaospfc@email.com','46801348876',NULL,'2002-12-04',1,NULL,NULL,'112cb04f8ddf9c7e695f7b896e33b22f',1,'Rodrigo Nestor','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(11,2,'ProfGirafales','Professor','Girafales','girafales@email.com','43941428810',NULL,'2004-03-05',1,'isdfaksjdhf.com','exatas','1b0b539f722fa757130aba4217927784',2,'pederneiras','img/imgUsers/img_padrao_user.jpg',0,'2023-12-04'),(12,1,'Bruno ','Bruno','Rodrigues','bruno.rodrigues@email.com','45377870824',NULL,'1997-05-14',1,NULL,NULL,'e3928a3bc4be46516aa33a79bbdfdb08',2,'jau','img/imgUsers/img_padrao_user.jpg',1,'2023-12-04'),(13,2,'cidazem','Aparecida Maria','Zem Lopes','cida.zem@gmail.com','10301050813',NULL,'1964-10-26',1,'http://lattes.cnpq.br/6123540746643830','Educação e Tecnologias','e10adc3949ba59abbe56e057f20f883e',2,'Jaú','img/imgUsers/img_padrao_user.jpg',1,'2023-12-06');
+
+/* Trigger structure for table `pa` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_apagarPa` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_apagarPa` BEFORE DELETE ON `pa` FOR EACH ROW BEGIN
+	IF(EXISTS(SELECT * FROM avaliacao_pa WHERE id_pa = old.id_pa)) THEN
+		DELETE FROM avaliacao_pa WHERE id_pa = old.id_pa;
+	END IF;
+	
+	IF(EXISTS(SELECT * FROM comentarios_pa WHERE id_pa = old.id_pa)) THEN
+		DELETE FROM comentarios_pa WHERE id_pa = old.id_pa;
+	END IF;
+END */$$
+
+
+DELIMITER ;
 
 /* Trigger structure for table `recursos` */
 
@@ -583,6 +589,36 @@ DELIMITER $$
 BEGIN
 	INSERT INTO user_redesocial (id_redesocial, id_usuario, link_rede)
 	VALUES (xid_redesocial, xid_usuario, link_redesocial);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_apresentacaoPa` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_apresentacaoPa` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_apresentacaoPa`(IN codPa INT, codUsuario INT)
+BEGIN
+	IF(EXISTS(SELECT * FROM pa WHERE id_pa = codPa)) THEN
+		IF(codUsuario <> 0) THEN
+			SELECT p.id_pa "codigo", p.titulo, p.descricao, DATE_FORMAT(p.datacadastro, '%d/%m/%Y') "data",
+			p.arquivo_path "arquivo", p.img_pa_path "imgp", IFNULL((SELECT nota FROM avaliacao_pa WHERE id_usuario = codUsuario AND id_pa = codPa ), 0) "nota",
+			u.nomeUsuario "usuario", p.id_usuario "id_usuario",  u.img_path "imgu"
+			FROM pa p INNER JOIN users u
+			ON(p.id_usuario = u.id_usuario)
+			WHERE p.id_pa = codPa;
+		ELSE
+			SELECT p.id_pa "codigo", p.titulo, p.descricao, DATE_FORMAT(p.datacadastro, '%d/%m/%Y') "data",
+			p.arquivo_path "arquivo", p.img_pa_path "imgp",
+			u.nomeUsuario "usuario", p.id_usuario "id_usuario",  u.img_path "imgu"
+			FROM pa p INNER JOIN users u
+			ON(p.id_usuario = u.id_usuario)
+			WHERE p.id_pa = codPa;
+		END IF;
+	ELSE
+		SELECT "Erro" AS msgErro;
+	END IF;
 END */$$
 DELIMITER ;
 
@@ -713,6 +749,21 @@ DELIMITER $$
 BEGIN
 	SELECT (SELECT COUNT(id_redesocial) FROM redesocial) - (SELECT COUNT(id_usuario) FROM user_redesocial WHERE id_usuario = xid_usuario) "RedesDisponiveis";
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_buscarPaNaoPostados` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_buscarPaNaoPostados` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_buscarPaNaoPostados`()
+begin
+	select p.id_pa, p.titulo, p.descricao, DATE_FORMAT(p.datacadastro, "%d/%m/%Y") "cadastro", u.nomeUsuario "usuario"
+	from pa p inner join users u
+	on(p.id_usuario = u.id_usuario)
+	where p.status = 0;
+end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `proc_BuscarPerfilUsuario` */
@@ -1013,6 +1064,21 @@ begin
 end */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `proc_PuxarComentariosDenunciados` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_PuxarComentariosDenunciados` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_PuxarComentariosDenunciados`()
+begin
+	select cr.id_comentario, u.nomeUsuario, cr.descritivo, date_format(cr.datacomentario, "%d/%m/%Y") "datacomentario"
+	from comentarios_recursos cr inner join denuncia_comentario dc
+	on(cr.id_comentario = dc.id_comentario) inner join users u
+	on(cr.id_usuario = u.id_usuario);
+end */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `proc_RedeSocialParaCadastrar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `proc_RedeSocialParaCadastrar` */;
@@ -1024,6 +1090,19 @@ BEGIN
 	SELECT id_redesocial, descritivo
 	FROM redesocial
 	WHERE id_redesocial NOT IN (SELECT id_redesocial FROM user_redesocial WHERE id_usuario = xid_usuario);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_reprovar_pa_adm` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_reprovar_pa_adm` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_reprovar_pa_adm`(IN codigo INT)
+BEGIN
+	DELETE FROM pa
+	WHERE id_pa = codigo;
 END */$$
 DELIMITER ;
 
