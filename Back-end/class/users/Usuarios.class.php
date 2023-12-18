@@ -332,6 +332,13 @@ class Usuario extends Conexao{
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
+    public function BuscarMinhasPa() {
+        $sql = "CALL proc_BuscarMinhasPa(?)";
+        $stm = $this->db->prepare($sql);
+        $stm->bindValue(1, $this->id_usuario);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+    }
     public function BuscarRecursosSalvos() {
         $sql = "CALL proc_BuscarRecursosSalvos(?)";
         $stm = $this->db->prepare($sql);

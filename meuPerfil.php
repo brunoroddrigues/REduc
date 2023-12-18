@@ -6,6 +6,7 @@
     die();
   } else {
     require_once "Back-end/class/usersRequire.php";
+    require_once("Back-end/class/paRequire.php");
     $usuario = new Usuario(id_usuario: $_SESSION['id_usuario']);
   }
 
@@ -182,20 +183,19 @@
                       <div class='card-body'>
                         <h4 class='card-title'>{$dado->titulo}</h4>
                         <span class='card-star'>";
-              $nota1 = 5 - $dado->nota;
-              $nota2 = 5 - $nota1;
-              for($i = 0; $i < $nota2; $i++) {
-                echo "<i class='bi bi-star-fill'></i>";
-              }
-              for($i = 0; $i < $nota1; $i++) {
-                echo "<i class='bi bi-star'></i>";
-              }
-              echo     "</span>";
-              if($dado->favorito == 0) {
-                echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
-              } else {
-                echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
-              }
+                        for($i = 0; $i < 5; $i++) {
+                          if ($i <= ($dado->nota - 1)) {
+                              echo "<i class='bi bi-star-fill'></i>";
+                          } else {
+                              echo "<i class='bi bi-star'></i>";
+                          }
+                        }
+                        echo     "</span>";
+                        if ($codigo != 0) {
+                          if($dado->favorito != 0) {
+                            echo "<button class='btn p-0 card-flag bi-bookmark-fill'></button>";
+                          } 
+                        }
               echo   "</div>
                     </a>
                   </div>
@@ -207,7 +207,8 @@
       </div>
       <a href='explorar.php' class='btn btn-primary mt-4 align-self-center shadow'>Ver mais &#10095;</a>
     </section>
-    <section id='recursos-salvos' class='container bg-light rounded shadow mb-5 mt-5 p-5 d-flex flex-column'>
+  
+      <section id='recursos-salvos' class='container bg-light rounded shadow mb-5 mt-5 p-5 d-flex flex-column'>
       <h2 class='txt-roxo mb-4'>Recursos salvos</h2>
       <div class='row g-2'>
         <?php
@@ -224,20 +225,19 @@
                       <div class='card-body'>
                         <h4 class='card-title'>{$dado->titulo}</h4>
                         <span class='card-star'>";
-              $nota1 = 5 - $dado->nota;
-              $nota2 = 5 - $nota1;
-              for($i = 0; $i < $nota2; $i++) {
-                echo "<i class='bi bi-star-fill'></i>";
-              }
-              for($i = 0; $i < $nota1; $i++) {
-                echo "<i class='bi bi-star'></i>";
-              }
-              echo     "</span>";
-              if($dado->favorito == 0) {
-                echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
-              } else {
-                echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
-              }
+                        for($i = 0; $i < 5; $i++) {
+                          if ($i <= ($dado->nota - 1)) {
+                              echo "<i class='bi bi-star-fill'></i>";
+                          } else {
+                              echo "<i class='bi bi-star'></i>";
+                          }
+                        }
+                        echo     "</span>";
+                        if ($codigo != 0) {
+                          if($dado->favorito != 0) {
+                            echo "<button class='btn p-0 card-flag bi-bookmark-fill'></button>";
+                          } 
+                        }
               echo   "</div>
                     </a>
                   </div>
@@ -249,7 +249,53 @@
       </div>
       <a href='explorar.php' class='btn btn-primary mt-4 align-self-center shadow'>Ver mais &#10095;</a>
     </section>
+    <?php
+      require_once ("Back-end/functions/func_conexao.php");
+      $sql = "SELECT id_categoriaUsuario 'categoria'
+              FROM users u 
+              WHERE id_usuario = ?";
+      $categoria = $cnx->prepare($sql);
+      $categoria->bindValue(1, $_SESSION['id_usuario']);
+      $categoria->execute();
+      $resposta = $categoria->fetchAll(PDO::FETCH_OBJ);
+      if ($resposta != 1) {
+        $retorno = $usuario->BuscarMinhasPa();
+        echo
+        "<section id='minhas-pa' class='container bg-light rounded shadow mb-5 mt-5 p-5 d-flex flex-column'>
+        <h2 class='txt-roxo mb-4'>Praticas Avaliativas</h2>
+        <div class='row g-2'>";
+        if(is_array($retorno)) {
+          foreach($retorno as $dado) {
+            echo "
+              <div class='col-lg-3'>
+                <div class='p-1'>
+                  <a href='recurso.php?id_recurso={$dado->codigo}' class='card link-reset shadow'>
+                    <img src='{$dado->img}' class='card-img-top' alt='Imagem do recurso'>
+                    <div class='card-body'>
+                      <h4 class='card-title'>{$dado->titulo}</h4>
+                      <span class='card-star'>";
+                      for($i = 0; $i < 5; $i++) {
+                        if ($i <= ($dado->nota - 1)) {
+                            echo "<i class='bi bi-star-fill'></i>";
+                        } else {
+                            echo "<i class='bi bi-star'></i>";
+                        }
+                      }
+                      echo     "</span>";
+            echo   "</div>
+                  </a>
+                </div>
+              </div>
+            ";
+          }
+        }
+        echo
+        " </div>
+          <a href='explorar.php' class='btn btn-primary mt-4 align-self-center shadow'>Ver mais &#10095;</a>
+        </section>";
 
+      }
+    ?>
   </main>
   <footer id="reduc-footer"></footer>
   <!-- Bootstrap JavaScript Libraries -->

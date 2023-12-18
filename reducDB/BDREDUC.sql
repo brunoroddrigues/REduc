@@ -68,7 +68,7 @@ CREATE TABLE `avaliacao_recurso` (
 
 /*Data for the table `avaliacao_recurso` */
 
-insert  into `avaliacao_recurso`(`id_avaliacao`,`id_usuario`,`id_recurso`,`nota`) values (5,1,16,5),(8,1,23,5);
+insert  into `avaliacao_recurso`(`id_avaliacao`,`id_usuario`,`id_recurso`,`nota`) values (5,1,16,5),(8,1,23,2);
 
 /*Table structure for table `categoriausuario` */
 
@@ -735,6 +735,25 @@ begin
 		LIMIT 4;
 	
 end */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `proc_BuscarMinhasPa` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_BuscarMinhasPa` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_BuscarMinhasPa`(IN xid_usuario INT)
+BEGIN
+		SELECT p.id_pa "codigo", p.titulo, p.img_pa_path "img", IFNULL(AVG(ap.nota), 0) "nota"
+		FROM pa p LEFT JOIN avaliacao_pa ap
+		ON(p.id_pa = ap.id_pa)
+		WHERE p.id_usuario = xid_usuario AND p.status <> 0	
+		GROUP BY p.id_pa
+		ORDER BY AVG(ap.nota) DESC
+		LIMIT 4;
+	
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `proc_BuscarNumeroRedeSociasUsuario` */

@@ -121,20 +121,19 @@
                       <div class='card-body'>
                         <h4 class='card-title'>{$dado->titulo}</h4>
                         <span class='card-star'>";
-              $nota1 = 5 - $dado->nota;
-              $nota2 = 5 - $nota1;
-              for($i = 0; $i < $nota2; $i++) {
-                echo "<i class='bi bi-star-fill'></i>";
-              }
-              for($i = 0; $i < $nota1; $i++) {
-                echo "<i class='bi bi-star'></i>";
-              }
-              echo     "</span>";
-              if($dado->favorito == 0) {
-                echo "<button class='btn p-0 card-flag bi-bookmark' onclick='favorito(event, this, {$codigo})''></button>";
-              } else {
-                echo "<button class='btn p-0 card-flag bi-bookmark-fill' onclick='favorito(event, this, {$codigo})''></button>";
-              }
+                        for($i = 0; $i < 5; $i++) {
+                          if ($i <= ($dado->nota - 1)) {
+                              echo "<i class='bi bi-star-fill'></i>";
+                          } else {
+                              echo "<i class='bi bi-star'></i>";
+                          }
+                        }
+                        echo     "</span>";
+                        if ($codigo != 0) {
+                          if($dado->favorito != 0) {
+                            echo "<button class='btn p-0 card-flag bi-bookmark-fill'></button>";
+                          } 
+                        }
               echo   "</div>
                     </a>
                   </div>
