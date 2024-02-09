@@ -1,35 +1,53 @@
 <?php
-class AreaConhecimento{
+
+class AreaConhecimento
+{
     public function __construct(
-        private int $id_areaconhecimento = 0,
+        private int    $id_areaconhecimento = 0,
         private string $area = "",
         private string $codarea = "",
-        private array $recurso = array()
-    ){}
+        private array  $recurso = array()
+    )
+    {
+    }
 
-    public function setId($id){
+    public function setId($id)
+    {
         $this->id_areaconhecimento = $id;
     }
-    public function setArea($area){
+
+    public function setArea($area)
+    {
         $this->area = $area;
     }
-    public function setCod($codarea){
+
+    public function setCod($codarea)
+    {
         $this->codarea = $codarea;
     }
-    public function setRecurso($recurso){
+
+    public function setRecurso($recurso)
+    {
         $this->recurso[] = $recurso;
     }
-    
-    public function getId(){
+
+    public function getId()
+    {
         return $this->id_areaconhecimento;
     }
-    public function getArea(){
+
+    public function getArea()
+    {
         return $this->area;
     }
-    public function getCod(){
+
+    public function getCod()
+    {
         return $this->codarea;
     }
-    public function getRecurso(){
+
+    public function getRecurso()
+    {
         return $this->recurso;
     }
 }

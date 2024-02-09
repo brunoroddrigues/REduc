@@ -1,20 +1,21 @@
 @import "variaveis.css";
 
-footer{
+footer {
     background-color: var(--roxo-principal);
     min-height: 140px;
 }
 
-footer > div > img{
+footer > div > img {
     width: 80px;
     height: 80px;
     margin-left: 15px;
 }
 
-footer > div > ul{
+footer > div > ul {
     list-style: none;
 }
-.list-inline-item > a:hover{
+
+.list-inline-item > a:hover {
     border: 1px solid var(--color-light);
     border-radius: 5px;
 }

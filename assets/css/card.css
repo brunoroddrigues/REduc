@@ -2,26 +2,26 @@
 
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
 
-.card:hover{
+.card:hover {
     transform: scale(1.02);
     color: currentColor;
     cursor: pointer;
 }
 
-.card{
+.card {
     transition: .2s ease-out;
 }
 
-.card-star, .card-flag{
+.card-star, .card-flag {
     color: var(--roxo-principal);
     font-size: 1.8rem;
 }
 
-.card-flag{
+.card-flag {
     float: right;
 }
 
-.card-flag:hover{
+.card-flag:hover {
     transform: scale(1.1);
     color: var(--roxo-principal-escuro) !important;
 }

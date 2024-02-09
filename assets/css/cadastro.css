@@ -1,39 +1,39 @@
-:root{
+:root {
     --color-light: #f8f9fa;
     --roxo-principal: #131267;
     --error-color: #f72702;
 }
 
-.cadastrar{
+.cadastrar {
     background-image: url("../../img/background-cadastro.svg");
     background-size: cover;
     background-repeat: no-repeat;
     background-color: var(--color-light);
 }
 
-form > input{
+form > input {
     margin-top: 8px;
 }
 
-h2, label{
+h2, label {
     color: var(--color-light);
 }
 
-label{
+label {
     margin-top: 8px;
 }
 
-.cat-user input{
+.cat-user input {
     display: none;
 }
 
-.cat-user input + label{
+.cat-user input + label {
     padding-left: 2rem;
     position: relative;
     margin: .7rem .7rem .7rem 0
 }
 
-.cat-user input + label:before{
+.cat-user input + label:before {
     content: "";
     width: 1.5rem;
     height: 1.5rem;
@@ -43,7 +43,7 @@ label{
     left: 0;
 }
 
-.cat-user input:checked + label:before{
+.cat-user input:checked + label:before {
     content: "\2713";
     display: flex;
     justify-content: center;
@@ -52,33 +52,34 @@ label{
     font-weight: 900;
 }
 
-.form-control, .form-select{
+.form-control, .form-select {
     max-width: 75%;
 }
 
-@media (max-width: 992px){
-    .form-control, .form-select{
+@media (max-width: 992px) {
+    .form-control, .form-select {
         max-width: 100%;
     }
-    .img-cadastro{
+
+    .img-cadastro {
         display: none;
     }
 }
 
-@media (max-width: 768px){
-    .cadastrar{
+@media (max-width: 768px) {
+    .cadastrar {
         background-color: var(--roxo-principal);
         background-image: none;
     }
 }
 
-@media (max-width: 576px){
-    .img-cadastro{
+@media (max-width: 576px) {
+    .img-cadastro {
         display: none;
     }
 }
 
-.error{
+.error {
     content: "";
     width: 1.5rem;
     height: 1.5rem;

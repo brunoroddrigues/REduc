@@ -1,44 +1,46 @@
 @import "variaveis.css";
 
-input[type="file"]{
+input[type="file"] {
     max-width: fit-content;
 }
 
-#campos{
+#campos {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto;
     grid-template-areas: "dados img";
     gap: 2rem;
-} 
+}
 
-#config-dados{
+#config-dados {
     grid-area: dados;
 }
 
-#config-img{
+#config-img {
     grid-area: img;
 }
 
-#voltar{
+#voltar {
     font-size: 1.5rem;
     text-decoration: none;
     color: var(--roxo-principal);
     transition: .3s
 }
-.bi-arrow-left{
+
+.bi-arrow-left {
     transition: .3s;
     margin-right: .2rem;
 }
 
-#voltar:hover{
+#voltar:hover {
     color: var(--roxo-principal-escuro);
 }
-#voltar:hover .bi-arrow-left{
+
+#voltar:hover .bi-arrow-left {
     margin-right: .5rem;
 }
 
-#perfil-img{
+#perfil-img {
     width: 300px;
     max-width: 300px;
     min-width: 150px;
@@ -47,12 +49,12 @@ input[type="file"]{
     min-height: 150px;
 }
 
-#label-img{
+#label-img {
     position: relative;
     cursor: pointer;
 }
 
-#alterar-img{
+#alterar-img {
     background-color: rgba(0, 0, 0, .3);
     display: flex;
     justify-content: center;
@@ -70,30 +72,32 @@ input[type="file"]{
     text-align: center;
 }
 
-#label-img:hover #alterar-img{
+#label-img:hover #alterar-img {
     visibility: visible;
 }
 
-.border-primary{
+.border-primary {
     border-color: var(--roxo-principal) !important;
 }
 
-#input-bio{
+#input-bio {
     height: 9rem;
 }
 
-@media (max-width: 768px){
-    #campos{
+@media (max-width: 768px) {
+    #campos {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
         grid-template-areas: 
             "img"
             "dados";
     }
-    #titulo{
+
+    #titulo {
         flex-direction: column-reverse;
     }
-    #voltar{
+
+    #voltar {
         margin-bottom: 2rem;
     }
 }

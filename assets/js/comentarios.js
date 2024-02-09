@@ -1,32 +1,32 @@
 function criarCard() {
     // Obtém o texto digitado 
     var textoDigitado = document.getElementById("textoInput").value;
- 
+
     //Incio do Card
-    var novoCard = document.createElement("div"); 
+    var novoCard = document.createElement("div");
     novoCard.setAttribute("class", " card m-4 ");
-  
+
     var cardheader = document.createElement("div");
-    cardheader.setAttribute("class","card-header");
-    cardheader.setAttribute("style","background-color: #131267;");
+    cardheader.setAttribute("class", "card-header");
+    cardheader.setAttribute("style", "background-color: #131267;");
 
     var img = document.createElement("i");
-    img.setAttribute("class","bi bi-person-circle")
-    img.setAttribute("style","font-size: 50px; color:white")
-    
+    img.setAttribute("class", "bi bi-person-circle")
+    img.setAttribute("style", "font-size: 50px; color:white")
+
     var cardbody = document.createElement("div");
-    cardbody.setAttribute("class","card-body");
+    cardbody.setAttribute("class", "card-body");
     cardbody.textContent = textoDigitado;
 
     var cardfooter = document.createElement("div");
-    cardfooter.setAttribute("class", "card-footer bg-transparent row"); 
+    cardfooter.setAttribute("class", "card-footer bg-transparent row");
 
     var date = document.createElement("div");
-    date.setAttribute("class", "col" );
-    date.textContent="Postado 20/07/2023"
+    date.setAttribute("class", "col");
+    date.textContent = "Postado 20/07/2023"
 
     var bot = document.createElement("div"); // Coluna do Botão
-    bot.setAttribute("class", "col" );
+    bot.setAttribute("class", "col");
 
     var botao = document.createElement("div") //Div que coloca o botão no lugar
     botao.setAttribute("class", "d-flex justify-content-end")
@@ -35,14 +35,14 @@ function criarCard() {
     den.setAttribute("class", "btn btn-primary text-light")
     den.setAttribute("data-bs-toggle", "modal")
     den.setAttribute("data-bs-targeet", "#opicao")
-    den.textContent= "Denuncia";
+    den.textContent = "Denuncia";
 
     //Fim
 
     //Modal
 
     var modal = document.createElement("div")
-    modal.setAttribute("class","modal fade" )
+    modal.setAttribute("class", "modal fade")
     modal.setAttribute("data-bs-toggle", "modal")
     modal.setAttribute("id", "opicao")
 
@@ -53,7 +53,7 @@ function criarCard() {
     modalco.setAttribute("class", "modal-content")
 
     var modalheader = document.createElement("div") //Header
-    modalheader.setAttribute("class"," modal-header")
+    modalheader.setAttribute("class", " modal-header")
 
     var titulo = document.createElement("h1")
     titulo.setAttribute("class", "modal-title fs-5")
@@ -67,7 +67,6 @@ function criarCard() {
 
     var modalfooter = document.createElement("div") //Footer
     modalfooter.setAttribute("class", "modal-footer")
-
 
 
     //Fim

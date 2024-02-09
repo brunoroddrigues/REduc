@@ -1,4 +1,4 @@
-function criarCard2(img, titulo, descritivo, data, link){
+function criarCard2(img, titulo, descritivo, data, link) {
 
     const card2 = document.createElement("div")
     card2.setAttribute("class", "card my-3")

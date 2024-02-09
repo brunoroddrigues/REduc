@@ -1,12 +1,12 @@
-import { criarRodape } from "./componente_footer.js";
-import { criarHeader } from "./componente_header.js";
+import {criarRodape} from "./componente_footer.js";
+import {criarHeader} from "./componente_header.js";
 
 $.ajax({
     url: "Log_status.php",
     type: "post",
-    success: (resposta)=>{
+    success: (resposta) => {
         let loginStatus = JSON.parse(resposta);
-        
+
         if (loginStatus.status) {
             let img = loginStatus.img;
             criarHeader(loginStatus.status, loginStatus.img, loginStatus.categoria);
@@ -14,7 +14,7 @@ $.ajax({
         } else {
             criarHeader(loginStatus.status);
         }
-        
+
     }
 })
 

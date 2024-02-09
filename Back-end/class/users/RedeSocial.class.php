@@ -1,38 +1,51 @@
 <?php
-require_once 'TipoRedeSocial.class.php';    
+require_once 'TipoRedeSocial.class.php';
 
-class RedeSocial extends Conexao{
+class RedeSocial extends Conexao
+{
     public function __construct(
-        private int $id_redesocial = 0,
-        private $tiporede = null,
+        private int    $id_redesocial = 0,
+        private        $tiporede = null,
         private string $link = ""
-    ){
+    )
+    {
         parent:: __construct();
     }
 
     //set methods
-    public function setIdRede($id_redesocial){
+    public function setIdRede($id_redesocial)
+    {
         $this->id_redesocial = $id_redesocial;
     }
-    public function setTipo($tiporede){
+
+    public function setTipo($tiporede)
+    {
         $this->tiporede = $tiporede;
     }
-    public function setLink($link){
+
+    public function setLink($link)
+    {
         $this->link = $link;
     }
 
     //get methods
-    public function getIdRede(){
+    public function getIdRede()
+    {
         return $this->id_redesocial;
     }
-    public function getTipo(){
+
+    public function getTipo()
+    {
         return $this->tiporede;
     }
-    public function getLink(){
+
+    public function getLink()
+    {
         return $this->link;
     }
 
-    public function BuscarRedesocial() {
+    public function BuscarRedesocial()
+    {
         $sql = "SELECT * FROM user_redesocial WHERE id_userrede = ?";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $this->id_redesocial);
@@ -40,7 +53,8 @@ class RedeSocial extends Conexao{
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function AdicionarRedeSocial($id_usuario) {
+    public function AdicionarRedeSocial($id_usuario)
+    {
         $sql = "CALL proc_AdicionarRedeSocial(?, ?, ?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $id_usuario);

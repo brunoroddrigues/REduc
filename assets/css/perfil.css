@@ -1,4 +1,4 @@
-#perfil{
+#perfil {
     display: grid;
     grid-template-columns: 1fr 3fr 1.5fr;
     grid-template-rows: repeat(2, 150px);
@@ -9,12 +9,13 @@
     background-size: cover;
 }
 
-#perfil-foto{
+#perfil-foto {
     grid-area: foto;
     display: flex;
     align-items: center;
 }
-#perfil-foto > img{
+
+#perfil-foto > img {
     width: 300px;
     height: 300px;
     max-width: 300px;
@@ -25,7 +26,7 @@
     border: 3px solid #f8f9fa;
 }
 
-#perfil-dados{
+#perfil-dados {
     grid-area: dados;
     display: flex;
     flex-direction: column;
@@ -33,13 +34,13 @@
     margin-left: 1.8rem
 }
 
-#perfil-links{
+#perfil-links {
     grid-area: links;
     display: flex;
     justify-content: end;
 }
 
-#perfil-links > ul{
+#perfil-links > ul {
     list-style: none;
     display: flex;
     gap: 1rem;
@@ -48,42 +49,43 @@
     padding: 0;
 }
 
-#perfil-links > ul > li{
+#perfil-links > ul > li {
     font-size: 2rem;
     color: #f8f9fa;
     cursor: pointer;
 }
 
-#perfil-links > ul > li:hover{
+#perfil-links > ul > li:hover {
     color: #d9d9da;
 }
 
-#perfil-config{
+#perfil-config {
     grid-area: config;
     display: flex;
     justify-content: end;
     align-items: end;
 }
 
-#perfil-config button{
+#perfil-config button {
     margin-right: 1rem;
 }
 
-@media (max-width: 992px) and (min-width: 769px){
-    #perfil{
+@media (max-width: 992px) and (min-width: 769px) {
+    #perfil {
         grid-template-columns: 300px 1fr;
         grid-template-rows: repeat(2, auto);
         grid-template-areas: 
             "foto dados"
             "links config"
     }
-    #perfil-links{
+
+    #perfil-links {
         justify-content: start;
     }
 }
 
-@media (max-width: 768px){
-    #perfil{
+@media (max-width: 768px) {
+    #perfil {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(4, auto);
         grid-template-areas:
@@ -93,25 +95,30 @@
             "dados";
         row-gap: 1rem;
     }
-    #perfil-foto{
+
+    #perfil-foto {
         justify-content: center;
     }
-    #perfil-config{
+
+    #perfil-config {
         justify-content: center;
     }
-    #perfil-dados{
+
+    #perfil-dados {
         margin: 0;
     }
-    #perfil-links{
+
+    #perfil-links {
         justify-content: start;
     }
-    #perfil-links > ul{
+
+    #perfil-links > ul {
         flex-direction: row;
     }
 }
 
-@media (max-width: 350px){
-    #perfil-foto > img{
+@media (max-width: 350px) {
+    #perfil-foto > img {
         width: 250px;
         height: 250px;
     }

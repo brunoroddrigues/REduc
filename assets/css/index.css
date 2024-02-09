@@ -1,6 +1,6 @@
 @import "variaveis.css";
 
-#pesquisa{
+#pesquisa {
     background-image: url('../../img/background.svg');
     background-size: cover;
     background-position: center;
@@ -9,16 +9,16 @@
     position: relative;
 }
 
-.bi-search{
+.bi-search {
     color: var(--roxo-principal);
     font-size: 1.3rem;
     line-height: 1;
 }
 
-#pesquisa{
+#pesquisa {
     margin-bottom: -75px
 }
 
-#pesquisa > form > input, #pesquisa > form > button{
+#pesquisa > form > input, #pesquisa > form > button {
     margin-top: 150px;
 }

@@ -92,12 +92,12 @@
 
 function favorito(event, elemento, logado) {
     event.preventDefault();
-    if(logado == 0) {
+    if (logado == 0) {
         event.preventDefault();
         alert("Você só pode favoritar um post quando estiver logado!");
     } else {
         var salvo;
-        if(elemento.classList.contains("bi-bookmark-fill")) {
+        if (elemento.classList.contains("bi-bookmark-fill")) {
             elemento.classList.remove("bi-bookmark-fill");
             elemento.classList.add("bi-bookmark");
             salvo = false;
@@ -108,7 +108,7 @@ function favorito(event, elemento, logado) {
             salvo = true;
             console.log("Não salvo");
         }
-    
+
         $.ajax({
             url: "",
             type: "post",

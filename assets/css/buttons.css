@@ -1,24 +1,24 @@
 @import "variaveis.css";
 
-.btn-outline-light:hover{
+.btn-outline-light:hover {
     color: var(--roxo-principal) !important;
 }
 
-.btn-primary{
+.btn-primary {
     background-color: var(--roxo-principal);
     border: none;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
     background-color: var(--roxo-principal-escuro) !important;
 }
 
-.btn-search{
+.btn-search {
     width: 4rem;
     margin-left: -4rem;
 }
 
-.btn-search:hover{
+.btn-search:hover {
     background-color: #dedede !important;
 }
 

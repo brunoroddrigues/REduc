@@ -1,127 +1,183 @@
 <?php
 // require_once '../conexao/Conexao.class.php';
-require_once 'Disciplinas.class.php';
-require_once 'Ferramentas.class.php';
-require_once 'Cursos.class.php';
-require_once 'CategoriaRecurso.class.php';
-require_once 'AreaConhecimento.class.php';
 
-class Recursos extends Conexao{
+class Recursos extends Conexao
+{
     public function __construct(
-      private int $id_recurso = 0,
-      private string $titulo = "",
-      private string $descricao = "",
-      private string $datacadastro = "", 
-      private string $link_img = "",
-      private string $link_artigo = "",
-      private string $link_video = "",
-      private int $status = 0,
-      private int $nota = 0,
-      private array $disciplina = array(),
-      private $ferramenta = null,
-      private array $curso = array(),
-      private $categoria = null,
-      private array $area = array(),  
-      private $usuario = null
-    ){
+        private int    $id_recurso = 0,
+        private string $titulo = "",
+        private string $descricao = "",
+        private string $datacadastro = "",
+        private string $link_img = "",
+        private string $link_artigo = "",
+        private string $link_video = "",
+        private int    $status = 0,
+        private int    $nota = 0,
+        private array  $disciplina = array(),
+        private        $ferramenta = null,
+        private array  $curso = array(),
+        private        $categoria = null,
+        private array  $area = array(),
+        private        $usuario = null
+    )
+    {
         parent:: __construct();
     }
 
     // metodos set
-    public function setIdRecurso($id){
+    public function setIdRecurso($id)
+    {
         $this->id_recurso = $id;
     }
-    public function setTitulo($titulo){
+
+    public function setTitulo($titulo)
+    {
         $this->titulo = $titulo;
     }
-    public function setDescricao($descricao){
+
+    public function setDescricao($descricao)
+    {
         $this->descricao = $descricao;
     }
-    public function setDataCadastro($data){
+
+    public function setDataCadastro($data)
+    {
         $this->datacadastro = $data;
     }
-    public function setImg($img){
+
+    public function setImg($img)
+    {
         $this->link_img = $img;
     }
-    public function setArtigo($artigo){
+
+    public function setArtigo($artigo)
+    {
         $this->link_artigo = $artigo;
     }
-    public function setVideo($video){
+
+    public function setVideo($video)
+    {
         $this->link_video = $video;
     }
-    public function setDisciplina($disciplina){
+
+    public function setDisciplina($disciplina)
+    {
         $this->disciplina[] = $disciplina;
     }
-    public function setCurso($curso){
+
+    public function setCurso($curso)
+    {
         $this->curso[] = $curso;
     }
-    public function setArea($area){
+
+    public function setArea($area)
+    {
         $this->area[] = $area;
     }
-    public function setCategoria($categoria){
+
+    public function setCategoria($categoria)
+    {
         $this->categoria = $categoria;
     }
-    public function setFerramenta($ferramenta){
+
+    public function setFerramenta($ferramenta)
+    {
         $this->ferramenta = $ferramenta;
     }
-    public function setUsuario($usuario){
+
+    public function setUsuario($usuario)
+    {
         $this->usuario = $usuario;
     }
-    public function setNota($nota){
+
+    public function setNota($nota)
+    {
         $this->nota = $nota;
     }
-    public function setStatus($status){
+
+    public function setStatus($status)
+    {
         $this->status = $status;
     }
 
     //metodos get
-    public function getId(){
+    public function getId()
+    {
         return $this->id_recurso;
     }
-    public function getTitulo(){
+
+    public function getTitulo()
+    {
         return $this->titulo;
     }
-    public function getDescricao(){
+
+    public function getDescricao()
+    {
         return $this->descricao;
     }
-    public function getDataCadastro(){
+
+    public function getDataCadastro()
+    {
         return $this->datacadastro;
     }
-    public function getImg(){
+
+    public function getImg()
+    {
         return $this->link_img;
     }
-    public function getArtigo(){
+
+    public function getArtigo()
+    {
         return $this->link_artigo;
     }
-    public function getVideo(){
+
+    public function getVideo()
+    {
         return $this->link_video;
     }
-    public function getDisciplina(){
+
+    public function getDisciplina()
+    {
         return $this->disciplina;
     }
-    public function getCurso(){
+
+    public function getCurso()
+    {
         return $this->curso;
     }
-    public function getArea(){
+
+    public function getArea()
+    {
         return $this->area;
     }
-    public function getCategoria(){
+
+    public function getCategoria()
+    {
         return $this->categoria;
     }
-    public function getFerramenta(){
+
+    public function getFerramenta()
+    {
         return $this->ferramenta;
     }
-    public function getUsuario(){
+
+    public function getUsuario()
+    {
         return $this->usuario;
     }
-    public function getNota(){
+
+    public function getNota()
+    {
         return $this->nota;
     }
-    public function getStatus(){
+
+    public function getStatus()
+    {
         return $this->status;
     }
 
-    public function cadastrarRecursoVideo($id_usuario) {
+    public function cadastrarRecursoVideo($id_usuario)
+    {
         $sql = "CALL proc_CadastroRecursoVideo(?, ?, ?, ?, ?, ?, ?, @id_inserido)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $this->titulo);
@@ -137,7 +193,8 @@ class Recursos extends Conexao{
         return $id;
     }
 
-    public function cadastrarRecursoArtigo($id_usuario) {
+    public function cadastrarRecursoArtigo($id_usuario)
+    {
         $sql = "CALL proc_CadastroRecursoArtigo(?, ?, ?, ?, ?, ?, ?, @id_inserido)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $this->titulo);
@@ -153,7 +210,8 @@ class Recursos extends Conexao{
         return $id;
     }
 
-    public function buscarRecurso($codigo) {
+    public function buscarRecurso($codigo)
+    {
         $sql = "CALL proc_apresentacaoRecurso(?, ?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $this->id_recurso);
@@ -162,7 +220,8 @@ class Recursos extends Conexao{
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function recursos4($codigo) {
+    public function recursos4($codigo)
+    {
         $sql = "CALL proc_BuscarQuatroRecursos(?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $codigo);
@@ -170,7 +229,8 @@ class Recursos extends Conexao{
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function recursosTodos($codigo){
+    public function recursosTodos($codigo)
+    {
         $sql = "CALL proc_buscarTodosRecursos(?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $codigo);
@@ -178,14 +238,16 @@ class Recursos extends Conexao{
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function buscarRecursosNaoPostados() {
+    public function buscarRecursosNaoPostados()
+    {
         $sql = "CALL proc_buscarRecursosNaoPostados()";
         $stm = $this->db->prepare($sql);
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function ativar($codigo) {
+    public function ativar($codigo)
+    {
         $sql = "CALL proc_ativar_recurso_adm(?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $codigo);
@@ -193,7 +255,8 @@ class Recursos extends Conexao{
         $this->db = null;
     }
 
-    public function reprovar($codigo) {
+    public function reprovar($codigo)
+    {
         $sql = "CALL proc_reprovar_recurso_adm(?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $codigo);
@@ -201,7 +264,8 @@ class Recursos extends Conexao{
         $this->db = null;
     }
 
-    public function PuxarComentarios() {
+    public function PuxarComentarios()
+    {
         $sql = "CALL proc_PuxarComentarios(?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $this->id_recurso);
@@ -210,13 +274,14 @@ class Recursos extends Conexao{
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function PesquisarRecurso($id_usuario, $pesquisa) {
+    public function PesquisarRecurso($id_usuario, $pesquisa)
+    {
         $sql = "CALL proc_pesquisaRecursos(?, ?)";
         $stm = $this->db->prepare($sql);
         $stm->bindValue(1, $id_usuario);
         $stm->bindValue(2, $pesquisa);
         $stm->execute();
-		
+
         return $stm->fetchAll(PDO::FETCH_OBJ);
     }
 }
