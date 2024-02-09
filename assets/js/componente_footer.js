@@ -1,15 +1,15 @@
-export function criarRodape(){
+export function criarRodape() {
     const FOOTER = document.getElementById("reduc-footer");
-    if(!FOOTER.classList.contains("container-fluid")){
+    if (!FOOTER.classList.contains("container-fluid")) {
         FOOTER.classList.add("container-fluid")
     }
-    if(!FOOTER.classList.contains("d-flex")){
+    if (!FOOTER.classList.contains("d-flex")) {
         FOOTER.classList.add("d-flex")
     }
-    if(!FOOTER.classList.contains("align-items-center")){
+    if (!FOOTER.classList.contains("align-items-center")) {
         FOOTER.classList.add("align-items-center")
     }
-    
+
     // Textos do rodapé
     let txtH2 = document.createTextNode("REduc BETA")
     let copyrightTxt = document.createTextNode("Todos os direitos reservados")

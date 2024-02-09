@@ -1,16 +1,16 @@
 <?php
 
-  if(!isset($_SESSION)) session_start();
+if (!isset($_SESSION)) session_start();
 
-  $resposta = array();
+$resposta = array();
 
-  if (!empty($_SESSION)) {
+if (!empty($_SESSION)) {
     $resposta['img'] = $_SESSION['perfil'];
-    $resposta['status'] = true; 
+    $resposta['status'] = true;
     $resposta['categoria'] = $_SESSION['categoria'];
-  } else {
+} else {
     $resposta['status'] = false;
-  }
+}
 
-  echo json_encode($resposta);
+echo json_encode($resposta);
 ?>

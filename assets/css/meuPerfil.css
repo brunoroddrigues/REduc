@@ -1,12 +1,13 @@
-@media (max-width: 768px){
-    #perfil{
+@media (max-width: 768px) {
+    #perfil {
         grid-template-areas: 
             "links"
             "foto"
             "dados"
             "config";
     }
-    #perfil-config{
+
+    #perfil-config {
         justify-content: center;
     }
 }

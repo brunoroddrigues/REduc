@@ -1,4 +1,3 @@
 <?php
-    $parametros = "mysql:host=localhost;dbname=reduc;charset=utf8mb4";
-    $cnx = new PDO($parametros, "root", "");
+$conn = new PDO("mysql:host=reduc-db.mysql.database.azure.com;dbname=reduc;", "reduc", "P#ssw0rdr");
 ?>

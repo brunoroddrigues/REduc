@@ -1,28 +1,42 @@
 <?php
-class Ferramenta {
-    public function __construct(
-        private int $id_ferramenta = 0,
-        private string $ferramenta = "",
-        private array $recurso = array()
-    ){}
 
-    public function setIdFerrmenta($id){
+class Ferramenta
+{
+    public function __construct(
+        private int    $id_ferramenta = 0,
+        private string $ferramenta = "",
+        private array  $recurso = array()
+    )
+    {
+    }
+
+    public function setIdFerrmenta($id)
+    {
         $this->id_ferramenta = $id;
     }
-    public function setFerramenta($ferramenta){
+
+    public function setFerramenta($ferramenta)
+    {
         $this->ferramenta = $ferramenta;
     }
-    public function setRecurso($recurso){
+
+    public function setRecurso($recurso)
+    {
         $this->recurso[] = $recurso;
     }
-    
-    public function getIdFerramenta(){
+
+    public function getIdFerramenta()
+    {
         return $this->id_ferramenta;
     }
-    public function getFerramenta(){
+
+    public function getFerramenta()
+    {
         return $this->ferramenta;
     }
-    public function getRecurso(){
+
+    public function getRecurso()
+    {
         return $this->recurso;
     }
 }

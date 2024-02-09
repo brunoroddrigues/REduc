@@ -10,38 +10,38 @@
 
 @import "card.css";
 
-html{
+html {
     scroll-behavior: smooth;
 }
 
-body{
+body {
     background-color: #eeeeee;
     min-width: 320px;
 }
 
-main{
+main {
     min-height: calc(100vh - 225px);
 }
 
-.marca{
+.marca {
     font-family: 'Courgette', cursive;
     font-size: 1.7rem;
     margin-left: 1rem
 }
 
-.txt-branco{
+.txt-branco {
     color: var(--color-light);
 }
 
-.txt-roxo{
+.txt-roxo {
     color: var(--roxo-principal);
 }
 
-.border-primary{
+.border-primary {
     border-color: var(--roxo-principal) !important;
 }
 
-.bg-primary{
+.bg-primary {
     background-color: var(--roxo-principal) !important;
 }
 
@@ -49,8 +49,8 @@ main{
     color: var(--roxo-principal) !important;
 }
 
-@media (max-width: 575px){
-    .nav-link{
+@media (max-width: 575px) {
+    .nav-link {
         margin-bottom: 10px;
     }
 }

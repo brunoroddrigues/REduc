@@ -1,27 +1,27 @@
 var toolbarOptions = [
-  [{ font: [] }],
-  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    [{font: []}],
+    [{header: [1, 2, 3, 4, 5, 6, false]}],
 
-  ["bold", "italic", "underline", "strike"],
-  [{ color: [] }, { background: [] }],
+    ["bold", "italic", "underline", "strike"],
+    [{color: []}, {background: []}],
 
-  [{ list: "ordered" }, { list: "bullet" }],
-  [{ script: "sub" }, { script: "super" }],
-  [{ indent: "-1" }, { indent: "+1" }],
+    [{list: "ordered"}, {list: "bullet"}],
+    [{script: "sub"}, {script: "super"}],
+    [{indent: "-1"}, {indent: "+1"}],
 
-  [{ align: [] }],
+    [{align: []}],
 
-  ["image", "link", "video"],
+    ["image", "link", "video"],
 
-  ["blockquote"],
-  ["clean"],
+    ["blockquote"],
+    ["clean"],
 ];
 
 var quill = new Quill("#editor", {
-  modules: {
-    toolbar: toolbarOptions,
-  },
-  theme: "snow",
+    modules: {
+        toolbar: toolbarOptions,
+    },
+    theme: "snow",
 });
 
 // const form = document.querySelector("#form-recurso");
@@ -61,7 +61,7 @@ var quill = new Quill("#editor", {
 // })
 
 function salvar() {
-  var recurso = quill.root.innerHTML;
+    var recurso = quill.root.innerHTML;
 
-  html2pdf().from(recurso).set().outputPdf();
+    html2pdf().from(recurso).set().outputPdf();
 }

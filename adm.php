@@ -1,14 +1,14 @@
 <?php
-    require_once("Back-end/class/recursosRequire.php");
-    require_once("Back-end/class/paRequire.php");
-    require_once("Back-end/class/usersRequire.php");
+require_once("Back-end/class/recursosRequire.php");
+require_once("Back-end/class/paRequire.php");
+require_once("Back-end/class/usersRequire.php");
 
-    if(!isset($_SESSION)) session_start();
+if (!isset($_SESSION)) session_start();
 
-    if($_SESSION["categoria"] != 3) {
-        header("location: index.php");
-        die();
-    }
+if ($_SESSION["categoria"] != 3) {
+    header("location: index.php");
+    die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -56,52 +56,53 @@
 </head>
 
 <body>
-    <header id='reduc-header'></header>
-    <div>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container p-0">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+<header id='reduc-header'></header>
+<div>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container p-0">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
-                    <i class="bi bi-list" style="color: white;"></i>
-                </button>
+                <i class="bi bi-list" style="color: white;"></i>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                    <ul class="text-light nav nav-tabs fw-bold">
+                <ul class="text-light nav nav-tabs fw-bold">
 
-                        <li class="nav-item">
-                            <a class="nav-link active tab-link" data-bs-toggle="tab" data-bs-target="#ted" role="tab">Recurso</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#pa" role="tab">PA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#comen" role="tab">Comentarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#usua" role="tab">Usuario</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link active tab-link" data-bs-toggle="tab" data-bs-target="#ted" role="tab">Recurso</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#pa" role="tab">PA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#comen"
+                           role="tab">Comentarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#usua" role="tab">Usuario</a>
+                    </li>
 
-                    </ul>
+                </ul>
 
-                </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-    </div>
+</div>
 
-    <main class="container tab-content">
+<main class="container tab-content">
 
 
-        <div class="tab-pane fade show active " id="ted">
-            <?php
+    <div class="tab-pane fade show active " id="ted">
+        <?php
 
-                $recursos = new Recursos();
-                $dados = $recursos->buscarRecursosNaoPostados();
+        $recursos = new Recursos();
+        $dados = $recursos->buscarRecursosNaoPostados();
 
-                if(is_array(($dados))) {
-                    foreach($dados as $dado) {
-                        echo "
+        if (is_array(($dados))) {
+            foreach ($dados as $dado) {
+                echo "
                             <div class='card m-4'>
                                 <div class='card-header text-light d-flex' style='background-color: #131267;'>
                                     <h3 class='h5'>{$dado->titulo}</h3>
@@ -121,18 +122,18 @@
                                 </div>
                             </div>
                         ";
-                    }
-                }
-            ?>
+            }
+        }
+        ?>
 
-        </div>
-        <div class="tab-pane fade" id="pa">
-            <?php
-                $pa = new PA();
-                $dados = $pa->PaNãoPostadas();
-                if(is_array(($dados))) {
-                    foreach($dados as $dado) {
-                        echo "
+    </div>
+    <div class="tab-pane fade" id="pa">
+        <?php
+        $pa = new PA();
+        $dados = $pa->PaNãoPostadas();
+        if (is_array(($dados))) {
+            foreach ($dados as $dado) {
+                echo "
                             <div class='card m-4'>
                                 <div class='card-header text-light d-flex' style='background-color: #131267;'>
                                     <h3 class='h5'>{$dado->titulo}</h3>
@@ -152,21 +153,21 @@
                                 </div>
                             </div>
                         ";
-                    }
-                }
-            ?>
-        </div>
-        <div class=" tab-pane fade " id="comen">
-            
-            <!-- Denuncia De Comentario -->
-            <?php
-                $comentarios = new Comentario();
-                $ComentariosDenunc = $comentarios->PuxarComentariosDenunciados();
+            }
+        }
+        ?>
+    </div>
+    <div class=" tab-pane fade " id="comen">
 
-                if (is_array($ComentariosDenunc)) {
-                    foreach ($ComentariosDenunc as $dado) {
-                        echo
-                        "<div class=' card m-4'>
+        <!-- Denuncia De Comentario -->
+        <?php
+        $comentarios = new Comentario();
+        $ComentariosDenunc = $comentarios->PuxarComentariosDenunciados();
+
+        if (is_array($ComentariosDenunc)) {
+            foreach ($ComentariosDenunc as $dado) {
+                echo
+                "<div class=' card m-4'>
                         <div class='card-header text-light  d-flex' style=' background-color: #131267;'>
                             <i class='bi bi-person-circle' style='font-size: 50px;'></i>
                             <p class=' mt-4 ms-3 fw-bold '>
@@ -188,12 +189,12 @@
                             {$dado->datacomentario}
                         </div>
                     </div>";
-                    }
-                }
-            ?>
-        </div>
+            }
+        }
+        ?>
+    </div>
 
-        <!-- Fim Dos Comentario -->
+    <!-- Fim Dos Comentario -->
 
     </div>
     <div class=" tab-pane fade" id="usua">
@@ -202,13 +203,13 @@
 
         <div class="row">
             <?php
-                $users = new Usuario();
-                $inativos = $users->usuariosInativos();
-                
-                if (is_array($inativos)) {
-                    foreach ($inativos as $dados) {
-                        echo 
-                        "<div class='col-lg-6'>
+            $users = new Usuario();
+            $inativos = $users->usuariosInativos();
+
+            if (is_array($inativos)) {
+                foreach ($inativos as $dados) {
+                    echo
+                    "<div class='col-lg-6'>
                             <div class='card m-4'>
                                 <div class='card-header text-light  d-flex' style='background-color: #131267;'>
                                     <i  class='bi bi-person-circle' style='font-size: 50px;'></i>
@@ -239,20 +240,20 @@
                                 </div>
                             </div>
                         </div>";
-                    }
                 }
-            ?>       
+            }
+            ?>
         </div>
     </div>
     <!-- Fim da Aba de Banir Usuario -->
-    </main>
+</main>
 
-    <!-- Fim do Tabs -->
+<!-- Fim do Tabs -->
 
-    <footer id="reduc-footer">
+<footer id="reduc-footer">
 
-    </footer>
-    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</footer>
+<script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </html>
