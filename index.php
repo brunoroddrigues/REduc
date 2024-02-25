@@ -83,7 +83,7 @@ if (!isset($_SESSION)) session_start();
             <article class='col-lg-6'>
                 <h2 class='txt-roxo'>Sobre a REduc</h2>
                 <p class='mt-5'>
-                    A REduc é uma platadorma WEB inovadora que oferece um repositório de recursos educacionais digitais
+                    2 REduc é uma platadorma WEB inovadora que oferece um repositório de recursos educacionais digitais
                     e
                     práticas avaliativas eficazes no processo de ensino-aprendizagem com abordagem voltada às
                     metodologias
