@@ -54,3 +54,61 @@ main {
         margin-bottom: 10px;
     }
 }
+
+
+/* Opções da area de adicionar */
+
+.ad_options{
+    display: flex;
+    justify-content: center;
+}
+.ad_options ul{
+    display: flex;
+    list-style: none;
+    text-align: center;
+}
+.ad_options ul li{
+    width: 125px;
+    margin: 25px;
+    font-size: 15px;
+    border-radius: 15px;
+}
+.ad_options ul li a{
+    padding: 15px;
+    display: block;
+    color: #fff;
+    background-color: var(--roxo-principal);
+    text-decoration: none;
+    border-radius: 15px;  
+    border: 2px solid var(--roxo-principal);  
+}
+.ad_options ul li a:hover{
+    color: var(--roxo-principal);
+    background-color: #fff;
+    border: 2px solid var(--roxo-principal);
+}
+
+/* Formulario para adicionar dados */
+
+.add_form{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.add_form form label {
+    font-size: 35px;
+}
+.add_form form input {
+    font-size: 25px;
+}
+.add_form form button {
+    width: 130px;
+    padding: 5px;
+    font-size: 25px;
+    color: #fff;
+    background-color: var(--roxo-principal);
+    border: none;
+    border-radius: 15px;
+}
+
+

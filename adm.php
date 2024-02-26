@@ -76,11 +76,13 @@ if ($_SESSION["categoria"] != 3) {
                         <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#pa" role="tab">PA</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#comen"
-                           role="tab">Comentarios</a>
+                        <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#comen"role="tab">Comentarios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#usua" role="tab">Usuario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link tab-link" data-bs-toggle="tab" data-bs-target="#adic" role="tab">Adicionar +</a>
                     </li>
 
                 </ul>
@@ -246,6 +248,56 @@ if ($_SESSION["categoria"] != 3) {
         </div>
     </div>
     <!-- Fim da Aba de Banir Usuario -->
+    <div class=" tab-pane fade " id="adic">
+        <div class='ad_options'>
+            <ul class='nav nav-tabs'>
+                <li><a class='active tab-link' data-bs-toggle="tab" data-bs-target="#curs" role="tab">Cursos</a></li>
+                <li><a class="tab-link" data-bs-toggle="tab" data-bs-target="#disc" role="tab">Disciplinas</a></li>
+                <li><a class="tab-link" data-bs-toggle="tab" data-bs-target="#ferr" role="tab">Ferramentas</a></li>
+                <li><a class="tab-link" data-bs-toggle="tab" data-bs-target="#tpa" role="tab">Tipos PA</a></li>
+            </ul>
+        </div>
+        
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id='curs'>
+                <div class="add_form">
+                    <form action="adic_curso.php" method="get">
+                        <label for="curso">Curso: </label>
+                        <input type="text" name="curso" id="curso">
+                        <button>Adicionar</button>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id='ferr'>
+                <div class="add_form">
+                    <form action="adic_ferramenta.php" method="get">
+                        <label for="ferramenta">Ferramenta: </label>
+                        <input type="text" name="ferramenta" id="ferramenta">
+                        <button>Adicionar</button>
+                    </form>
+                </div>    
+            </div>
+            <div class="tab-pane fade" id='disc'>
+                <div class="add_form">
+                    <form action="adic_disciplina.php" method="get">
+                        <label for="disciplina">Disciplina: </label>
+                        <input type="text" name="disciplina" id="disciplina">
+                        <button>Adicionar</button>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id='tpa'>
+                <div class="add_form">
+                    <form action="adic_tpa.php" method="get">
+                        <label for="tpa">Tipo PA: </label>
+                        <input type="text" name="tpa" id="tpa">
+                        <button>Adicionar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 </main>
 
 <!-- Fim do Tabs -->

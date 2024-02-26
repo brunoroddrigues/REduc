@@ -41,13 +41,5 @@ class Curso
     }
 }
 
-/* Testando */
 
-// $cursoteste = new Curso();
-// $cursoteste->setIdCurso(10);
-// $cursoteste->setCurso('Sistemas para Internet');
-
-// echo "<pre>";
-// var_dump($cursoteste);
-// echo "</pre>";
 
