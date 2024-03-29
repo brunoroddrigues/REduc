@@ -8,8 +8,6 @@ Na REduc, os usuários têm acesso a uma variedade de recursos educacionais, que
 Compartilhamento e Colaboração
 Além de acessar os recursos disponíveis na plataforma, os usuários também têm a oportunidade de contribuir com seu próprio conhecimento. Eles podem compartilhar materiais educacionais que considerem relevantes, enriquecendo assim o acervo da REduc e beneficiando a comunidade como um todo.
 
-Interação e Engajamento
-A REduc não se limita apenas a disponibilizar conteúdo estático. Ela promove a interação entre os usuários por meio de fóruns de discussão, salas de chat e funcionalidades de comentários, estimulando assim o diálogo e a troca de ideias entre os membros da comunidade.
 
 Desenvolvedores:
 
