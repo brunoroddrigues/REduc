@@ -2,31 +2,29 @@
 
 A REduc é uma plataforma online desenvolvida com o propósito de democratizar o acesso ao conhecimento. Seu principal objetivo é proporcionar uma ampla gama de recursos educacionais que auxiliem estudantes, professores e entusiastas em suas jornadas de aprendizado.
 
-Recursos Educacionais Diversificados
+## Recursos Educacionais Diversificados
+
 Na REduc, os usuários têm acesso a uma variedade de recursos educacionais, que vão desde textos informativos a vídeos explicativos, passando por infográficos interativos e exercícios práticos. Essa diversidade de materiais permite uma experiência de aprendizado rica e dinâmica, adaptada às necessidades individuais de cada usuário.
 
-Compartilhamento e Colaboração
+## Compartilhamento e Colaboração
+
 Além de acessar os recursos disponíveis na plataforma, os usuários também têm a oportunidade de contribuir com seu próprio conhecimento. Eles podem compartilhar materiais educacionais que considerem relevantes, enriquecendo assim o acervo da REduc e beneficiando a comunidade como um todo.
 
+## Desenvolvedores:
 
+- Nicolas Rissi
+- Derek Anibal Nunes
+- Pedro Henrique Julio Domingos
+- Bruno Aparecido Rodrigues
 
-Desenvolvedores:
+## Tecnologias utilizadas:
 
-Nicolas Rissi
-Derek Anibal Nunes
-Pedro Henrique Julio Domingos
-Bruno Aparecido Rodrigues
-
-
-
-Tecnologias utilizadas:
-
-HTML
-CSS
-JavaScript
-Banco de dados
-PHP
-Bootstrap
+- HTML
+- CSS
+- JavaScript
+- Banco de dados
+- PHP
+- Bootstrap
 
 Exemplos da plataforma REduc.
 
