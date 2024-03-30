@@ -9,12 +9,14 @@ Compartilhamento e Colaboração
 Além de acessar os recursos disponíveis na plataforma, os usuários também têm a oportunidade de contribuir com seu próprio conhecimento. Eles podem compartilhar materiais educacionais que considerem relevantes, enriquecendo assim o acervo da REduc e beneficiando a comunidade como um todo.
 
 
+
 Desenvolvedores:
 
 Nicolas Rissi
 Derek Anibal Nunes
 Pedro Henrique Julio Domingos
 Bruno Aparecido Rodrigues
+
 
 
 Tecnologias utilizadas:
