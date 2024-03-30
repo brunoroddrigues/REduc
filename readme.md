@@ -1,4 +1,4 @@
-***REduc***
+# ***REduc***
 
 A REduc é uma plataforma online desenvolvida com o propósito de democratizar o acesso ao conhecimento. Seu principal objetivo é proporcionar uma ampla gama de recursos educacionais que auxiliem estudantes, professores e entusiastas em suas jornadas de aprendizado.
 
